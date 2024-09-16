@@ -31,10 +31,11 @@ class UsuarioController
             if (count($response['data']) == 0) {
                 $response['status'] = 'not found';
                 $_SESSION['response'] = $response;
-                echo "<script>
-                alert('NO EXISTE EL USUARIO');
-            window.location.href = '" . base_url . "';
-                </script>";
+                echo "
+            <script>
+                window.location.href = '" . base_url . "';
+            </script>
+        ";
                 exit();
             }
 
@@ -46,22 +47,21 @@ class UsuarioController
             $_SESSION['TipoUsuario'] = $response['data'][0]['TipoUsuario'];
             $_SESSION['Persona'] = $response['data'][0]['Persona'];
             $_SESSION['autenticado'] = true;
-            echo "
-            <script>
-            alter('BIENVENIDO');
-            </script>
-            ";
             // echo "
-            //     let rol='{$_SESSION['TipoUsuario']['TipoUsuario']}';
-            //     localStorage.setItem('TipoUsuario',rol);
+            // <script>
+            // alter('BIENVENIDO');
+            // </script>
             // ";
+            // // echo "
+            // //     let rol='{$_SESSION['TipoUsuario']['TipoUsuario']}';
+            // //     localStorage.setItem('TipoUsuario',rol);
+            // // ";
             echo "
             <script>
-                window.location.href = '".base_url."';
+                window.location.href = '" . base_url . "';
             </script>
         ";
             exit();
-
         }
     }
     public function  logout()

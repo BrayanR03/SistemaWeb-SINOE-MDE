@@ -38,7 +38,7 @@ if(class_exists($nombre_controlador)){
                 // }
                 // require_once 'views/layouts/navbar.php';
                 // require_once 'views/layouts/content.php';
-                echo "ESTILOS?";
+                // echo "ESTILOS?";
                 $controlador->$action();
             }else{
                 show_error();
@@ -50,7 +50,7 @@ if(class_exists($nombre_controlador)){
             // $controlador->estilosNavBar();
             // require_once 'views/layouts/navbar.php';
             // require_once 'views/layouts/content.php';
-            echo "ESTILOS?";
+            // echo "ESTILOS?";
             $action_default = action_default;
             $controlador->$action_default();
         }elseif(isset($_GET["controller"]) || isset($_GET["action"]) && !isset($_SESSION["autenticado"])){
