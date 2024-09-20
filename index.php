@@ -64,5 +64,5 @@ if(class_exists($nombre_controlador)){
     show_error();
 }
 
-// require_once 'views/layouts/footer.php'; 
+require_once 'views/layouts/footer.php'; 
 ?>

@@ -56,6 +56,7 @@ a{
     width: 100%;
     background-color: #fff;
     flex: 20%;
+    /* height: 50%; */
 }
 
 .navbarParent .logo img {
@@ -170,9 +171,9 @@ a{
     background-color: #0C7260;
 }
 
-.header{
+/* .header{
     background: var(--bg-color-principal);
-}
+} */
 
 .content{
     width: 87%;
@@ -195,7 +196,7 @@ a{
     line-height: 1.4;
     font-size: 15px;
     font-weight: 500;
-    color: #fff;
+    color: black;
     text-transform: uppercase;
 }
 
@@ -242,7 +243,8 @@ a{
     right: -220px;
     width: 1000px;
     height: 800px;
-    background-color: #fff;
+    background-color: #056251;
+    /* background-color: #fff; */
     transform: rotate(45deg);
 }
 
@@ -261,13 +263,14 @@ a{
         right: -500px;
         width: 1000px;
         height: 800px;
-        background-color: #fff;
+        background-color: #056251;
+        /* background-color: #fff; */
         transform: rotate(45deg);
     }
 
-    .navbarParent {
+    /* .navbarParent {
         width: 15%;
-    }
+    } */
 
     .navbar .menu .option p, .navbar .menu .option a {
         font-size: 13px;
@@ -426,7 +429,7 @@ input:focus-visible{
     width: 100%;
     height: fit-content;
     padding: 60px 20px;
-    background: #ffffff;
+    background: #E6E6E6;
     border-radius: 10px;
 }
 
@@ -1038,6 +1041,18 @@ table tbody tr .actions .action:hover .tooltipParent{
 
 .columArrow{
     display: none;
+}
+
+.footer-login-sinoe {
+    margin-top: 110px;
+    background-color: #006B2D;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
 }
 
 /*ESTILOS DE LOGIN*/
