@@ -9,9 +9,9 @@
         </div>
     </div>
     <div class="container-view">
-    <div style="display: flex;gap:200px;justify-items: center">
+    <div style="display: flex;justify-items: center;background-color: #006B2D;margin-top:33px;margin-left:-20px">
             <div style="width: 750px;height: 230px;justify-content: center">
-                <div id="search-container-areas" style="height: 230px">
+                <div id="search-container-areas" style="height: 150px;width: 350px;background-color:black">
                     <form class="search-form" action="" method="GET">
                         <label for="search">Buscar Area:</label><br><br>
                         <input type="text" id="search" name="search" required autocomplete="off"
@@ -21,9 +21,9 @@
                     </form>
                 </div>
             </div>
-            <div style="width: 750px;height: 230px">
+            <div style="width: 460px;height: 230px;background-color:red">
                 <!-- Formulario de registro y actualización -->
-                <div class="register-container-areas" style="height: 230px">
+                <div class="register-container-areas" style="height: 200px">
                     <h3>Registrar Nueva Área</h3><br>
                     <form action="" method="POST" onsubmit="">
                         <label>Nombre del Área:</label>
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="results-container-areas" style="margin-top: 90px">
+        <div class="results-container-areas" style="margin-top: -20px;background-color: blue;margin-left:-20px">
             <h3>Listado de Áreas</h3><br>
             <!-- Tabla de Area -->
                 <table>
