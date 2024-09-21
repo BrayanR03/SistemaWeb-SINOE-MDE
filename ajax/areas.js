@@ -1,4 +1,5 @@
-const alturaPantalla = window.innerHeight;
+$(document).ready(function(){
+    const alturaPantalla = window.innerHeight;
     let registrosPorPagina = 0;
 
     if (alturaPantalla >= 1000) {
@@ -13,6 +14,11 @@ const alturaPantalla = window.innerHeight;
 
     let pagina = 1;
     let descripcionAreaFiltro = $('#Descripcion').val();
+
+
+
+    generarOpcionesPaginacion()
+
     function loadAreas(descripcionAreaFiltro = '', pagina, registrosPorPagina) {
         $.ajax({
             url: './controllers/Areas/listarAreas.php',
@@ -42,6 +48,8 @@ const alturaPantalla = window.innerHeight;
             }
         });
     }
+
+    loadAreas(descripcionAreaFiltro, pagina, registrosPorPagina)
     function generarOpcionesPaginacion() {
         $.ajax({
             url: './controllers/Areas/totalAreasRegistradas.php',
@@ -66,15 +74,4 @@ const alturaPantalla = window.innerHeight;
             }
         });
     }
-$(document).ready(function(){
-    
-
-
-
-    generarOpcionesPaginacion()
-
-    
-
-    loadAreas(descripcionAreaFiltro, pagina, registrosPorPagina)
-    
 });
