@@ -1,12 +1,11 @@
 <?php
 require_once('../../config/parameters.php');
-require_once('../../config/database.php');
 ?>
 
 <div class="containerListadoArea">
     <div class="listadoAreas_header">
         <div>
-            <h3>GESTIÓN DE ÁREAS</h3>
+            <h3 style="font-weight: bold;">GESTIÓN DE ÁREAS</h3>
             <p>LISTADO DE ÁREAS</p>
             <div class="containerFiltrado">
                 <div class="busqueda">
@@ -27,9 +26,15 @@ require_once('../../config/database.php');
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="#ffffff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
-            Nueva Área
+            Registrar Nueva Área
         </a>
-        
+    </div>
+    <div class="text-end">
+        <p class="fs-6">Total de registros: <span class="fw-bold" id="totalAreasRegistradas"></span></p>
+        <div>
+            <ul class="listadoOpcionesPaginacion" id="opcionesPaginacionAreas">
+            </ul>
+        </div>
     </div>
     <div class="listadoAreas_body" style="margin-top: 15px;">
         <table>
@@ -37,6 +42,7 @@ require_once('../../config/database.php');
                 <tr>
                     <th>Id</th>
                     <th>Descripcion</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -45,19 +51,9 @@ require_once('../../config/database.php');
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-between m-2">
-        <div>
-            <p class="fs-6">Total de registros: <span class="fw-bold" id="totalAreasRegistradas"></span></p>
-        </div>
-        <!-- <div>
-            <ul class="listadoOpcionesPaginacion" id="opcionesPaginacionAreas">
-
-            </ul>
-        </div> -->
-    </div>
 </div>
 
 <!-- <?php require_once "editarArea.php" ?> -->
 <!-- <?php require_once "registroArea.php" ?> -->
 
-<!-- <script src="<?= base_url ?>ajax/listarAreasTable.js"></script> -->
+<script src="<?= base_url ?>ajax/areas.js"></script>
