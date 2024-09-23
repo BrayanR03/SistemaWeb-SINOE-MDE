@@ -2,7 +2,7 @@
 require_once "../../models/Area.php";
 require_once "../../config/database.php";
 
-$area = trim($_POST['Descripcion']);
+$area = trim($_POST['descripcion']);
 
 $areaModel = new Area();
 $areaModel->setDescripcion($area);

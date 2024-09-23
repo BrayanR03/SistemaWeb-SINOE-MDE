@@ -4,9 +4,9 @@ require_once "../../config/database.php";
 
 $areaObj = new Area();
 
-$Descripcion=$_POST["Descripcion"];
-$Pagina = $_POST['Pagina'];
-$RegistrosPorPagina = $_POST['RegistrosPorPagina'];
+$Descripcion=$_POST["descripcionAreaFiltro"];
+$Pagina = $_POST['pagina'];
+$RegistrosPorPagina = $_POST['registrosPorPagina'];
 $areaObj->setDescripcion($Descripcion);
 
 $response = $areaObj->ListarAreasRegistradas($Descripcion);

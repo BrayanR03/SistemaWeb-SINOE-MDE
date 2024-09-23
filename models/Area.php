@@ -18,7 +18,7 @@ class Area{
         return $this->Descripcion;
     }
     public function setDescripcion($Descripcion){
-        $this->Descripcion->$Descripcion;
+        $this->Descripcion=$Descripcion;
     }
     public function getEstado(){
         return $this->Estado;
@@ -91,11 +91,11 @@ class Area{
 
     }
 
-    public function obtenerTotalAreasRegistradas(){
-        $sql = "SELECT count(idArea) 'total' FROM AREAS";
+    public function obtenerTotalAreasRegistradas($Descripcion=''){
+        $sql = "SELECT count(idArea) AS 'total' FROM AREAS WHERE Descripcion LIKE '%'+ :Descripcion + '%'";
 
         $stmt = database::connect()->prepare($sql);
-
+        $stmt->bindParam("Descripcion", $Descripcion, PDO::PARAM_STR);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

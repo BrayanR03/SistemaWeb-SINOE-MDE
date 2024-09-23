@@ -53,7 +53,7 @@ require_once('../../config/parameters.php');
     </div>
 </div>
 
-<!-- <?php require_once "editarArea.php" ?> -->
-<!-- <?php require_once "registroArea.php" ?> -->
+<?php  require_once "registroArea.php"?>
+<?php  require_once "editarArea.php"?>
 
 <script src="<?= base_url ?>ajax/areas.js"></script>
