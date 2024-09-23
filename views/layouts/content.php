@@ -32,7 +32,7 @@
                 </svg>
             </a> -->
         </div>
-        <div class="fondo_blanco" style="background-color: #056251;">
+        <div class="fondo_blanco" style="background-color: #006B2D;">
         </div>
     </header>
     <div class="main">

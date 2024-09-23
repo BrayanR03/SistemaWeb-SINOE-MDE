@@ -1,7 +1,7 @@
 <div id="modalRegistrarArea" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color: #006B2D;">
                 <h5 class="modal-title" id="exampleModalLabel">Registrar Nueva Área</h5>
             </div>
             <form class="formArea" id="registrarAreaForm" action="" method="post">
@@ -13,7 +13,7 @@
                     <p>Todos los campos (*) son obligatorios</p>
                 </div>
                 <div class="containerButtonsEditarArea">
-                    <input type="submit" class="btn" value="Registrar">
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </form>

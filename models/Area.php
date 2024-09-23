@@ -170,6 +170,35 @@ class Area{
         }
     }
 
+    public function actualizarEstadoArea(){
+        $sql = "UPDATE AREAS SET Estado = :Estado WHERE idArea = :idArea";
+
+        try {
+            $stmt = database::connect()->prepare($sql);
+
+            $stmt->bindParam(":Estado", $this->Estado, PDO::PARAM_STR);
+            $stmt->bindParam(":idArea", $this->idArea, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            return [
+                'status' => 'success',
+                'message' => 'Area actualizada',
+                'action' => 'actualizar',
+                'module' => 'area',
+                'info' => ''
+            ];
+
+        }catch (PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al momento de actualizar el area',
+                'action' => 'actualizar',
+                'module' => 'area',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
 
 
 }

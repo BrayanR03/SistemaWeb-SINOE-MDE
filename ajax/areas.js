@@ -37,7 +37,7 @@ $(document).ready(function () {
                         <td>${area.Estado}</td>
                         <td>
                         <a href="#" id="btnEditarArea" >Editar</a>
-                        <a href="#">Estado</a>
+                        <a href="#" id="btnEstadoArea" >Estado</a>
                         </td>
 
                     </tr>`).join('');
@@ -167,15 +167,16 @@ $(document).ready(function () {
                         loadAreas(descripcionAreaFiltro, pagina, registrosPorPagina);
                         // });
                     } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: response.message,
-                            allowEnterKey: false,
-                            allowEscapeKey: false,
-                            allowOutsideClick: false,
-                            stopKeydownPropagation: false
-                        });
+                        alert("Error al Registrar el Área");
+                        // Swal.fire({
+                        //     icon: "error",
+                        //     title: "Error",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // });
                     }
                 }
             },
@@ -309,7 +310,107 @@ $(document).ready(function () {
     });
 
 
+// Estado del Area
+$(document).on("click", "#btnEstadoArea", function (e) {
+    e.preventDefault();
+    let modalEstado = $("#modalEstadoArea");
+    let fila = $(this).closest("tr");
+    let codArea = parseInt(fila.find('td:eq(0)').text());
+    let descripcion = fila.find('td:eq(1)').text();
+    let estadoArea = fila.find('td:eq(2)').text();
+    descripcionDB = descripcion;
+    estadoAreaBD=estadoArea;
+    // if(estadoArea.trim()=="Habilitada"){
 
+    //     $("#estadoArea").val(estadoArea.trim());
+    // }else{
+        
+    $("#estadoArea").val(estadoArea);
+    // }
+    $("#descripcionAreaEstado").val(descripcion.trim());
+    $("#codAreaEstado").val(codArea);
+
+    modalEstado.modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
+    modalEstado.modal('show');
+
+    modalEstado.one('shown.bs.modal', function () {
+        $("#estadoArea").focus();
+    });
+});
+
+// Actualizar Rstado Area en Modelo
+$(document).off('submit', '#editarEstadoAreaForm').on('submit', '#editarEstadoAreaForm', function (e) {
+    e.preventDefault();
+    $(this).off('submit'); // Desenganchar el evento de submit
+
+    let estado=$('#estadoArea').val();
+    let descripcion = $.trim($('#descripcionAreaEstado').val());
+    let codArea = $.trim($('#codAreaEstado').val());
+
+    if (descripcion.length === 0 || codArea.length === 0) {
+        // Swal.fire({
+        //     icon: "warning",
+        //     title: "Campos Incompletos",
+        //     text: "Ingrese los campos requeridos",
+        //     allowEnterKey: false,
+        //     allowEscapeKey: false,
+        //     allowOutsideClick: false,
+        //     stopKeydownPropagation: false
+        // });
+        // return;
+        alert("Campos Incompletos");
+        return;
+    }
+
+    // descripcion = capitalizeWords(descripcion);
+
+    $.ajax({
+        url: "./controllers/Areas/estadoAreas.php",
+        type: "POST",
+        datatype: "json",
+        data: { codArea, descripcion,estado },
+        success: function (response) {
+            console.log(response);
+            // return
+            response = JSON.parse(response);
+                if (response.status === 'success') {
+                    alert("Se Actualizo el Área");
+                    // return;
+                    // Swal.fire({
+                    //     icon: "success",
+                    //     title: "Actualización Exitosa",
+                    //     text: response.message,
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // }).then(() => {
+                        $('#modalEstadoArea').modal('hide');
+                        loadAreas(descripcionAreaFiltro,pagina, registrosPorPagina);
+                    // });
+                } else {
+                    alert("Error");
+                    return;
+                    // Swal.fire({
+                    //     icon: "error",
+                    //     title: "Error",
+                    //     text: response.message,
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // });
+                }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error updating the area:', textStatus, errorThrown);
+        }
+    });
+});
 
 
     // function generarOpcionesPaginacion() {

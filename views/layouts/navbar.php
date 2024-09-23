@@ -1,4 +1,4 @@
-<div class="navbarParent">
+<div class="navbarParent" style="background-color: #006B2D;">
     <div class="logo" >
         <img src="<?=base_url?>assets/btnLogoMuni.png" alt="logo">
     </div>

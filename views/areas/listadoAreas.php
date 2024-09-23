@@ -6,7 +6,7 @@ require_once('../../config/parameters.php');
     <div class="listadoAreas_header">
         <div>
             <h3 style="font-weight: bold;">GESTIÓN DE ÁREAS</h3>
-            <p>LISTADO DE ÁREAS</p>
+            <p style="color: #006B2D;">LISTADO DE ÁREAS</p>
             <div class="containerFiltrado">
                 <div class="busqueda">
                     <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@ require_once('../../config/parameters.php');
                 </div>
             </div>
         </div>
-        <a href="" id="btnRegistrarArea" class="btnNuevoRegistro">
+        <a href="" style="background-color: #006B2D;" id="btnRegistrarArea" class="btnNuevoRegistro">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="#ffffff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
@@ -55,5 +55,6 @@ require_once('../../config/parameters.php');
 
 <?php  require_once "registroArea.php"?>
 <?php  require_once "editarArea.php"?>
+<?php  require_once "estadoArea.php"?>
 
 <script src="<?= base_url ?>ajax/areas.js"></script>
