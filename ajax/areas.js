@@ -165,6 +165,7 @@ $(document).ready(function () {
                         pagina = 1;
                         // generarOpcionesPaginacion();
                         loadAreas(descripcionAreaFiltro, pagina, registrosPorPagina);
+                        loadTotalAreas(descripcionAreaFiltro);
                         // });
                     } else {
                         alert("Error al Registrar el Área");

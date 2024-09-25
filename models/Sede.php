@@ -12,7 +12,7 @@ class Sede{
     public function getidSede(){
         return $this->idSede;
     }
-    public function setSede($idSede){
+    public function setidSede($idSede){
         $this->idSede=$idSede;
     }
     public function getDescripcion(){

@@ -163,7 +163,7 @@ function loadTotalSedes(descripcionSedeFiltro) {
                         $('#modalRegistrarSede').modal('hide');
                         pagina = 1;
                         // generarOpcionesPaginacion();
-                        loadSedess(descripcionSedeFiltro, pagina, registrosPorPagina);
+                        loadSedes(descripcionSedeFiltro, pagina, registrosPorPagina);
                         // });
                     } else {
                         alert("Error al Registrar la Sede");
@@ -188,6 +188,229 @@ function loadTotalSedes(descripcionSedeFiltro) {
     let descripcionDB = '';
 
 
+
+    // Editar Sede
+    $(document).on("click", "#btnEditarSede", function (e) {
+        e.preventDefault();
+        let modalEditar = $("#modalEditarSede");
+        let fila = $(this).closest("tr");
+        let idSede = parseInt(fila.find('td:eq(0)').text());
+        let descripcion = fila.find('td:eq(1)').text();
+        descripcionDB = descripcion;
+        $("#descripcionSede").val(descripcion.trim());
+        $("#idSede").val(idSede);
+
+        modalEditar.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalEditar.modal('show');
+
+        modalEditar.one('shown.bs.modal', function () {
+            $("#descripcionSede").focus();
+        });
+    });
+
+    // Actualizar Sede en Modelo
+    $(document).off('submit', '#editarSedeForm').on('submit', '#editarSedeForm', function (e) {
+        e.preventDefault();
+        $(this).off('submit'); // Desenganchar el evento de submit
+
+        let descripcion = $.trim($('#descripcionSede').val());
+        let idSede = $.trim($('#idSede').val());
+
+        if (descripcion.length === 0 || idSede.length === 0) {
+            // Swal.fire({
+            //     icon: "warning",
+            //     title: "Campos Incompletos",
+            //     text: "Ingrese los campos requeridos",
+            //     allowEnterKey: false,
+            //     allowEscapeKey: false,
+            //     allowOutsideClick: false,
+            //     stopKeydownPropagation: false
+            // });
+            // return;
+            alert("Campos Incompletos");
+            return;
+        }
+
+        if (descripcionDB === descripcion) {
+            // Swal.fire({
+            //     icon: "warning",
+            //     title: "¡Advertencia!",
+            //     text: "Para actualizar el área tiene que tener una nueva descripción.",
+            //     allowEnterKey: false,
+            //     allowEscapeKey: false,
+            //     allowOutsideClick: false,
+            //     stopKeydownPropagation: false
+            // });
+            // return;
+            alert("Para actualizar la sede tiene que tener una nueva descripción.");
+            return;
+        }
+
+        // descripcion = capitalizeWords(descripcion);
+
+        $.ajax({
+            url: "./controllers/sedes/actualizarSede.php",
+            type: "POST",
+            datatype: "json",
+            data: { idSede, descripcion },
+            success: function (response) {
+                console.log(response);
+                // return
+                response = JSON.parse(response);
+                if (response.message === 'Sede encontrada') {
+                    alert("La descripción que intenta actualizar ya existe en la base de datos");
+                    return;
+                    // Swal.fire({
+                    //     icon: "warning",
+                    //     title: "¡Advertencia!",
+                    //     text: "La descripción que intenta actualizar ya existe en la base de datos",
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // });
+                } else {
+                    if (response.status === 'success') {
+                        alert("Se Actualizo la Sede");
+                        // return;
+                        // Swal.fire({
+                        //     icon: "success",
+                        //     title: "Actualización Exitosa",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // }).then(() => {
+                            $('#modalEditarSede').modal('hide');
+                            loadSedes(descripcionSedeFiltro,pagina, registrosPorPagina);
+                        // });
+                    } else {
+                        alert("Error");
+                        return;
+                        // Swal.fire({
+                        //     icon: "error",
+                        //     title: "Error",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // });
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error updating the area:', textStatus, errorThrown);
+            }
+        });
+    });
+
+    // Estado de la Sede
+$(document).on("click", "#btnEstadoSede", function (e) {
+    e.preventDefault();
+    let modalEstado = $("#modalEstadoSede");
+    let fila = $(this).closest("tr");
+    let idSede = parseInt(fila.find('td:eq(0)').text());
+    let descripcion = fila.find('td:eq(1)').text();
+    let estadoSede = fila.find('td:eq(2)').text();
+    descripcionDB = descripcion;
+    estadoSedeBD=estadoSede;
+    // if(estadoArea.trim()=="Habilitada"){
+
+    //     $("#estadoArea").val(estadoArea.trim());
+    // }else{
+        
+    $("#estadoSede").val(estadoSede);
+    // }
+    $("#descripcionSedeEstado").val(descripcion.trim());
+    $("#idSedeEstado").val(idSede);
+
+    modalEstado.modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
+    modalEstado.modal('show');
+
+    modalEstado.one('shown.bs.modal', function () {
+        $("#estadoSede").focus();
+    });
+});
+
+// Actualizar Rstado Sede en Modelo
+$(document).off('submit', '#editarEstadoSedeForm').on('submit', '#editarEstadoSedeForm', function (e) {
+    e.preventDefault();
+    $(this).off('submit'); // Desenganchar el evento de submit
+
+    let estado=$('#estadoSede').val();
+    let descripcion = $.trim($('#descripcionSedeEstado').val());
+    let idSede = $.trim($('#idSedeEstado').val());
+
+    if (descripcion.length === 0 || idSede.length === 0) {
+        // Swal.fire({
+        //     icon: "warning",
+        //     title: "Campos Incompletos",
+        //     text: "Ingrese los campos requeridos",
+        //     allowEnterKey: false,
+        //     allowEscapeKey: false,
+        //     allowOutsideClick: false,
+        //     stopKeydownPropagation: false
+        // });
+        // return;
+        alert("Campos Incompletos");
+        return;
+    }
+
+    // descripcion = capitalizeWords(descripcion);
+
+    $.ajax({
+        url: "./controllers/sedes/estadoSedes.php",
+        type: "POST",
+        datatype: "json",
+        data: { idSede, descripcion,estado },
+        success: function (response) {
+            console.log(response);
+            // return
+            response = JSON.parse(response);
+                if (response.status === 'success') {
+                    alert("Se Actualizo la Sede");
+                    // return;
+                    // Swal.fire({
+                    //     icon: "success",
+                    //     title: "Actualización Exitosa",
+                    //     text: response.message,
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // }).then(() => {
+                        $('#modalEstadoSede').modal('hide');
+                        loadSedes(descripcionSedeFiltro,pagina, registrosPorPagina);
+                    // });
+                } else {
+                    alert("Error");
+                    return;
+                    // Swal.fire({
+                    //     icon: "error",
+                    //     title: "Error",
+                    //     text: response.message,
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // });
+                }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error updating the area:', textStatus, errorThrown);
+        }
+    });
+});
 
 
 });
