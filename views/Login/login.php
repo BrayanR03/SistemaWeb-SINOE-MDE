@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../config/parameters.php';
-
+require_once __DIR__ . "/../../views/personas/registrarPersonas.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@ require_once __DIR__ . '/../../config/parameters.php';
                             <button>Ingresar</button>
                         </div>
                         <div>
-                            <p>Si no tiene usuario <a href="#">Solicitar Registro de Casilla</a></p>
+                            <p>Si no tiene usuario <a id="btnSolicitarCasilla" href="#">Solicitar Registro de Casilla</a></p>
                         </div>
                     </form>
                 </div>
@@ -57,6 +57,9 @@ require_once __DIR__ . '/../../config/parameters.php';
         </footer>
     </div>
     <script src="<?= base_url ?>ajax/login.js"></script>
+    <script src="<?= base_url ?>ajax/personas.js"></script>
+    <script src="<?= base_url ?>ajax/tipodocidentidad.js"></script>
+    <script src="<?= base_url ?>ajax/tipopersonas.js"></script>
 
 
 </body>
