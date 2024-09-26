@@ -14,8 +14,9 @@ $(document).ready(function (){
     }
 
     let pagina = 1;
-    let nombrePersonaFiltro = $('#nombrePersonaFiltro').val();
-    let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
+    let datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    // let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
+    let filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]');
 
     // ABRIR MODAL REGISTRAR PERSONA
     $(document).off("click", "#btnSolicitarCasilla").on("click", "#btnSolicitarCasilla", function (e) {
@@ -91,5 +92,84 @@ $(document).ready(function (){
         });
     });
 
+
+    //CARGAR LISTA DE PERSONAS
+    function loadPersonas( datosBusquedaFiltro= '',filtroBusqueda='', pagina, registrosPorPagina) {
+        $.ajax({
+            url: './controllers/Personas/listarPersonas.php',
+            method: 'POST',
+            dataType: 'json',
+            data: { datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina },
+            success: function (response) {
+                console.log(response);
+                // return
+                let { data } = response
+                if (data.length > 0 && Array.isArray(data)) {
+                    let row = data.map(persona => `
+                    <tr>
+                        <td>${persona.idPersona}</td>
+                        <td>${persona.Nombres}</td>
+                        <td>${persona.Apellidos}</td>
+                        <td>${persona.Email}</td>
+                        <td>${persona.Telefono}</td>
+                        <td>${persona.Domicilio}</td>
+                        <td hidden>${persona.IdTipoPersona}</td>
+                        <td>${persona.TipoPersona}</td>
+                        <td hidden>${persona.idTipoDocumentoIdentidad}</td>
+                        <td>${persona.TipoDocumentoIdentidad}</td>
+                        <td>${persona.NroDocumentoIdentidad}</td>
+                        <td>${persona.DniCUI}</td>
+                        <td>${persona.RepresentanteLegal}</td>
+                        <td>${persona.Estado}</td>
+                        <td>
+                        <a href="#" id="btnEditarPersona" >Editar</a>
+                        <a href="#" id="btnEstadoPersona" >Estado</a>
+                        </td>
+    
+                    </tr>`).join('');
+                    $('#bodyListaPersonas').html(row);
+                } else {
+                    let row = `<tr>
+                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen sedes registradas</td>
+                    </tr>`
+                    $('#bodyListaPersonas').html(row);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching the content:', textStatus, errorThrown);
+            }
+        });
+    }
+    loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
+    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+// buscarPersonas
+$(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
+    e.preventDefault();
+    datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    pagina = 1
+
+    // generarOpcionesPaginacion()
+    loadPersonas(datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina);
+    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+})
+
+function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
+    $.ajax({
+        url: './controllers/Personas/totalPersonasRegistradas.php',
+        method: 'GET',
+        dataType: 'json',
+        data: { datosBusquedaFiltro,filtroBusqueda},
+        success: function (response) {
+            // console.log(response);
+            // return 
+            console.log(response);
+            let totalPersonasInput = document.getElementById("totalPersonasRegistradas");
+            totalPersonasInput.innerText = response[0].total;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching the content:', textStatus, errorThrown);
+        }
+    });
+}
 
 });

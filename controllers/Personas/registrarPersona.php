@@ -6,9 +6,6 @@ date_default_timezone_set('America/Lima');
 
 $nombres = trim($_POST['nombres']);
 $apellidos=trim($_POST['apellidos']);
-// $apellidoPaterno = trim($_POST['apellidoPaterno']);
-// $apellidoMaterno = trim($_POST['apellidoMaterno']);
-// $dni = trim($_POST['dni']);
 $dniCUI = trim($_POST['dniCUI']);
 $email = trim($_POST['email']);
 $telefono = trim($_POST['telefono']);
@@ -17,6 +14,15 @@ $tipoPersona = $_POST['tipoPersona'];
 $tipoDocumentoIdentidad = $_POST['tipoDocumentoIdentidad'];
 $numDocumentoIdentidad = trim($_POST['numDocumentoIdentidad']);
 $representanteLegal = trim($_POST['representanteLegal']);
+// if($dniCUI=='' && $representanteLegal=''){
+//     $dniCUI=null;
+//     $representanteLegal=null;
+// }
+// Corregir la comparación en el if
+if ($dniCUI === '' && $representanteLegal === '') {
+    $dniCUI = null;
+    $representanteLegal = null;
+}
 
 $personaModel = new Persona();
 $personaModel->setNumDocumentoIdentidad($numDocumentoIdentidad);

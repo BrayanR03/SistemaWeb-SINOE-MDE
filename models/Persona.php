@@ -198,6 +198,58 @@ class Persona{
             ];
         }
     }
+
+    public function ListarPersonasRegistradas($datosBusquedaFiltro=null,$filtroBusqueda=null){
+        $sql="EXEC SP_BusquedaPersonasFiltrado :DatosBusquedaFiltro,:FiltroBusqueda";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam("DatosBusquedaFiltro",$datosBusquedaFiltro,PDO::PARAM_STR);
+            $stmt->bindParam("FiltroBusqueda",$filtroBusqueda,PDO::PARAM_STR);
+            $stmt->execute();
+            $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($results)>0){
+                return [
+                    'status'=>'success',
+                    'message'=>'Listado de Personas Cargados',
+                    'action'=>'listar',
+                        'module'=>'persona',
+                    'data'=>$results,
+                    'info'=>''
+                ];
+            }
+            return [
+                'status'=>'success',
+                'message'=>'No se encontraron registros',
+                'action'=>'listar',
+                'module'=>'persona',
+                'data'=>[],
+                'info'=>''
+            ];
+        }catch(PDOException $e){
+            return [
+                'status'=>'failed',
+                'message'=>'Ocurrio un error al cargar las personas',
+                'action'=>'listar',
+                'module'=>'persona',
+                'info'=>$e->getMessage()
+            ];
+        }
+    }
+
+    public function obtenerTotalPersonasRegistradas($datosBusquedaFiltro='',$filtroBusqueda=null){
+        $sql = "EXEC SP_TotalPersonasFiltrado :DatosBusquedaFiltro='',:FiltroBusqueda=''";
+
+        $stmt = database::connect()->prepare($sql);
+        $stmt->bindParam(":DatosBusquedaFiltro", $datosBusquedaFiltro, PDO::PARAM_STR);
+        $stmt->bindParam(":FiltroBusqueda", $filtroBusqueda, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
 }
 
 ?>

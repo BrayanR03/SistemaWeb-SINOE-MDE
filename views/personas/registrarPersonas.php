@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Completa los siguientes campos</h5>
             </div>
-            <form class="formArea" id="registrarAreaForm" action="" method="post">
+            <form class="formPersona" id="registrarPersonaForm" action="" method="post">
                 <div class="seguimiento_body">
                     <div class="detalle">
                         <div class="datosOrigen">
@@ -16,14 +16,14 @@
                             <div class="datosOrigenBody">
                                 <div>
                                     <label>Nombres: </label>
-                                    <input
+                                    <input required
                                         type="text"
                                         name="nombresPersonaNuevo"
                                         id="nombresPersonaNuevo">
                                 </div>
                                 <div>
                                     <label>Email: </label>
-                                    <input type="email" name="emailPersonaNuevo" id="emailPersonaNuevo">
+                                    <input required type="email" name="emailPersonaNuevo" id="emailPersonaNuevo">
                                 </div>
                                 <div>
                                     <!-- <label>Documento Identidad:</label>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div>
                                     <label>Apellidos: </label>
-                                    <input
+                                    <input required
                                         type="text"
                                         name="apellidosPersonaNuevo"
                                         id="apellidosPersonaNuevo">
@@ -42,14 +42,14 @@
                                 <div>
                                     <label>Teléfono: </label>
                                     <input
-                                        type="text"
+                                        type="text" required
                                         name="telefonoPersonaNuevo"
                                         id="telefonoPersonaNuevo">
                                 </div>
                                 <div>
                                     <label>Domicilio: </label>
                                     <input
-                                        type="text"
+                                        type="text" required
                                         name="domicilioPersonaNuevo"
                                         id="domicilioPersonaNuevo">
                                 </div>
@@ -69,13 +69,13 @@
                             <div class="datosDestinoBody">
                                 <div>
                                     <label>Tipo Persona: </label>
-                                    <select name="selectTipoPersona" id="tipoPersonaPersonaNuevo">
+                                    <select class="selectTipoPersona" required id="tipoPersonaPersonaNuevo">
 
                                     </select>
                                 </div>
                                 <div>
                                     <label>Tipo Documento: </label>
-                                    <select name="selectTipoDocumentoIdentidad" id="tipoDocumentoIdentidadPersonaNuevo">
+                                    <select class="selectTipoDocumentoIdentidad" required id="tipoDocumentoIdentidadPersonaNuevo">
 
                                     </select>
                                 </div>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div>
                                     <label>Nro Documento: </label>
-                                    <input type="text" id="numDocumentoIdentidadPersonaNuevo" name="numDocumentoIdentidadPersonaNuevo">
+                                    <input required type="text" id="numDocumentoIdentidadPersonaNuevo" name="numDocumentoIdentidadPersonaNuevo">
                                 </div>
                                 <div>
                                     <label>Dni CUI: </label>
@@ -116,8 +116,12 @@
                     </div> -->
                     </div>
                 </div>
-                <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
-                <button type="button" class="btnCerrarModal" data-bs-dismiss="modal">Cerrar</button>
+                <div class="containerButtonsEditarArea">
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
+                <button type="button" class="btnCerrarModal" data-bs-dismiss="modal">Cerrar</button> -->
             </form>
 
         </div>
