@@ -143,18 +143,36 @@ $(document).ready(function (){
         });
     }
     loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
-    // loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
 // buscarPersonas
 // $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
+$(document).off("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']").on("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']", function (e) { 
+    e.preventDefault();
+    datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    filtroBusqueda=document.querySelector('input[name="filtroBusqueda"]:checked').value;
+    pagina = 1
+    console.log("FILTRO DINAMICO");
+    console.log(datosBusquedaFiltro);
+    console.log(filtroBusqueda);
+    
+    // generarOpcionesPaginacion()
+    loadPersonas(datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina);
+    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+})
+// Listener para el cambio de selección del radio button
+// $(document).off("change", "input[name='filtroBusqueda']").on("change", "input[name='filtroBusqueda']", function (e) {
+//     // Actualizar el filtro seleccionado cuando se cambie el radio button
 //     e.preventDefault();
+//     filtroBusqueda=document.querySelector('input[name="filtroBusqueda"]:checked').value;
+    
+//     // Obtener el valor actual del input de búsqueda
 //     datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-//     pagina = 1
+//     pagina = 1;
 
-//     // generarOpcionesPaginacion()
-//     loadPersonas(datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina);
-//     loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
-// })
-
+//     // Cargar personas y el total basado en el nuevo filtro y el texto ingresado
+//     loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+//     loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda);
+// });
 function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
     console.log("ANTES DE AJAX, FUNCION TOTAL PERSONAS");
     $.ajax({
@@ -163,8 +181,8 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         dataType: 'json',
         data: { datosBusquedaFiltro,filtroBusqueda},
         success: function (response) {
-            console.log(response);
-            return 
+            // console.log(response);
+            // return 
             console.log(response);
             let totalPersonasInput = document.getElementById("totalPersonasRegistradas");
             totalPersonasInput.innerText = response[0].total;

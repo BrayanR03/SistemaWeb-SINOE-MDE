@@ -20,6 +20,10 @@ require_once('../../config/parameters.php');
                     <label for="">DNI</label>
                     <input type="radio" name="filtroBusqueda" id="Dni" value="Dni">
                 </div>
+                <div>
+                    <label for="">PASAPORTE</label>
+                    <input type="radio" name="filtroBusqueda" id="Pasaporte" value="Pasaporte">
+                </div>
 
 
             </div>
@@ -68,6 +72,7 @@ require_once('../../config/parameters.php');
                     <th>DNI CUI</th>
                     <th>Representante Legal</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="bodyListaPersonas">

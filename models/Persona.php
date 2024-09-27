@@ -237,13 +237,19 @@ class Persona{
     }
 
     public function obtenerTotalPersonasRegistradas($datosBusquedaFiltro='',$filtroBusqueda=null){
-        $sql = "EXEC SP_TotalPersonasFiltrado :DatosBusquedaFiltro='',:FiltroBusqueda=''";
-
+        $sql = "EXEC SP_TotalPersonasFiltrado :DatosBusquedaFiltro,:FiltroBusqueda";
+        try{
         $stmt = database::connect()->prepare($sql);
-        $stmt->bindParam(":DatosBusquedaFiltro", $datosBusquedaFiltro, PDO::PARAM_STR);
-        $stmt->bindParam(":FiltroBusqueda", $filtroBusqueda, PDO::PARAM_STR);
+        $stmt->bindParam("DatosBusquedaFiltro", $datosBusquedaFiltro, PDO::PARAM_STR);
+        $stmt->bindParam("FiltroBusqueda", $filtroBusqueda, PDO::PARAM_STR);
         $stmt->execute();
-
+        }catch(PDOException $e){
+            return [
+                'status'=>'failed',
+                'message'=>'Ocurrio un error al momento de verificar el total de personas',
+                'info'=>$e->getMessage()
+            ];
+        }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

@@ -29,28 +29,32 @@ if (!empty($datosBusquedaFiltro) && $filtroBusqueda === 'nombres') {
     // Realizar la búsqueda
     $response = $personaObj->ListarPersonasRegistradas($nombre, $apellido);
 
-}else if($datosBusquedaFiltro!='' && $filtroBusqueda==='DNI'){
+}
+else if(!empty($datosBusquedaFiltro) && $filtroBusqueda==='Dni'){
     $personaObj->setTipoDocumentoIdentidad('1');
     $personaObj->setNumDocumentoIdentidad($datosBusquedaFiltro);
-    // $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
+    $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
 }
-else if($datosBusquedaFiltro!='' && $filtroBusqueda==='RUC'){
+else if(!empty($datosBusquedaFiltro) && $filtroBusqueda==='Ruc'){
     $personaObj->setTipoDocumentoIdentidad('2');
     $personaObj->setNumDocumentoIdentidad($datosBusquedaFiltro);
-    // $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
-}else if($datosBusquedaFiltro!='' && $filtroBusqueda==='PASAPORTE'){
+    $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
+}
+else if(!empty($datosBusquedaFiltro) && $filtroBusqueda==='Pasaporte'){
     $personaObj->setTipoDocumentoIdentidad('3');
     $personaObj->setNumDocumentoIdentidad($datosBusquedaFiltro);
-    // $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
+    $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
+}
+else{
+    $response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
 }
 // $personaObj->setNombres($datosBusquedaFiltro);
 // $personaObj->setNumDocumentoIdentidad($filtroBusqueda);
 
-$response = $personaObj->ListarPersonasRegistradas($datosBusquedaFiltro,$filtroBusqueda);
 if ($response > 0){
     $data = $response;
 }else{
     $data = null;
 }
 
-// print json_encode($data);
+print json_encode($data);
