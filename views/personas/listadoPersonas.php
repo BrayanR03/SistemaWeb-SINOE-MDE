@@ -40,7 +40,7 @@ require_once('../../config/parameters.php');
                         placeholder="Buscar a la persona">
                 </div>
         </div>
-        <a href="" style="background-color: #006B2D;" id="btnRegistrarPersona" class="btnNuevoRegistro">
+        <a href="" id="btnSolicitarCasilla" style="background-color: #006B2D;"  class="btnNuevoRegistro">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="#ffffff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
@@ -82,4 +82,8 @@ require_once('../../config/parameters.php');
     </div>
 </div>
 
+<?php  require_once "registrarPersonas.php"?>
+<?php  require_once "editarPersonas.php"?>
 <script src="<?= base_url ?>ajax/personas.js"></script>
+<script src="<?= base_url ?>ajax/tipodocidentidad.js"></script>
+<script src="<?= base_url ?>ajax/tipopersonas.js"></script>

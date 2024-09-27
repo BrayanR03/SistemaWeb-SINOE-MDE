@@ -13,80 +13,6 @@ $(document).ready(function (){
         registrosPorPagina = 5;
     }
 
-    // ABRIR MODAL REGISTRAR PERSONA
-    $(document).off("click", "#btnSolicitarCasilla").on("click", "#btnSolicitarCasilla", function (e) {
-        e.preventDefault();
-        let modalRegistrar = $("#modalRegistrarPersona");
-        $("#registrarPersonaForm").trigger("reset");
-
-        modalRegistrar.modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-
-        modalRegistrar.modal('show');
-
-        modalRegistrar.on('shown.bs.modal', function () {
-            $("#nombresPersonaNuevo").focus();
-        });
-    });
-
-    // REGISTRAR AREA DIRECTO A BD
-    $(document).off('submit', '#registrarPersonaForm').on('submit', '#registrarPersonaForm', function (e) {
-        e.preventDefault();
-
-        // let dni = $.trim($('#dniPersonaNuevo').val());
-        let nombres = $.trim($('#nombresPersonaNuevo').val());
-        let apellidos = $.trim($('#apellidosPersonaNuevo').val());
-        // let apellidoPaterno = $.trim($('#apellidoPaternoPersonaNuevo').val());
-        // let apellidoMaterno = $.trim($('#apellidoMaternoPersonaNuevo').val());
-        let dniCUI = $.trim($('#dniCUIPersonaNuevo').val());
-        let email = $.trim($('#emailPersonaNuevo').val());
-        let telefono = $.trim($('#telefonoPersonaNuevo').val());
-        let domicilio = $.trim($('#domicilioPersonaNuevo').val());
-        let tipoPersona = $('#tipoPersonaPersonaNuevo').val();
-        let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadPersonaNuevo').val();
-        let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadPersonaNuevo').val());
-        let representanteLegal= $.trim($('#representanteLegalPersonaNuevo').val());
-
-        if (nombres.length === 0 ||apellidos.length === 0 ||email.length === 0 ||
-            telefono.length === 0 ||domicilio.length === 0 || numDocumentoIdentidad.length === 0) {
-            alert("Campos Vacíos");
-            return
-        }
-
-        // descripcion = capitalizeWords(descripcion);
-
-        $.ajax({
-            url: "./controllers/Personas/registrarPersona.php",
-            type: "POST",
-            datatype: "json",
-            data: { nombres:nombres,apellidos:apellidos,dniCUI:dniCUI,email:email,
-                    telefono:telefono,domicilio:domicilio,tipoPersona:tipoPersona,tipoDocumentoIdentidad:tipoDocumentoIdentidad,numDocumentoIdentidad:numDocumentoIdentidad,
-                    representanteLegal:representanteLegal
-             },
-            success: function (response) {
-                console.log(response);
-                // return
-                response = JSON.parse(response);
-                if (response.message === 'NumDoc encontrado') {
-                    alert("Ya te encuentras registrado!!!");
-                } else {
-                    if (response.status === 'success') {
-                        alert("SE REGISTRO EL LA PERSONA");
-                        $('#modalRegistrarPersona').modal('hide');
-                        pagina = 1;
-                    } else {
-                        alert("Error al Registrar la Persona");
-                    }
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('Error updating the area:', textStatus, errorThrown);
-            }
-        });
-    });
-
 
     
     let pagina = 1;
@@ -142,8 +68,8 @@ $(document).ready(function (){
             }
         });
     }
-    loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
     loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+    loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
 // buscarPersonas
 // $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
 $(document).off("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']").on("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']", function (e) { 
@@ -192,6 +118,250 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         }
     });
 }
+
+
+
+    // ABRIR MODAL REGISTRAR PERSONA
+    $(document).off("click", "#btnSolicitarCasilla").on("click", "#btnSolicitarCasilla", function (e) {
+        e.preventDefault();
+        let modalRegistrar = $("#modalRegistrarPersona");
+        $("#registrarPersonaForm").trigger("reset");
+
+        modalRegistrar.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalRegistrar.modal('show');
+
+        modalRegistrar.on('shown.bs.modal', function () {
+            $("#nombresPersonaNuevo").focus();
+        });
+    });
+
+    // REGISTRAR PERSONA DIRECTO A BD
+    $(document).off('submit', '#registrarPersonaForm').on('submit', '#registrarPersonaForm', function (e) {
+        e.preventDefault();
+
+        // let dni = $.trim($('#dniPersonaNuevo').val());
+        let nombres = $.trim($('#nombresPersonaNuevo').val());
+        let apellidos = $.trim($('#apellidosPersonaNuevo').val());
+        // let apellidoPaterno = $.trim($('#apellidoPaternoPersonaNuevo').val());
+        // let apellidoMaterno = $.trim($('#apellidoMaternoPersonaNuevo').val());
+        let dniCUI = $.trim($('#dniCUIPersonaNuevo').val());
+        let email = $.trim($('#emailPersonaNuevo').val());
+        let telefono = $.trim($('#telefonoPersonaNuevo').val());
+        let domicilio = $.trim($('#domicilioPersonaNuevo').val());
+        let tipoPersona = $('#tipoPersonaPersonaNuevo').val();
+        let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadPersonaNuevo').val();
+        let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadPersonaNuevo').val());
+        let representanteLegal= $.trim($('#representanteLegalPersonaNuevo').val());
+
+        if (nombres.length === 0 ||apellidos.length === 0 ||email.length === 0 ||
+            telefono.length === 0 ||domicilio.length === 0 || numDocumentoIdentidad.length === 0) {
+            alert("Campos Vacíos");
+            return
+        }
+
+        // descripcion = capitalizeWords(descripcion);
+
+        $.ajax({
+            url: "./controllers/Personas/registrarPersona.php",
+            type: "POST",
+            datatype: "json",
+            data: { nombres:nombres,apellidos:apellidos,dniCUI:dniCUI,email:email,
+                    telefono:telefono,domicilio:domicilio,tipoPersona:tipoPersona,tipoDocumentoIdentidad:tipoDocumentoIdentidad,numDocumentoIdentidad:numDocumentoIdentidad,
+                    representanteLegal:representanteLegal
+             },
+            success: function (response) {
+                console.log(response);
+                // return
+                response = JSON.parse(response);
+                if (response.message === 'NumDoc encontrado') {
+                    alert("Ya te encuentras registrado!!!");
+                } else {
+                    if (response.status === 'success') {
+                        alert("SE REGISTRO EL LA PERSONA");
+                        $('#modalRegistrarPersona').modal('hide');
+                        pagina = 1;
+                        loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
+                        loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+                    } else {
+                        alert("Error al Registrar la Persona");
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error updating the area:', textStatus, errorThrown);
+            }
+        });
+    });
+
+
+    let datosBusquedaFiltroBD = '';
+
+    // Editar Persona
+    $(document).on("click", "#btnEditarPersona", function (e) {
+        e.preventDefault();
+        let modalEditar = $("#modalEditarPersona");
+        let fila = $(this).closest("tr");
+        let idPersona = parseInt(fila.find('td:eq(0)').text());
+        let nombres = fila.find('td:eq(1)').text();
+        let apellidos = fila.find('td:eq(2)').text();
+        let email = fila.find('td:eq(3)').text();
+        let telefono = fila.find('td:eq(4)').text();
+        let domicilio = fila.find('td:eq(5)').text();
+        let idTipoPersona = parseInt(fila.find('td:eq(6)').text());
+        let tipoPersona = fila.find('td:eq(7)').text();
+        let idTipoDocumentoIdentidad = parseInt(fila.find('td:eq(8)').text());
+        let tipoDocumentoIdentidad = fila.find('td:eq(9)').text();
+        let numDocumentoIdentidad = fila.find('td:eq(10)').text();
+        let dniCUI = fila.find('td:eq(11)').text();
+        let representanteLegal = fila.find('td:eq(12)').text();
+        let estado = fila.find('td:eq(13)').text();
+        // datosBusquedaFiltroBD = descripcion;
+        // descripcionDB = descripcion;
+        $("#nombresPersona").val(nombres.trim());
+        $("#apellidosPersona").val(apellidos.trim());
+        $("#emailPersona").val(email.trim());
+        $("#telefonoPersona").val(telefono.trim());
+        $("#domicilioPersona").val(domicilio.trim());
+        $("#tipoPersona").val(idTipoPersona);
+        $("#tipoDocumentoIdentidadPersona").val(idTipoDocumentoIdentidad);
+        $("#numDocumentoIdentidad").val(numDocumentoIdentidad.trim());
+        $("#CUIPersona").val(dniCUI.trim());
+        $("#representanteLegal").val(representanteLegal.trim());
+        $("#estadoPersona").val(estado);
+        $("#idPersona").val(idPersona);
+
+        modalEditar.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalEditar.modal('show');
+
+        modalEditar.one('shown.bs.modal', function () {
+            $("#nombresPersona").focus();
+        });
+    });
+
+    // Actualizar Area en Modelo
+    $(document).off('submit', '#editarPersonaForm').on('submit', '#editarPersonaForm', function (e) {
+        e.preventDefault();
+        $(this).off('submit'); // Desenganchar el evento de submit
+
+        let nombres = $.trim($('#nombresPersona').val());
+        let apellidos = $.trim($('#apellidosPersona').val());
+        let email = $.trim($('#emailPersona').val());
+        let telefono = $.trim($('#telefonoPersona').val());
+        let domicilio = $.trim($('#domicilioPersona').val());
+        let idTipoPersona = $('#tipoPersona').val();
+        // let tipoPersona = $('#tipoPersona').val();
+        let idTipoDocumentoIdentidad = $('#tipoDocumentoIdentidad').val();
+        // let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidad').val();
+        let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidad').val());
+        let dniCUI = $.trim($('#CUIPersona').val());
+        let representanteLegal = $.trim($('#representanteLegal').val());
+        let estado = $.trim($('#estadoPersona').val());
+        let idPersona = $.trim($('#idPersona').val());
+
+        if(idTipoPersona==='NATURAL' || idTipoPersona==='Natural'){
+            idTipoPersona=1;
+        }else{
+            idTipoPersona=2;
+        }
+
+        if(idTipoDocumentoIdentidad==='Dni'){
+            idTipoDocumentoIdentidad=1;
+        }else if(idTipoDocumentoIdentidad==='Ruc'){
+            idTipoDocumentoIdentidad=2;
+        }else{
+            idTipoDocumentoIdentidad=3;
+        }
+        if (nombres.length === 0 ||apellidos.length === 0 ||email.length === 0 ||
+            telefono.length === 0 ||domicilio.length === 0 || numDocumentoIdentidad.length === 0 || idPersona.length===0 || estado.length===0) {
+            
+            alert("Campos Incompletos");
+            return;
+        }
+
+        // if (descripcionDB === descripcion) {
+        //     // Swal.fire({
+        //     //     icon: "warning",
+        //     //     title: "¡Advertencia!",
+        //     //     text: "Para actualizar el área tiene que tener una nueva descripción.",
+        //     //     allowEnterKey: false,
+        //     //     allowEscapeKey: false,
+        //     //     allowOutsideClick: false,
+        //     //     stopKeydownPropagation: false
+        //     // });
+        //     // return;
+        //     alert("Para actualizar el área tiene que tener una nueva descripción.");
+        //     return;
+        // }
+
+        // descripcion = capitalizeWords(descripcion);
+
+        $.ajax({
+            url: "./controllers/Personas/actualizarPersonas.php",
+            type: "POST",
+            datatype: "json",
+            data: { idPersona, nombres,apellidos,email,telefono,domicilio,idTipoPersona,idTipoDocumentoIdentidad,
+                numDocumentoIdentidad,dniCUI,representanteLegal,estado
+             },
+            success: function (response) {
+                console.log(response);
+                return
+                response = JSON.parse(response);
+                if (response.message === 'Persona encontrada') {
+                    alert("La persona que intenta actualizar ya existe en la base de datos");
+                    return;
+                    // Swal.fire({
+                    //     icon: "warning",
+                    //     title: "¡Advertencia!",
+                    //     text: "La descripción que intenta actualizar ya existe en la base de datos",
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // });
+                } else {
+                    if (response.status === 'success') {
+                        alert("Se Actualizo la Persona");
+                        // return;
+                        // Swal.fire({
+                        //     icon: "success",
+                        //     title: "Actualización Exitosa",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // }).then(() => {
+                            $('#modalEditarPersona').modal('hide');
+                            loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
+                        // });
+                    } else {
+                        alert("Error");
+                        return;
+                        // Swal.fire({
+                        //     icon: "error",
+                        //     title: "Error",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // });
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error updating the area:', textStatus, errorThrown);
+            }
+        });
+    });
 
 
 

@@ -253,6 +253,56 @@ class Persona{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function actualizarPersona(){
+        $sql="UPDATE PERSONAS SET Nombres=:Nombres,Apellidos=:Apellidos,Email=:Email,Telefono=:Telefono,Domicilio=:Domicilio,idTipoPersona:idTipoPersona,
+              idTipoDocumentoIdentidad=:idTipoDocumentoIdentidad,NumDocumentoIdentidad=:NumDocumentoIdentidad,RepresentanteLegal=:RepresentanteLegal,Estado=:Estado,DniCUI=:DniCUI
+              WHERE idPersona=:idPersona";
+              echo "ANTES DE ENTRAR AL TRYCATCH";
+              try{
+                $stmt=database::connect()->prepare($sql);
+                echo "ANTES DE ENTRAR A ASIGNAR PARAMETROS\n";
+                $stmt->bindParam(":Nombres",$this->nombres,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->nombres,"\n";
+                $stmt->bindParam(":Apellidos",$this->apellidos,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->apellidos,"\n";
+                $stmt->bindParam(":Email",$this->email,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->email,"\n";
+                $stmt->bindParam(":Telefono",$this->telefono,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->telefono,"\n";
+                $stmt->bindParam(":Domicilio",$this->domicilio,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->domicilio,"\n";
+                // $stmt->bindParam(":idTipoPersona",$this->tipoPersona,PDO::PARAM_INT);
+                // echo "NOMBRES: ",$this->tipoPersona,"\n";
+                // $stmt->bindParam(":idTipoDocumentoIdentidad",$this->tipoDocumentoIdentidad,PDO::PARAM_INT);
+                // echo "NOMBRES: ",$this->tipoDocumentoIdentidad,"\n";
+                $stmt->bindParam(":NumDocumentoIdentidad",$this->numDocumentoIdentidad,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->numDocumentoIdentidad,"\n";
+                $stmt->bindParam(":RepresentanteLegal",$this->representanteLegal,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->representanteLegal,"\n";
+                $stmt->bindParam(":Estado",$this->estado,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->estado,"\n";
+                $stmt->bindParam(":DniCUI",$this->dniCUI,PDO::PARAM_STR);
+                echo "NOMBRES: ",$this->dniCUI,"\n";
+                $stmt->bindParam(":idPersona",$this->idPersona,PDO::PARAM_INT);
+                echo "NOMBRES: ",$this->idPersona,"\n";
+                // $stmt->execute();
+                // return [
+                //     'status' => 'success',
+                //     'message' => 'Persona actualizada',
+                //     'action' => 'actualizar',
+                //     'module' => 'persona',
+                //     'info' => ''
+                // ];
+              }catch(PDOException $e){
+                return [
+                    'status' => 'failed',
+                    'message' => 'Ocurrio un error al momento de actualizar la persona',
+                    'action' => 'actualizar',
+                    'module' => 'persona',
+                    'info' => $e->getMessage()
+                ];
+              }
+    }
 
 
 

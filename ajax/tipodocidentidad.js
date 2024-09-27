@@ -13,6 +13,7 @@ $.ajax({
 
 
             $('.selectTipoDocumentoIdentidad').html(options);
+            
         } else {
             console.warn('No data received or data is not an array.');
         }
