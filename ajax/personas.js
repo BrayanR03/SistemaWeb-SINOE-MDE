@@ -13,11 +13,6 @@ $(document).ready(function (){
         registrosPorPagina = 5;
     }
 
-    let pagina = 1;
-    let datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-    // let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
-    let filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]');
-
     // ABRIR MODAL REGISTRAR PERSONA
     $(document).off("click", "#btnSolicitarCasilla").on("click", "#btnSolicitarCasilla", function (e) {
         e.preventDefault();
@@ -93,15 +88,22 @@ $(document).ready(function (){
     });
 
 
+    
+    let pagina = 1;
+    let datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    // let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
+    let filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]:checked').value;
     //CARGAR LISTA DE PERSONAS
     function loadPersonas( datosBusquedaFiltro= '',filtroBusqueda='', pagina, registrosPorPagina) {
+       console.log("Antes de entrar al AJAX");
         $.ajax({
             url: './controllers/Personas/listarPersonas.php',
             method: 'POST',
             dataType: 'json',
             data: { datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina },
             success: function (response) {
-                console.log(response);
+                console.log("DENTRO DEL SUCECSS");
+                // console.log(response);
                 // return
                 let { data } = response
                 if (data.length > 0 && Array.isArray(data)) {
@@ -130,7 +132,7 @@ $(document).ready(function (){
                     $('#bodyListaPersonas').html(row);
                 } else {
                     let row = `<tr>
-                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen sedes registradas</td>
+                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen personas registradas</td>
                     </tr>`
                     $('#bodyListaPersonas').html(row);
                 }
@@ -141,27 +143,28 @@ $(document).ready(function (){
         });
     }
     loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
-    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+    // loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
 // buscarPersonas
-$(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
-    e.preventDefault();
-    datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-    pagina = 1
+// $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
+//     e.preventDefault();
+//     datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+//     pagina = 1
 
-    // generarOpcionesPaginacion()
-    loadPersonas(datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina);
-    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
-})
+//     // generarOpcionesPaginacion()
+//     loadPersonas(datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina);
+//     loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+// })
 
 function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
+    console.log("ANTES DE AJAX, FUNCION TOTAL PERSONAS");
     $.ajax({
         url: './controllers/Personas/totalPersonasRegistradas.php',
         method: 'GET',
         dataType: 'json',
         data: { datosBusquedaFiltro,filtroBusqueda},
         success: function (response) {
-            // console.log(response);
-            // return 
+            console.log(response);
+            return 
             console.log(response);
             let totalPersonasInput = document.getElementById("totalPersonasRegistradas");
             totalPersonasInput.innerText = response[0].total;
@@ -171,5 +174,8 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         }
     });
 }
+
+
+
 
 });

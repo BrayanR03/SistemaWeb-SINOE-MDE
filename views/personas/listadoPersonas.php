@@ -10,7 +10,7 @@ require_once('../../config/parameters.php');
             <div class="containerFiltrado">
                 <div>
                     <label for="">Nombres / Razón Social</label>
-                    <input type="radio" name="filtroBusqueda" id="nombres" value="nombres">
+                    <input type="radio" checked name="filtroBusqueda" id="nombres" value="nombres">
                 </div>
                 <div>
                     <label for="">RUC</label>
@@ -36,7 +36,7 @@ require_once('../../config/parameters.php');
                         placeholder="Buscar a la persona">
                 </div>
         </div>
-        <a href="" style="background-color: #006B2D;" id="btnRegistrarSede" class="btnNuevoRegistro">
+        <a href="" style="background-color: #006B2D;" id="btnRegistrarPersona" class="btnNuevoRegistro">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="#ffffff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
