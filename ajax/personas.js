@@ -1,4 +1,4 @@
-$(document).ready(function (){
+$(document).ready(function () {
     console.log("INICIO DE PERSONAS.JS :D");
     const alturaPantalla = window.innerHeight;
     let registrosPorPagina = 0;
@@ -12,112 +12,6 @@ $(document).ready(function (){
     } else {
         registrosPorPagina = 5;
     }
-
-
-    
-    let pagina = 1;
-    let datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-    // let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
-    let filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]:checked').value;
-    //CARGAR LISTA DE PERSONAS
-    function loadPersonas( datosBusquedaFiltro= '',filtroBusqueda='', pagina, registrosPorPagina) {
-       console.log("Antes de entrar al AJAX");
-        $.ajax({
-            url: './controllers/Personas/listarPersonas.php',
-            method: 'POST',
-            dataType: 'json',
-            data: { datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina },
-            success: function (response) {
-                console.log("DENTRO DEL SUCECSS");
-                // console.log(response);
-                // return
-                let { data } = response
-                if (data.length > 0 && Array.isArray(data)) {
-                    let row = data.map(persona => `
-                    <tr>
-                        <td>${persona.idPersona}</td>
-                        <td>${persona.Nombres}</td>
-                        <td>${persona.Apellidos}</td>
-                        <td>${persona.Email}</td>
-                        <td>${persona.Telefono}</td>
-                        <td>${persona.Domicilio}</td>
-                        <td hidden>${persona.IdTipoPersona}</td>
-                        <td>${persona.TipoPersona}</td>
-                        <td hidden>${persona.idTipoDocumentoIdentidad}</td>
-                        <td>${persona.TipoDocumentoIdentidad}</td>
-                        <td>${persona.NroDocumentoIdentidad}</td>
-                        <td>${persona.DniCUI}</td>
-                        <td>${persona.RepresentanteLegal}</td>
-                        <td>${persona.Estado}</td>
-                        <td>
-                        <a href="#" id="btnEditarPersona" >Editar</a>
-                        <a href="#" id="btnEstadoPersona" >Estado</a>
-                        </td>
-    
-                    </tr>`).join('');
-                    $('#bodyListaPersonas').html(row);
-                } else {
-                    let row = `<tr>
-                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen personas registradas</td>
-                    </tr>`
-                    $('#bodyListaPersonas').html(row);
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('Error fetching the content:', textStatus, errorThrown);
-            }
-        });
-    }
-    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
-    loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
-// buscarPersonas
-// $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
-$(document).off("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']").on("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']", function (e) { 
-    e.preventDefault();
-    datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-    filtroBusqueda=document.querySelector('input[name="filtroBusqueda"]:checked').value;
-    pagina = 1
-    console.log("FILTRO DINAMICO");
-    console.log(datosBusquedaFiltro);
-    console.log(filtroBusqueda);
-    
-    // generarOpcionesPaginacion()
-    loadPersonas(datosBusquedaFiltro,filtroBusqueda, pagina, registrosPorPagina);
-    loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
-})
-// Listener para el cambio de selección del radio button
-// $(document).off("change", "input[name='filtroBusqueda']").on("change", "input[name='filtroBusqueda']", function (e) {
-//     // Actualizar el filtro seleccionado cuando se cambie el radio button
-//     e.preventDefault();
-//     filtroBusqueda=document.querySelector('input[name="filtroBusqueda"]:checked').value;
-    
-//     // Obtener el valor actual del input de búsqueda
-//     datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-//     pagina = 1;
-
-//     // Cargar personas y el total basado en el nuevo filtro y el texto ingresado
-//     loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
-//     loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda);
-// });
-function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
-    console.log("ANTES DE AJAX, FUNCION TOTAL PERSONAS");
-    $.ajax({
-        url: './controllers/Personas/totalPersonasRegistradas.php',
-        method: 'GET',
-        dataType: 'json',
-        data: { datosBusquedaFiltro,filtroBusqueda},
-        success: function (response) {
-            // console.log(response);
-            // return 
-            console.log(response);
-            let totalPersonasInput = document.getElementById("totalPersonasRegistradas");
-            totalPersonasInput.innerText = response[0].total;
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error('Error fetching the content:', textStatus, errorThrown);
-        }
-    });
-}
 
 
 
@@ -155,10 +49,10 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         let tipoPersona = $('#tipoPersonaPersonaNuevo').val();
         let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadPersonaNuevo').val();
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadPersonaNuevo').val());
-        let representanteLegal= $.trim($('#representanteLegalPersonaNuevo').val());
+        let representanteLegal = $.trim($('#representanteLegalPersonaNuevo').val());
 
-        if (nombres.length === 0 ||apellidos.length === 0 ||email.length === 0 ||
-            telefono.length === 0 ||domicilio.length === 0 || numDocumentoIdentidad.length === 0) {
+        if (nombres.length === 0 || apellidos.length === 0 || email.length === 0 ||
+            telefono.length === 0 || domicilio.length === 0 || numDocumentoIdentidad.length === 0) {
             alert("Campos Vacíos");
             return
         }
@@ -169,10 +63,11 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
             url: "./controllers/Personas/registrarPersona.php",
             type: "POST",
             datatype: "json",
-            data: { nombres:nombres,apellidos:apellidos,dniCUI:dniCUI,email:email,
-                    telefono:telefono,domicilio:domicilio,tipoPersona:tipoPersona,tipoDocumentoIdentidad:tipoDocumentoIdentidad,numDocumentoIdentidad:numDocumentoIdentidad,
-                    representanteLegal:representanteLegal
-             },
+            data: {
+                nombres: nombres, apellidos: apellidos, dniCUI: dniCUI, email: email,
+                telefono: telefono, domicilio: domicilio, tipoPersona: tipoPersona, tipoDocumentoIdentidad: tipoDocumentoIdentidad, numDocumentoIdentidad: numDocumentoIdentidad,
+                representanteLegal: representanteLegal
+            },
             success: function (response) {
                 console.log(response);
                 // return
@@ -184,8 +79,8 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
                         alert("SE REGISTRO EL LA PERSONA");
                         $('#modalRegistrarPersona').modal('hide');
                         pagina = 1;
-                        loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
-                        loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda);
+                        loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+                        loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda);
                     } else {
                         alert("Error al Registrar la Persona");
                     }
@@ -196,6 +91,112 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
             }
         });
     });
+
+
+    let pagina = 1;
+    let datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    // let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
+    let filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]:checked').value;
+    //CARGAR LISTA DE PERSONAS
+    function loadPersonas(datosBusquedaFiltro = '', filtroBusqueda = '', pagina, registrosPorPagina) {
+        console.log("Antes de entrar al AJAX");
+        $.ajax({
+            url: './controllers/Personas/listarPersonas.php',
+            method: 'POST',
+            dataType: 'json',
+            data: { datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina },
+            success: function (response) {
+                console.log("DENTRO DEL SUCECSS");
+                // console.log(response);
+                // return
+                let { data } = response
+                if (data.length > 0 && Array.isArray(data)) {
+                    let row = data.map(persona => `
+                    <tr>
+                        <td>${persona.idPersona}</td>
+                        <td>${persona.Nombres}</td>
+                        <td>${persona.Apellidos}</td>
+                        <td>${persona.Email}</td>
+                        <td>${persona.Telefono}</td>
+                        <td>${persona.Domicilio}</td>
+                        <td hidden>${persona.idTipoPersona}</td>
+                        <td>${persona.TipoPersona}</td>
+                        <td hidden>${persona.idTipoDocumentoIdentidad}</td>
+                        <td>${persona.TipoDocumentoIdentidad}</td>
+                        <td>${persona.NroDocumentoIdentidad}</td>
+                        <td>${persona.DniCUI ? persona.DniCUI : 'No Asignado'}</td>
+                        <td>${persona.RepresentanteLegal ? persona.RepresentanteLegal : 'No Asignado'}</td>
+                        <td>${persona.Estado}</td>
+                        <td>
+                        <a href="#" id="btnEditarPersona" >Editar</a>
+                        <a href="#" id="btnEstadoPersona" >Estado</a>
+                        </td>
+    
+                    </tr>`).join('');
+                    $('#bodyListaPersonas').html(row);
+                } else {
+                    let row = `<tr>
+                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen personas registradas</td>
+                    </tr>`
+                    $('#bodyListaPersonas').html(row);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching the content:', textStatus, errorThrown);
+            }
+        });
+    }
+    loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda);
+    loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+    // buscarPersonas
+    // $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
+    $(document).off("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']").on("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']", function (e) {
+        e.preventDefault();
+        datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+        filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]:checked').value;
+        pagina = 1
+        console.log("FILTRO DINAMICO");
+        console.log(datosBusquedaFiltro);
+        console.log(filtroBusqueda);
+
+        // generarOpcionesPaginacion()
+        loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+        loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda);
+    })
+    // Listener para el cambio de selección del radio button
+    // $(document).off("change", "input[name='filtroBusqueda']").on("change", "input[name='filtroBusqueda']", function (e) {
+    //     // Actualizar el filtro seleccionado cuando se cambie el radio button
+    //     e.preventDefault();
+    //     filtroBusqueda=document.querySelector('input[name="filtroBusqueda"]:checked').value;
+
+    //     // Obtener el valor actual del input de búsqueda
+    //     datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    //     pagina = 1;
+
+    //     // Cargar personas y el total basado en el nuevo filtro y el texto ingresado
+    //     loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+    //     loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda);
+    // });
+    function loadTotalPersonas(datosBusquedaFiltro, filtroBusqueda) {
+        console.log("ANTES DE AJAX, FUNCION TOTAL PERSONAS");
+        $.ajax({
+            url: './controllers/Personas/totalPersonasRegistradas.php',
+            method: 'GET',
+            dataType: 'json',
+            data: { datosBusquedaFiltro, filtroBusqueda },
+            success: function (response) {
+                // console.log(response);
+                // return 
+                console.log(response);
+                let totalPersonasInput = document.getElementById("totalPersonasRegistradas");
+                totalPersonasInput.innerText = response[0].total;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching the content:', textStatus, errorThrown);
+            }
+        });
+    }
+
 
 
     let datosBusquedaFiltroBD = '';
@@ -211,7 +212,7 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         let email = fila.find('td:eq(3)').text();
         let telefono = fila.find('td:eq(4)').text();
         let domicilio = fila.find('td:eq(5)').text();
-        let idTipoPersona = parseInt(fila.find('td:eq(6)').text());
+        let idTipoPersona = fila.find('td:eq(6)').text();
         let tipoPersona = fila.find('td:eq(7)').text();
         let idTipoDocumentoIdentidad = parseInt(fila.find('td:eq(8)').text());
         let tipoDocumentoIdentidad = fila.find('td:eq(9)').text();
@@ -221,13 +222,15 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         let estado = fila.find('td:eq(13)').text();
         // datosBusquedaFiltroBD = descripcion;
         // descripcionDB = descripcion;
+        console.log("ACAAAAAAAA\n");
+        console.log(idTipoPersona);
         $("#nombresPersona").val(nombres.trim());
         $("#apellidosPersona").val(apellidos.trim());
         $("#emailPersona").val(email.trim());
         $("#telefonoPersona").val(telefono.trim());
         $("#domicilioPersona").val(domicilio.trim());
-        $("#tipoPersona").val(idTipoPersona);
-        $("#tipoDocumentoIdentidadPersona").val(idTipoDocumentoIdentidad);
+        $("#tipoPersonaEditar").val(idTipoPersona);
+        $("#tipoDocumentoIdentidadEditar").val(idTipoDocumentoIdentidad);
         $("#numDocumentoIdentidad").val(numDocumentoIdentidad.trim());
         $("#CUIPersona").val(dniCUI.trim());
         $("#representanteLegal").val(representanteLegal.trim());
@@ -256,32 +259,32 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
         let email = $.trim($('#emailPersona').val());
         let telefono = $.trim($('#telefonoPersona').val());
         let domicilio = $.trim($('#domicilioPersona').val());
-        let idTipoPersona = $('#tipoPersona').val();
-        // let tipoPersona = $('#tipoPersona').val();
-        let idTipoDocumentoIdentidad = $('#tipoDocumentoIdentidad').val();
-        // let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidad').val();
+        // let idTipoPersona = $('#tipoPersona').val();
+        let tipoPersona = $('#tipoPersonaEditar').val();
+        // let idTipoDocumentoIdentidad = $('#tipoDocumentoIdentidad').val();
+        let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadEditar').val();
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidad').val());
         let dniCUI = $.trim($('#CUIPersona').val());
         let representanteLegal = $.trim($('#representanteLegal').val());
         let estado = $.trim($('#estadoPersona').val());
         let idPersona = $.trim($('#idPersona').val());
 
-        if(idTipoPersona==='NATURAL' || idTipoPersona==='Natural'){
-            idTipoPersona=1;
-        }else{
-            idTipoPersona=2;
-        }
+        // if(idTipoPersona==='NATURAL' || idTipoPersona==='Natural'){
+        //     idTipoPersona=1;
+        // }else{
+        //     idTipoPersona=2;
+        // }
 
-        if(idTipoDocumentoIdentidad==='Dni'){
-            idTipoDocumentoIdentidad=1;
-        }else if(idTipoDocumentoIdentidad==='Ruc'){
-            idTipoDocumentoIdentidad=2;
-        }else{
-            idTipoDocumentoIdentidad=3;
-        }
-        if (nombres.length === 0 ||apellidos.length === 0 ||email.length === 0 ||
-            telefono.length === 0 ||domicilio.length === 0 || numDocumentoIdentidad.length === 0 || idPersona.length===0 || estado.length===0) {
-            
+        // if(idTipoDocumentoIdentidad==='Dni'){
+        //     idTipoDocumentoIdentidad=1;
+        // }else if(idTipoDocumentoIdentidad==='Ruc'){
+        //     idTipoDocumentoIdentidad=2;
+        // }else{
+        //     idTipoDocumentoIdentidad=3;
+        // }
+        if (nombres.length === 0 || apellidos.length === 0 || email.length === 0 ||
+            telefono.length === 0 || domicilio.length === 0 || numDocumentoIdentidad.length === 0 || idPersona.length === 0 || estado.length === 0) {
+
             alert("Campos Incompletos");
             return;
         }
@@ -307,12 +310,13 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
             url: "./controllers/Personas/actualizarPersonas.php",
             type: "POST",
             datatype: "json",
-            data: { idPersona, nombres,apellidos,email,telefono,domicilio,idTipoPersona,idTipoDocumentoIdentidad,
-                numDocumentoIdentidad,dniCUI,representanteLegal,estado
-             },
+            data: {
+                idPersona, nombres, apellidos, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad,
+                numDocumentoIdentidad, dniCUI, representanteLegal, estado
+            },
             success: function (response) {
                 console.log(response);
-                return
+                // return
                 response = JSON.parse(response);
                 if (response.message === 'Persona encontrada') {
                     alert("La persona que intenta actualizar ya existe en la base de datos");
@@ -339,8 +343,8 @@ function loadTotalPersonas(datosBusquedaFiltro,filtroBusqueda) {
                         //     allowOutsideClick: false,
                         //     stopKeydownPropagation: false
                         // }).then(() => {
-                            $('#modalEditarPersona').modal('hide');
-                            loadPersonas(datosBusquedaFiltro,filtroBusqueda,pagina,registrosPorPagina);
+                        $('#modalEditarPersona').modal('hide');
+                        loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
                         // });
                     } else {
                         alert("Error");

@@ -12,7 +12,7 @@
                                 <h3>
                                     Datos Personales
                                 </h3>
-                                <input type="text" name="idPersona" id="idPersona">
+                                <input hidden type="text" name="idPersona" id="idPersona">
                             </div>
                             <div class="datosOrigenBody">
                                 <div>
@@ -56,32 +56,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="containerArrowDetalle">
-                            <svg class="arrowDetalle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                            </svg>
-                        </div>
+                        
                         <div class="datosDestino">
                             <div class="datosDestinoHeader">
-                                <h3>
-                                    Datos Administrativos
-                                </h3>
                             </div>
                             <div class="datosDestinoBody">
                                 <div>
                                     <label>Tipo Persona: </label>
-                                    <select class="tipoPersona" required id="tipoPersonaEditar">
+                                    <select class="tipoPersona" required id="tipoPersonaEditar" name="tipoPersona">
                                         <option value="1">Natural</option>
                                         <option value="2">Juridica</option>
                                     </select>
+
                                 </div>
                                 <div>
                                     <label>Tipo Documento: </label>
-                                    <select class="tipoDocumentoIdentidad" required id="tipoDocumentoIdentidad">
+                                    <select class="tipoDocumentoIdentidad" required id="tipoDocumentoIdentidadEditar" name="tipoDocumentoIdentidad">
                                         <option value="1">Dni</option>
                                         <option value="2">Ruc</option>
                                         <option value="3">Pasaporte</option>
                                     </select>
+
                                 </div>
                                 <div>
                                     <label>Estado: </label>

@@ -2,14 +2,15 @@
 require_once "../../models/Persona.php";
 require_once "../../config/database.php";
 
+// print_r($_POST);
 $idPersona = trim($_POST['idPersona']);
 $nombres = trim($_POST['nombres']);
 $apellidos = trim($_POST['apellidos']);
 $email = trim($_POST['email']);
 $telefono = trim($_POST['telefono']);
 $domicilio = trim($_POST['domicilio']);
-$tipoPersona = $_POST['idTipoPersona'];
-$tipoDocumentoIdentidad = $_POST['idTipoDocumentoIdentidad'];
+$tipoPersona = $_POST['tipoPersona'];
+$tipoDocumentoIdentidad = $_POST['tipoDocumentoIdentidad'];
 $numDocumentoIdentidad = trim($_POST['numDocumentoIdentidad']);
 $dniCUI = trim($_POST['dniCUI']);
 $estado = trim($_POST['estado']);
@@ -28,6 +29,7 @@ $personaModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
 $personaModel->setDniCUI($dniCUI);
 $personaModel->setEstado($estado);
 $personaModel->setRepresentanteLegal($representanteLegal);
+$personaModel->setidPersona($idPersona);
 echo "antes de llamar a la funcion actualizar persona";
 $response = $personaModel->actualizarPersona();
 print json_encode($response);
