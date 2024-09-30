@@ -304,6 +304,36 @@ class Persona{
               }
     }
 
+    public function estadoActualizarPersona(){
+        $sql = "UPDATE PERSONAS SET Estado = :Estado WHERE idPersona = :idPersona";
+
+        try {
+            $stmt = database::connect()->prepare($sql);
+
+            $stmt->bindParam(":Estado", $this->estado, PDO::PARAM_STR);
+            $stmt->bindParam(":idPersona", $this->idPersona, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            return [
+                'status' => 'success',
+                'message' => 'Persona actualizada',
+                'action' => 'actualizar',
+                'module' => 'persona',
+                'info' => ''
+            ];
+
+        }catch (PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al momento de actualizar la persona',
+                'action' => 'actualizar',
+                'module' => 'persona',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
+
 
 
 }

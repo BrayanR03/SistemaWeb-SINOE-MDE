@@ -84,6 +84,7 @@ require_once('../../config/parameters.php');
 
 <?php  require_once "registrarPersonas.php"?>
 <?php  require_once "editarPersonas.php"?>
+<?php  require_once "estadoPersona.php"?>
 <script src="<?= base_url ?>ajax/personas.js"></script>
 <script src="<?= base_url ?>ajax/tipodocidentidad.js"></script>
 <script src="<?= base_url ?>ajax/tipopersonas.js"></script>

@@ -76,7 +76,7 @@
                                     <label>Estado: </label>
                                     <input
                                         type="text"
-                                        placeholder="Activo"
+                                        placeholder="Habilitada"
                                         readonly>
                                 </div>
                                 <div>

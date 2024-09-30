@@ -124,8 +124,8 @@ $(document).ready(function () {
                         <td hidden>${persona.idTipoDocumentoIdentidad}</td>
                         <td>${persona.TipoDocumentoIdentidad}</td>
                         <td>${persona.NroDocumentoIdentidad}</td>
-                        <td>${persona.DniCUI ? persona.DniCUI : 'No Asignado'}</td>
-                        <td>${persona.RepresentanteLegal ? persona.RepresentanteLegal : 'No Asignado'}</td>
+                        <td>${persona.DniCUI  ? persona.DniCUI : ''}</td>
+                        <td>${persona.RepresentanteLegal ? persona.RepresentanteLegal : ''}</td>
                         <td>${persona.Estado}</td>
                         <td>
                         <a href="#" id="btnEditarPersona" >Editar</a>
@@ -368,6 +368,103 @@ $(document).ready(function () {
     });
 
 
+// Estado de la persona
+$(document).on("click", "#btnEstadoPersona", function (e) {
+
+    e.preventDefault();
+    let modalEstado = $("#modalEstadoPersona");
+    let fila = $(this).closest("tr");
+    let idPersona = parseInt(fila.find('td:eq(0)').text());
+    let nombres = fila.find('td:eq(1)').text() +' '+ fila.find('td:eq(2)').text();;
+    let estadoPersona = fila.find('td:eq(13)').text();
+    nombresBD = nombres;
+    estadoPersonaBD=estadoPersona;
+    $("#estadoPersona").val(estadoPersona);
+    // }
+    $("#nombresPersonaEstado").val(nombres.trim());
+    $("#idPersonaEstado").val(idPersona);
+
+    modalEstado.modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
+    modalEstado.modal('show');
+
+    modalEstado.one('shown.bs.modal', function () {
+        $("#estadoPersona").focus();
+    });
+});
+
+// Actualizar Estado Persona en Modelo
+$(document).off('submit', '#editarEstadoPersonaForm').on('submit', '#editarEstadoPersonaForm', function (e) {
+    e.preventDefault();
+    $(this).off('submit'); // Desenganchar el evento de submit
+
+    let estado=$('#estadoPersona').val();
+    let nombres = $.trim($('#nombresPersonaEstado').val());
+    let idPersona = $.trim($('#idPersonaEstado').val());
+    // console.log(idPersona);
+    if (nombres.length === 0 || idPersona.length === 0) {
+        // Swal.fire({
+        //     icon: "warning",
+        //     title: "Campos Incompletos",
+        //     text: "Ingrese los campos requeridos",
+        //     allowEnterKey: false,
+        //     allowEscapeKey: false,
+        //     allowOutsideClick: false,
+        //     stopKeydownPropagation: false
+        // });
+        // return;
+        alert("Campos Incompletos");
+        return;
+    }
+
+    // descripcion = capitalizeWords(descripcion);
+
+    $.ajax({
+        url: "./controllers/Personas/estadoPersona.php",
+        type: "POST",
+        datatype: "json",
+        data: { idPersona, nombres,estado },
+        success: function (response) {
+            console.log(response);
+            // return
+            response = JSON.parse(response);
+                if (response.status === 'success') {
+                    alert("Se Actualizo el estado de la Persona");
+                    // return;
+                    // Swal.fire({
+                    //     icon: "success",
+                    //     title: "Actualización Exitosa",
+                    //     text: response.message,
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // }).then(() => {
+                        $('#modalEstadoPersona').modal('hide');
+                        loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+                    // });
+                } else {
+                    alert("Error");
+                    return;
+                    // Swal.fire({
+                    //     icon: "error",
+                    //     title: "Error",
+                    //     text: response.message,
+                    //     allowEnterKey: false,
+                    //     allowEscapeKey: false,
+                    //     allowOutsideClick: false,
+                    //     stopKeydownPropagation: false
+                    // });
+                }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error updating the area:', textStatus, errorThrown);
+        }
+    });
+});
 
 
 });
