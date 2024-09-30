@@ -131,7 +131,7 @@ class Persona{
 
             if(count($results)>0){
                 return [
-                    'status'=>'sucecss',
+                    'status'=>'success',
                     'message' => 'NumDoc encontrado',
                     'action' => 'buscar',
                     'module' => 'persona',
@@ -257,7 +257,6 @@ class Persona{
         $sql="UPDATE PERSONAS SET Nombres=:Nombres,Apellidos=:Apellidos,Email=:Email,Telefono=:Telefono,Domicilio=:Domicilio,idTipoPersona=:idTipoPersona,
               idTipoDocumentoIdentidad=:idTipoDocumentoIdentidad,NumDocumentoIdentidad=:NumDocumentoIdentidad,RepresentanteLegal=:RepresentanteLegal,Estado=:Estado,DniCUI=:DniCUI
               WHERE idPersona=:idPersona";
-              echo "ANTES DE ENTRAR AL TRYCATCH";
               try{
                 $stmt=database::connect()->prepare($sql);
                 // echo "ANTES DE ENTRAR A ASIGNAR PARAMETROS\n";
@@ -305,16 +304,15 @@ class Persona{
     }
 
     public function estadoActualizarPersona(){
+        
         $sql = "UPDATE PERSONAS SET Estado = :Estado WHERE idPersona = :idPersona";
 
         try {
             $stmt = database::connect()->prepare($sql);
-
             $stmt->bindParam(":Estado", $this->estado, PDO::PARAM_STR);
             $stmt->bindParam(":idPersona", $this->idPersona, PDO::PARAM_INT);
 
             $stmt->execute();
-
             return [
                 'status' => 'success',
                 'message' => 'Persona actualizada',

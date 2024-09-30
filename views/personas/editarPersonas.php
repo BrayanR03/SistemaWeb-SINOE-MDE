@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="containerButtonsEditarArea">
-                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Actualizar">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">

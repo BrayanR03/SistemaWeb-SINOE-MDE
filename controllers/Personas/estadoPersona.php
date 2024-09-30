@@ -5,7 +5,7 @@ require_once "../../config/database.php";
 $idPersona = trim($_POST['idPersona']);
 $nombres = trim($_POST['nombres']);
 $estadopersona = $_POST['estado'];
-
+// echo $estadopersona;
 // print_r($estadopersona);
 $personaModel = new Persona();
 $personaModel->setidPersona($idPersona);

@@ -30,7 +30,6 @@ $personaModel->setDniCUI($dniCUI);
 $personaModel->setEstado($estado);
 $personaModel->setRepresentanteLegal($representanteLegal);
 $personaModel->setidPersona($idPersona);
-echo "antes de llamar a la funcion actualizar persona";
 $response = $personaModel->actualizarPersona();
 print json_encode($response);
 // $response = $areaModel->existeArea();
