@@ -13,8 +13,8 @@
                     <div class="mb-3">
                         <label for="estadoArea" class="form-label">Estado:</label>
                         <select name="estadoPersona" id="estadoPersona">
-                            <option value="Habilitada">Habilitada</option>
-                            <option value="Inhabilitada">Inhabilitada</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
                         </select>
                         <!-- <input readonly type="text" class="estadoArea" id="estadoArea" autocomplete="off"> -->
                     </div>

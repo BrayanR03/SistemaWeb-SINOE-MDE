@@ -219,11 +219,11 @@ $(document).ready(function () {
         let numDocumentoIdentidad = fila.find('td:eq(10)').text();
         let dniCUI = fila.find('td:eq(11)').text();
         let representanteLegal = fila.find('td:eq(12)').text();
-        let estado = fila.find('td:eq(13)').text();
+        let estadoPersonaEditar = fila.find('td:eq(13)').text();
         // datosBusquedaFiltroBD = descripcion;
         // descripcionDB = descripcion;
         console.log("ACAAAAAAAA\n");
-        console.log(idTipoPersona);
+        
         $("#nombresPersona").val(nombres.trim());
         $("#apellidosPersona").val(apellidos.trim());
         $("#emailPersona").val(email.trim());
@@ -234,7 +234,7 @@ $(document).ready(function () {
         $("#numDocumentoIdentidad").val(numDocumentoIdentidad.trim());
         $("#CUIPersona").val(dniCUI.trim());
         $("#representanteLegal").val(representanteLegal.trim());
-        $("#estadoPersona").val(estado);
+        $("#estadoPersonaEditar").val(estadoPersonaEditar);
         $("#idPersona").val(idPersona);
 
         modalEditar.modal({
@@ -266,7 +266,7 @@ $(document).ready(function () {
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidad').val());
         let dniCUI = $.trim($('#CUIPersona').val());
         let representanteLegal = $.trim($('#representanteLegal').val());
-        let estado = $.trim($('#estadoPersona').val());
+        let estadoPersonaEditar = $.trim($('#estadoPersonaEditar').val());
         let idPersona = $.trim($('#idPersona').val());
 
         // if(idTipoPersona==='NATURAL' || idTipoPersona==='Natural'){
@@ -312,7 +312,7 @@ $(document).ready(function () {
             datatype: "json",
             data: {
                 idPersona, nombres, apellidos, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad,
-                numDocumentoIdentidad, dniCUI, representanteLegal, estado
+                numDocumentoIdentidad, dniCUI, representanteLegal, estadoPersonaEditar
             },
             success: function (response) {
                 console.log(response);

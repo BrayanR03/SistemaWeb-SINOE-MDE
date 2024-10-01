@@ -82,8 +82,8 @@
                                     <label>Estado: </label>
                                     <input
                                         type="text"
-                                        id="estadoPersona"
-                                        name="estadoPersona"
+                                        id="estadoPersonaEditar"
+                                        name="estadoPersonaEditar"
                                         readonly>
                                 </div>
                                 <div>

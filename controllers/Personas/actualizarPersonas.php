@@ -13,7 +13,7 @@ $tipoPersona = $_POST['tipoPersona'];
 $tipoDocumentoIdentidad = $_POST['tipoDocumentoIdentidad'];
 $numDocumentoIdentidad = trim($_POST['numDocumentoIdentidad']);
 $dniCUI = trim($_POST['dniCUI']);
-$estado = trim($_POST['estado']);
+$estado = trim($_POST['estadoPersonaEditar']);
 $representanteLegal = trim($_POST['representanteLegal']);
 
 
