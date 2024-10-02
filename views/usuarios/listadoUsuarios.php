@@ -72,4 +72,6 @@ require_once('../../config/parameters.php');
     </div>
 </div>
 
+<?php  require_once "asignarUsuarios.php"?>
 <script src="<?= base_url ?>ajax/usuarios.js"></script>
+<script src="<?= base_url ?>ajax/tipousuarios.js"></script>

@@ -103,13 +103,13 @@ class Usuario
         }
     }
 
-    public function listadoUsuarios($datosBusquedaFiltro=null,$filtroBusqueda=null)
+    public function listadoUsuarios($datosBusquedaFiltro = null, $filtroBusqueda = null)
     {
         $sql = "EXEC SP_ListadoUsuariosPersonas :DatosBusquedaFiltro,:FiltroBusqueda";
         try {
             $stmt = database::connect()->prepare($sql);
-            $stmt->bindParam(":DatosBusquedaFiltro", $datosBusquedaFiltro,PDO::PARAM_STR);
-            $stmt->bindParam(":FiltroBusqueda", $filtroBusqueda,PDO::PARAM_STR);
+            $stmt->bindParam(":DatosBusquedaFiltro", $datosBusquedaFiltro, PDO::PARAM_STR);
+            $stmt->bindParam(":FiltroBusqueda", $filtroBusqueda, PDO::PARAM_STR);
             $stmt->execute();
             $results = $stmt->fetchAll();
             if (count($results) > 0) {
@@ -142,13 +142,13 @@ class Usuario
         }
     }
 
-    public function listadoTotalUsuarios($datosBusquedaFiltro=null,$filtroBusqueda=null)
+    public function listadoTotalUsuarios($datosBusquedaFiltro = null, $filtroBusqueda = null)
     {
         $sql = "EXEC SP_ListadoTotalUsuariosPersonas :DatosBusquedaFiltro,:FiltroBusqueda";
         try {
             $stmt = database::connect()->prepare($sql);
-            $stmt->bindParam(":DatosBusquedaFiltro", $datosBusquedaFiltro,PDO::PARAM_STR);
-            $stmt->bindParam(":FiltroBusqueda", $filtroBusqueda,PDO::PARAM_STR);
+            $stmt->bindParam(":DatosBusquedaFiltro", $datosBusquedaFiltro, PDO::PARAM_STR);
+            $stmt->bindParam(":FiltroBusqueda", $filtroBusqueda, PDO::PARAM_STR);
             $stmt->execute();
         } catch (PDOException $e) {
             return [
@@ -158,5 +158,105 @@ class Usuario
             ];
         }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function RegistrarUsuario()
+    {
+        $sql = "INSERT INTO USUARIOS(Usuario,Password,idTipoUsuario,idPersona)
+              VALUES(:Usuario,:Password,:idTipoUsuario,:idPersona)";
+
+        try {
+            $stmt = database::connect()->prepare($sql);
+            $stmt->bindParam(":Usuario", $this->Usuario, PDO::PARAM_STR);
+            $stmt->bindParam(":Password", $this->Password, PDO::PARAM_STR);
+            $stmt->bindParam(":idTipoUsuario", $this->idTipoUsuario, PDO::PARAM_INT);
+            $stmt->bindParam(":idPersona", $this->idPersona, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return [
+                'status' => 'success',
+                'message' => 'Usuario Registrado Correctamente',
+                'action' => 'registrar',
+                'module' => 'usuario',
+                'info' => ''
+            ];
+        } catch (PDOException $e) {
+
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrion un error al momento de registrar el usuario',
+                'action' => 'registrar',
+                'module' => 'usuario',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function existeUsuario()
+    {
+        $sql = "SELECT * FROM USUARIOS WHERE Usuario=:Usuario";
+        try {
+            $stmt = database::connect()->prepare($sql);
+            $stmt->bindParam(":Usuario", $this->Usuario, PDO::PARAM_STR);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($results) > 0) {
+                return [
+                    'status' => 'success',
+                    'message' => 'Usuario encontrado',
+                    'action' => 'buscar',
+                    'module' => 'usuario',
+                    'data' => [],
+                    'info' => ''
+                ];
+            }
+            return [
+                'status' => 'success',
+                'message' => '¡No se encontraron resultados!',
+                'action' => 'buscar',
+                'module' => 'usuario',
+                'data' => [],
+                'info' => ''
+            ];
+        } catch (PDOException $e) {
+
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrió un error al momento de verificar la existencia del Usuario',
+                'action' => 'buscar',
+                'module' => 'usuario',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function actualizarUsuario()
+    {
+        $sql = "UPDATE USUARIOS SET Usuario=:Usuario,Password=:Password,idTipoUsuario=:idTipoUsuario WHERE idUsuario=:idUsuario";
+        try {
+            $stmt = database::connect()->prepare($sql);
+            $stmt->bindParam("Usuario", $this->Usuario, PDO::PARAM_STR);
+            $stmt->bindParam("Password", $this->Password, PDO::PARAM_STR);
+            $stmt->bindParam("idTipoUsuario", $this->idTipoUsuario, PDO::PARAM_INT);
+            $stmt->bindParam("idUsuario", $this->idUsuario, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return [
+                'status' => 'success',
+                'message' => 'Usuario actualizada',
+                'action' => 'actualizar',
+                'module' => 'usuario',
+                'info' => ''
+            ];
+        } catch (PDOException $e) {
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al momento de actualizar el usuario',
+                'action' => 'actualizar',
+                'module' => 'usuario',
+                'info' => $e->getMessage()
+            ];
+        }
     }
 }
