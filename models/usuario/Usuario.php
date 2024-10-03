@@ -259,4 +259,33 @@ class Usuario
             ];
         }
     }
+
+    public function estadoActualizarUsuario(){
+        
+        $sql = "UPDATE USUARIOS SET Estado = :Estado WHERE idUsuario = :idUsuario";
+
+        try {
+            $stmt = database::connect()->prepare($sql);
+            $stmt->bindParam(":Estado", $this->Estado, PDO::PARAM_STR);
+            $stmt->bindParam(":idUsuario", $this->idUsuario, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return [
+                'status' => 'success',
+                'message' => 'Usuario actualizado',
+                'action' => 'actualizar',
+                'module' => 'usuario',
+                'info' => ''
+            ];
+
+        }catch (PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al momento de actualizar el usuario',
+                'action' => 'actualizar',
+                'module' => 'usuario',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
 }

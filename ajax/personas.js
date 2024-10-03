@@ -220,9 +220,6 @@ $(document).ready(function () {
         let dniCUI = fila.find('td:eq(11)').text();
         let representanteLegal = fila.find('td:eq(12)').text();
         let estadoPersonaEditar = fila.find('td:eq(13)').text();
-        // datosBusquedaFiltroBD = descripcion;
-        // descripcionDB = descripcion;
-        console.log("ACAAAAAAAA\n");
         
         $("#nombresPersona").val(nombres.trim());
         $("#apellidosPersona").val(apellidos.trim());
@@ -433,31 +430,14 @@ $(document).off('submit', '#editarEstadoPersonaForm').on('submit', '#editarEstad
             response = JSON.parse(response);
                 if (response.status === 'success') {
                     alert("Se Actualizo el estado de la Persona");
-                    // return;
-                    // Swal.fire({
-                    //     icon: "success",
-                    //     title: "Actualización Exitosa",
-                    //     text: response.message,
-                    //     allowEnterKey: false,
-                    //     allowEscapeKey: false,
-                    //     allowOutsideClick: false,
-                    //     stopKeydownPropagation: false
-                    // }).then(() => {
+                    
                         $('#modalEstadoPersona').modal('hide');
                         loadPersonas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
                     // });
                 } else {
                     alert("Error");
                     return;
-                    // Swal.fire({
-                    //     icon: "error",
-                    //     title: "Error",
-                    //     text: response.message,
-                    //     allowEnterKey: false,
-                    //     allowEscapeKey: false,
-                    //     allowOutsideClick: false,
-                    //     stopKeydownPropagation: false
-                    // });
+                    
                 }
         },
         error: function (jqXHR, textStatus, errorThrown) {

@@ -145,6 +145,9 @@ $(document).ready(function () {
                                 <td>${usuario.Email}</td>
                                 <td>${usuario.Telefono}</td>
                                 <td>${usuario.Estado ? usuario.Estado : ''}</td>
+                                <td hidden>${usuario.idTipoUsuario}</td>
+                                <td hidden>${usuario.idUsuario}</td>
+                                <td hidden>${usuario.Password}</td>
                                 <td>
                                     ${acciones}
                                 </td>
@@ -194,6 +197,191 @@ $(document).ready(function () {
         });
     }
 
+
+    // Editar Usuario
+    $(document).on("click", "#btnEditarUsuario", function (e) {
+        e.preventDefault();
+        let modalEditar = $("#modalEditarUsuario");
+        let fila = $(this).closest("tr");
+        let idPersona = parseInt(fila.find('td:eq(1)').text());
+        let nombres = fila.find('td:eq(2)').text();
+        let tipoPersona = fila.find('td:eq(3)').text();
+        let tipoDocumentoIdentidad = fila.find('td:eq(4)').text();
+        let numDocumentoIdentidad = fila.find('td:eq(5)').text();
+        let email = fila.find('td:eq(6)').text();
+        let telefono = fila.find('td:eq(7)').text();
+        let estadoUsuario = fila.find('td:eq(8)').text();
+        let idTipoUsuario = parseInt(fila.find('td:eq(9)').text());
+        let idUsuario = parseInt(fila.find('td:eq(10)').text());
+        let usuario = fila.find('td:eq(0)').text();
+        let password = fila.find('td:eq(11)').text();
+
+        $("#nombresPersonaUsuarioEditar").val(nombres.trim());
+        $("#emailPersonaUsuarioEditar").val(email.trim());
+        $("#telefonoPersonaUsuarioEditar").val(telefono.trim());
+        $("#tipoPersonaUsuarioEditar").val(tipoPersona.trim());
+        $("#tipoDocumentoIdentidadUsuarioEditar").val(tipoDocumentoIdentidad.trim());
+        $("#numDocumentoIdentidadPersonaUsuarioEditar").val(numDocumentoIdentidad.trim());
+        $("#idPersonaAsignadoEditar").val(idPersona);
+        $("#tipoUsuarioEditar").val(idTipoUsuario);
+        $('#idUsuarioEditarVista').val(idUsuario);
+        $('#usuarioUsuarioEditar').val(usuario);
+        $('#passwordUsuarioEditar').val(password);
+
+        modalEditar.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalEditar.modal('show');
+
+        modalEditar.one('shown.bs.modal', function () {
+            // $("#nombresPersona").focus();
+        });
+    });
+
+    // Actualizar Area en Modelo
+    $(document).off('submit', '#editarUsuarioForm').on('submit', '#editarUsuarioForm', function (e) {
+        e.preventDefault();
+        $(this).off('submit'); // Desenganchar el evento de submit
+
+        let idTipoUsuario = $.trim($('#tipoUsuarioEditar').val());
+        let Usuario = $.trim($('#usuarioUsuarioEditar').val());
+        let Password = $.trim($('#passwordUsuarioEditar').val());
+        let idUsuario = $.trim($('#idUsuarioEditarVista').val());
+        let idPersona = $.trim($('#idPersonaAsignadoEditar').val());
+        
+
+        
+        if (Usuario.length === 0 || idPersona.length===0 || Password.length === 0 || idUsuario.length === 0) {
+
+            alert("Campos Incompletos");
+            return;
+        }
+
+     
+        $.ajax({
+            url: "./controllers/Usuario/actualizarUsuario.php",
+            type: "POST",
+            datatype: "json",
+            data: {
+                idTipoUsuario,Usuario,Password,idUsuario,idPersona
+            },
+            success: function (response) {
+                console.log(response);
+                // return
+                response = JSON.parse(response);
+                if (response.message === 'encontrada') {
+                    alert("El Usuario ingresado, pertenece  otra Persona");
+                    $("#usuarioUsuarioEditar").focus();
+                } else {
+                    if (response.status === 'success') {
+                        alert("Se Actualizo el Usuario");
+                        // return;
+                        // Swal.fire({
+                        //     icon: "success",
+                        //     title: "Actualización Exitosa",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // }).then(() => {
+                        $('#modalEditarUsuario').modal('hide');
+                        loadUsuarios(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+                        // });
+                    } else {
+                        alert("Error");
+                        return;
+                        // Swal.fire({
+                        //     icon: "error",
+                        //     title: "Error",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // });
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error updating the area:', textStatus, errorThrown);
+            }
+        });
+    });
+// Estado del Usuario
+$(document).on("click", "#btnEstadoUsuario", function (e) {
+
+    e.preventDefault();
+    let modalEstado = $("#modalEstadoUsuario");
+    let fila = $(this).closest("tr");
+    let idUsuario = parseInt(fila.find('td:eq(10)').text());
+    let nombres = fila.find('td:eq(2)').text();
+    let estadoUsuario = fila.find('td:eq(8)').text().trim();
+    console.log(estadoUsuario);
+    let usuario = fila.find('td:eq(0)').text();
+    nombresBD = nombres;
+    estadoUsuarioBD=estadoUsuario;
+    let v=$("#estadoUsuarioVista").val(estadoUsuario);
+    // }
+    $("#nombresUsuarioEstado").val(nombres.trim());
+    $("#idUsuarioEstado").val(idUsuario);
+    $('#usuarioUsuarioEstado').val(usuario);
+
+    modalEstado.modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
+    modalEstado.modal('show');
+
+    modalEstado.one('shown.bs.modal', function () {
+        // $("#estadoUsuario").focus();
+    });
+});
+
+// Actualizar Estado Persona en Modelo
+$(document).off('submit', '#editarEstadoUsuarioForm').on('submit', '#editarEstadoUsuarioForm', function (e) {
+    e.preventDefault();
+    $(this).off('submit'); // Desenganchar el evento de submit
+
+    let estado=$('#estadoUsuarioVista').val();
+    let nombres = $.trim($('#nombresUsuarioEstado').val());
+    let idUsuario = $.trim($('#idUsuarioEstado').val());
+    
+    if (nombres.length === 0 || idUsuario.length === 0) {
+        
+        alert("Campos Incompletos");
+        return;
+    }
+
+    $.ajax({
+        url: "./controllers/Usuario/estadoUsuario.php",
+        type: "POST",
+        datatype: "json",
+        data: { idUsuario,estado },
+        success: function (response) {
+            console.log(response);
+            // return
+            response = JSON.parse(response);
+                if (response.status === 'success') {
+                    alert("Se Actualizo el estado de la Persona");
+                    
+                        $('#modalEstadoUsuario').modal('hide');
+                        loadUsuarios(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+                    // });
+                } else {
+                    alert("Error");
+                    return;
+                    
+                }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error updating the area:', textStatus, errorThrown);
+        }
+    });
+});
 
 
 });

@@ -1,11 +1,11 @@
 <?php
-require_once "../../models/Persona.php";
+require_once "../../models/usuario/Usuario.php";
 require_once "../../config/database.php";
 
 $idUsuario = trim($_POST['idUsuario']);
-$nombres = trim($_POST['nombres']);
 $estadousuario = $_POST['estado'];
-
+// echo $estadopersona;
+// print_r($estadopersona);
 $usuarioModel = new Usuario();
 $usuarioModel->setidUsuario($idUsuario);
 $usuarioModel->setEstado($estadousuario);

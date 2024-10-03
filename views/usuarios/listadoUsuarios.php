@@ -62,6 +62,9 @@ require_once('../../config/parameters.php');
                     <th>Email</th>
                     <th>Teléfono</th>
                     <th>Estado</th>
+                    <th hidden>idTipoUsuario</th>
+                    <th hidden>idUsuario</th>
+                    <th hidden>Password</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -73,5 +76,7 @@ require_once('../../config/parameters.php');
 </div>
 
 <?php  require_once "asignarUsuarios.php"?>
+<?php  require_once "estadoUsuario.php"?>
+<?php  require_once "editarUsuarios.php"?>
 <script src="<?= base_url ?>ajax/usuarios.js"></script>
 <script src="<?= base_url ?>ajax/tipousuarios.js"></script>

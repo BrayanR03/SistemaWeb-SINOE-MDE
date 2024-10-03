@@ -12,39 +12,40 @@
                                 <h3>
                                     Datos de la Persona
                                 </h3>
-                                <input  id="idPersonaAsignado" hidden readonly>
+                                <input hidden id="idPersonaAsignadoEditar"  readonly>
+                                <input hidden id="idUsuarioEditarVista"  readonly>
                             </div>
                             <div class="datosOrigenBody">
                                 <div>
                                     <label>Nombres: </label>
                                     <input
                                         type="text" readonly
-                                        name="nombresPersonaUsuario"
-                                        id="nombresPersonaUsuario">
+                                        name="nombresPersonaUsuarioEditar"
+                                        id="nombresPersonaUsuarioEditar">
                                 </div>
                                 <div>
                                     <label>Email: </label>
-                                    <input readonly type="email" name="emailPersonaUsuario" id="emailPersonaUsuario">
+                                    <input readonly type="email" name="emailPersonaUsuarioEditar" id="emailPersonaUsuarioEditar">
                                 </div>
                                 <div>
                                     <label>Tipo Persona: </label>
-                                    <input type="text" readonly id="tipoPersonaUsuario">
+                                    <input type="text" readonly id="tipoPersonaUsuarioEditar">
                                 </div>
                                 <div>
                                     <label>Teléfono: </label>
                                     <input
                                         type="text" readonly
-                                        name="telefonoPersonaUsuario"
-                                        id="telefonoPersonaUsuario">
+                                        name="telefonoPersonaUsuarioEditar"
+                                        id="telefonoPersonaUsuarioEditar">
                                 </div>
                                 
                                 <div>
                                     <label>Tipo Documento: </label>
-                                    <input type="text" readonly id="tipoDocumentoIdentidadUsuario">
+                                    <input type="text" readonly id="tipoDocumentoIdentidadUsuarioEditar">
                                 </div>
                                 <div>
                                     <label>Nro Documento: </label>
-                                    <input readonly type="text" id="numDocumentoIdentidadPersonaUsuario" name="numDocumentoIdentidadPersonaUsuario">
+                                    <input readonly type="text" id="numDocumentoIdentidadPersonaUsuarioEditar" name="numDocumentoIdentidadPersonaUsuarioEditar">
                                 </div>
                             </div>
                         </div>
@@ -55,7 +56,7 @@
                             <div class="datosDestinoBody">
                                 <div>
                                     <label>Tipo Usuario: </label>
-                                    <select class="tipoUsuario" required id="tipoUsuarioEditar">
+                                    <select class="tipoUsuario" required id="tipoUsuarioEditar" name="tipoUsuario">
                                             <option value="1">ADMINISTRADOR</option>
                                             <option value="2">NORMAL</option>
                                     </select>
@@ -79,7 +80,7 @@
                     </div>
                 </div>
                 <div class="containerButtonsEditarArea">
-                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Editar">
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Actualizar">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
