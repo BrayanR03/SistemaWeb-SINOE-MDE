@@ -67,5 +67,7 @@ require_once('../../config/parameters.php');
         </table>
     </div>
 </div>
-
+<?php  require_once "asignarCasilla.php"?>
 <script src="<?= base_url ?>ajax/casillas.js"></script>
+<script src="<?= base_url ?>ajax/tipocasillas.js"></script>
+<script src="<?= base_url ?>ajax/idUltimaCasilla.js"></script>

@@ -107,4 +107,19 @@ class Casilla
         }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function idUltimaCasilla(){
+        $sql="SELECT ISNULL(MAX(idCasilla),0) AS 'idCasilla' FROM CASILLAS";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->execute();
+        }catch(PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al cargar las casillas de los usuarios',     
+                'info' => $e->getMessage(),
+            ];
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
