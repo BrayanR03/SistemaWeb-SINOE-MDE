@@ -38,7 +38,7 @@ require_once('../../config/parameters.php');
 
     </div>
     <div class="text-end">
-        <p class="fs-6">Total de registros: <span class="fw-bold" id="totalUsuariosRegistrados"></span></p>
+        <p class="fs-6">Total de registros: <span class="fw-bold" id="totalCasillasRegistradas"></span></p>
         <div>
             <ul class="listadoOpcionesPaginacion" id="opcionesPaginacionAreas">
             </ul>
@@ -51,15 +51,12 @@ require_once('../../config/parameters.php');
                     <th>Tipo Casilla</th>
                     <th>Nro Casilla</th>
                     <th>Fecha Apertura</th>
-                    <th hidden>Usuario</th>
                     <th hidden>Id Persona</th>
                     <th>Persona</th>
                     <th>Tipo Persona</th>
                     <th>Documento Identidad</th>
                     <th>Nro Documento Identidad</th>
                     <th>Representante Legal</th>
-                    <th hidden>Email</th>
-                    <th hidden>Teléfono</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
