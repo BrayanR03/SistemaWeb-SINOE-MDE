@@ -5,5 +5,9 @@ require_once "../../models/Casilla.php";
 $casillaModel = new Casilla();
 
 $response = $casillaModel->idUltimaCasilla();
-
-print json_encode($response);
+if ($response > 0) {
+    $data = $response;
+} else {
+    $data = null;
+}
+print json_encode($data);

@@ -109,7 +109,7 @@ class Casilla
     }
 
     public function idUltimaCasilla(){
-        $sql="SELECT ISNULL(MAX(idCasilla),0) AS 'idCasilla' FROM CASILLAS";
+        $sql="SELECT ISNULL(MAX(idCasilla),0) + 1 AS 'idCasilla' FROM CASILLAS";
         try{
             $stmt=database::connect()->prepare($sql);
             $stmt->execute();
@@ -121,5 +121,61 @@ class Casilla
             ];
         }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function registrarCasillaPersona(){
+        $sql="INSERT INTO CASILLAS(FechaApertura,idTipoCasilla,idPersona)VALUES(:FechaApertura,:idTipoCasilla,:idPersona)";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam(":FechaApertura",$this->FechaApertura,PDO::PARAM_STR);
+            $stmt->bindParam(":idTipoCasilla",$this->idTipoCasilla,PDO::PARAM_INT);
+            $stmt->bindParam(":idPersona",$this->idPersona,PDO::PARAM_INT);
+            $stmt->execute();
+            return [
+                'status'=>'success',
+                'message' => 'Casilla Asignada Registrada Correctamente',
+                'action' => 'registrar',
+                'module' => 'casilla',
+                'info' =>''
+            ];
+        }catch(PDOException $e){
+            return [
+                'status'=>'failed',
+                'message' => 'Ocurrio un error al asignar la casilla',
+                'action' => 'registrar',
+                'module' => 'casilla',
+                'info' =>$e->getMessage()
+            ];
+        }
+    }
+
+    public function actualizarDatosCasilla(){
+        $sql="UPDATE Casillas SET FechaApertura=:FechaApertura,idTipoCasilla=:idTipoCasilla,idPersona=:idPersona,Estado=:Estado WHERE idCasilla=:idCasilla";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam(":FechaApertura",$this->FechaApertura,PDO::PARAM_STR);
+            $stmt->bindParam(":idTipoCasilla",$this->idTipoCasilla,PDO::PARAM_INT);
+            $stmt->bindParam(":idPersona",$this->idPersona,PDO::PARAM_INT);
+            $stmt->bindParam(":Estado",$this->estado,PDO::PARAM_STR);
+            $stmt->bindParam(":idCasilla",$this->idCasilla,PDO::PARAM_INT);
+            $stmt->execute();
+            return [
+                'status' => 'success',
+                'message' => 'Casilla actualizada',
+                'action' => 'actualizar',
+                'module' => 'casilla',
+                'info' => ''
+            ];
+
+        }catch(PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al actualizar la casilla',
+                'action' => 'actualizar',
+                'module' => 'casilla',
+                'info' => $e->getMessage()
+            ];
+
+        }
     }
 }
