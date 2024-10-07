@@ -31,11 +31,19 @@ class UsuarioController
             if (count($response['data']) == 0) {
                 $response['status'] = 'not found';
                 $_SESSION['response'] = $response;
-                echo "
-            <script>
-                window.location.href = '" . base_url . "';
-            </script>
-        ";
+
+                            echo "
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            alert('Credenciales Incorrectas');
+                            setTimeout(function() {
+                                window.location.href = '" . base_url . "';
+                            }, 100); // Pequeño retraso antes de redirigir
+                        });
+                    </script>
+                ";
+                // require_once "views/alertaInicioSesion.php";
+
                 exit();
             }
 

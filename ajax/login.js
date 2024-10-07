@@ -4,6 +4,9 @@ $('#formLogin').submit(function(e) {
     let username = $.trim($('#Usuario').val());
     let password = $.trim($('#Password').val());
 
+    // console.log(username);
+    // console.log(password);
+    // return
     if (username.length == 0 || password.length == 0) {
         alert("Ingresa un usuario y contraseña");
         // Swal.fire({
