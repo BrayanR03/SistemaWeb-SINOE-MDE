@@ -44,7 +44,7 @@ require_once('../../config/parameters.php');
             </ul>
         </div>
     </div>
-    <div class="listadoAreas_body" style="margin-top: 15px;">
+    <div class="listadoAreas_body container-table" style="margin-top: 15px;">
         <table>
             <thead>
                 <tr>

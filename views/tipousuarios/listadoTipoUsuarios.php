@@ -5,8 +5,8 @@ require_once('../../config/parameters.php');
 <div class="containerListadoArea">
     <div class="listadoAreas_header">
         <div>
-            <h3 style="font-weight: bold;">GESTIÓN DE ÁREAS</h3>
-            <p style="color: #006B2D;">LISTADO DE ÁREAS</p>
+            <h3 style="font-weight: bold;">GESTIÓN DE TIPO DE USUARIOS</h3>
+            <p style="color: #006B2D;">LISTADO DE TIPOS DE USUARIOS</p>
             <div class="containerFiltrado">
                 <div class="busqueda">
                     <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,19 +18,19 @@ require_once('../../config/parameters.php');
                         name="Descripcion"
                         value=""
                         autocomplete="off"
-                        placeholder="Nombre del Área">
+                        placeholder="Descripcion del Tipo de Usuario">
                 </div>
             </div>
         </div>
-        <a href="" style="background-color: #006B2D;" id="btnRegistrarArea" class="btnNuevoRegistro">
+        <a href="" style="background-color: #006B2D;" id="btnRegistrarTipoUsuario" class="btnNuevoRegistro">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="#ffffff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
-            Registrar Nueva Área
+            Registrar Nuevo Tipo Usuario
         </a>
     </div>
     <div class="text-end">
-        <p class="fs-6">Total de registros: <span class="fw-bold" id="totalAreasRegistradas"></span></p>
+        <p class="fs-6">Total de registros: <span class="fw-bold" id="totalTURegistrados"></span></p>
         <div>
             <ul class="listadoOpcionesPaginacion" id="opcionesPaginacionAreas">
             </ul>
@@ -46,15 +46,14 @@ require_once('../../config/parameters.php');
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="bodyListaAreas">
+            <tbody id="bodyListaTipoUsuarios">
 
             </tbody>
         </table>
     </div>
 </div>
 
-<?php  require_once "registroArea.php"?>
-<?php  require_once "editarArea.php"?>
-<?php  require_once "estadoArea.php"?>
+<?php  require_once "registrarTipoUsuario.php"?>
+<?php  require_once "editarTipoUsuario.php"?>
 
-<script src="<?= base_url ?>ajax/areas.js"></script>
+<script src="<?= base_url ?>ajax/tipousuarios.js"></script>
