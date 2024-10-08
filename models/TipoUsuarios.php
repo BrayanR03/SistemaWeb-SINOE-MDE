@@ -46,7 +46,7 @@ class TipoUsuarios{
             if(count($results)>0){
                 return [
                     'status'=>'success',
-                    'message'=>'No se encontraron registros',
+                    'message'=>'Listado Cargado',
                     'action'=>'listar',
                     'module'=>'tipousuario',
                     'data'=>$results,
