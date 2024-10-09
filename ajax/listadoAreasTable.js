@@ -183,7 +183,7 @@ $(document).ready(function() {
         });
     });
 
-    let descripcionDB = '';
+    // let descripcionDB = '';
 // Editar
     $(document).on("click", "#btnEditarArea", function(e) {
         e.preventDefault();
@@ -191,7 +191,7 @@ $(document).ready(function() {
         let fila = $(this).closest("tr");
         let codArea = parseInt(fila.find('td:eq(0)').text());
         let descripcion = fila.find('td:eq(1)').text();
-        descripcionDB = descripcion;
+        // descripcionDB = descripcion;
         $("#descripcionArea").val(descripcion.trim());
         $("#codArea").val(codArea);
 
@@ -228,18 +228,18 @@ $(document).ready(function() {
             return;
         }
 
-        if (descripcionDB === descripcion) {
-            Swal.fire({
-                icon: "warning",
-                title: "¡Advertencia!",
-                text: "Para actualizar el área tiene que tener una nueva descripción.",
-                allowEnterKey: false,
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-                stopKeydownPropagation: false
-            });
-            return;
-        }
+        // if (descripcionDB === descripcion) {
+        //     Swal.fire({
+        //         icon: "warning",
+        //         title: "¡Advertencia!",
+        //         text: "Para actualizar el área tiene que tener una nueva descripción.",
+        //         allowEnterKey: false,
+        //         allowEscapeKey: false,
+        //         allowOutsideClick: false,
+        //         stopKeydownPropagation: false
+        //     });
+        //     return;
+        // }
 
         descripcion = capitalizeWords(descripcion);
 

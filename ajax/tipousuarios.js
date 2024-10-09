@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log("INICIO DE AREAS.JS :D");
+    console.log("INICIO DE TIPOUSUARIOS.JS :D");
     const alturaPantalla = window.innerHeight;
     let registrosPorPagina = 0;
 
@@ -180,7 +180,7 @@ $(document).off('submit', '#registrarTipoUsuarioForm').on('submit', '#registrarT
     });
 });
 
-let descripcionDB = '';
+// let descripcionDB = '';
 
 // Editar Area
 $(document).on("click", "#btnEditarTipoUsuario", function (e) {
@@ -190,7 +190,7 @@ $(document).on("click", "#btnEditarTipoUsuario", function (e) {
     let idTipoUsuario = parseInt(fila.find('td:eq(0)').text());
     let descripcion = fila.find('td:eq(1)').text();
     let estado = fila.find('td:eq(2)').text();
-    descripcionDB = descripcion;
+    // descripcionDB = descripcion;
     $("#estadoTipoUsuario").val(estado.trim());
     $("#descripcionTipoUsuario").val(descripcion.trim());
         $("#idTipoUsuario").val(idTipoUsuario);

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log("INICIO DE tipo personas.JS :D");
+    console.log("INICIO DE TIPODOCUMENTOS.JS :D");
     const alturaPantalla = window.innerHeight;
     let registrosPorPagina = 0;
 
@@ -14,37 +14,35 @@ $(document).ready(function () {
     }
 
     let pagina = 1;
-    let descripcionTPFiltro = $('#Descripcion').val();
+    let descripcionTDFiltro = $('#Descripcion').val();
 
-
-    function loadTipoPersonas(descripcionTPFiltro = '', pagina, registrosPorPagina) {
+    function loadTipoDocumentos(descripcionTDFiltro = '', pagina, registrosPorPagina) {
         $.ajax({
-            url: './controllers/TipoPersonas/listarTipoPersonas.php',
+            url: './controllers/TipoDocumentos/listadoTipoDocumentos.php',
             method: 'POST',
             dataType: 'json',
-            data: { descripcionTPFiltro, pagina, registrosPorPagina },
+            data: { descripcionTDFiltro, pagina, registrosPorPagina },
             success: function (response) {
                 console.log(response);
                 // return
                 let { data } = response
                 if (data.length > 0 && Array.isArray(data)) {
-                    let row = data.map(tipopersona => `
+                    let row = data.map(tipodoc => `
                     <tr>
-                        <td>${tipopersona.idTipoPersona}</td>
-                        <td>${tipopersona.Descripcion}</td>
-                        <td>${tipopersona.Estado}</td>
+                        <td>${tipodoc.idTipoDocumento}</td>
+                        <td>${tipodoc.Descripcion}</td>
+                        <td>${tipodoc.Estado}</td>
                         <td>
-                        <a href="#" id="btnEditarTipoPersona" >Editar</a>
+                        <a href="#" id="btnEditarTipoDocumento" >Editar</a>
                         </td>
 
                     </tr>`).join('');
-                    $('#bodyListaTipoPersonas').html(row);
+                    $('#bodyListaTipoDocumentos').html(row);
                 } else {
                     let row = `<tr>
-                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen tipos de persona registrados</td>
+                        <td colSpan="10" className="mensajeSinRegistros"> Aún no existen tipos de documento registrados</td>
                     </tr>`
-                    $('#bodyListaTipoPersonas').html(row);
-                        
+                    $('#bodyListaTipoDocumentos').html(row);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -53,44 +51,42 @@ $(document).ready(function () {
         });
     }
 
-    loadTotalTipoPersonas(descripcionTPFiltro);
-    loadTipoPersonas(descripcionTPFiltro, pagina, registrosPorPagina);
+    loadTotalTipoDocumentos(descripcionTDFiltro);
+    loadTipoDocumentos(descripcionTDFiltro, pagina, registrosPorPagina);
     // buscarDocumentos
     $(document).off("input", "#Descripcion").on("input", "#Descripcion", function (e) {
         e.preventDefault();
-        descripcionTPFiltro = $('#Descripcion').val();
+        descripcionTDFiltro = $('#Descripcion').val();
         pagina = 1
 
         // generarOpcionesPaginacion()
-        loadTipoPersonas(descripcionTPFiltro, pagina, registrosPorPagina);
-        loadTotalTipoPersonas(descripcionTPFiltro);
+        loadTipoDocumentos(descripcionTDFiltro, pagina, registrosPorPagina);
+        loadTotalTipoDocumentos(descripcionTDFiltro);
     })
 
-    function loadTotalTipoPersonas(descripcionTPFiltro) {
+    function loadTotalTipoDocumentos(descripcionTDFiltro) {
         $.ajax({
-            url: './controllers/TipoPersonas/totalTipoPersonasRegistradas.php',
+            url: './controllers/TipoDocumentos/totalTipoDocumentosRegistrados.php',
             method: 'GET',
             dataType: 'json',
-            data: { descripcionTPFiltro},
+            data: { descripcionTDFiltro},
             success: function (response) {
                 // console.log(response);
                 // return 
                 console.log(response);
-                let totalTPRegistradosInput = document.getElementById("totalTPRegistrados");
-                totalTPRegistradosInput.innerText = response[0].total;
+                let totalTDRegistradosInput = document.getElementById("totalTDRegistrados");
+                totalTDRegistradosInput.innerText = response[0].total;
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error fetching the content:', textStatus, errorThrown);
             }
         });
     }
-
-    
 // ABRIR MODAL REGISTRAR AREA
-$(document).off("click", "#btnRegistrarTipoPersona").on("click", "#btnRegistrarTipoPersona", function (e) {
+$(document).off("click", "#btnRegistrarTipoDocumento").on("click", "#btnRegistrarTipoDocumento", function (e) {
     e.preventDefault();
-    let modalRegistrar = $("#modalRegistrarTipoPersona");
-    $("#registrarTipoPersonaForm").trigger("reset");
+    let modalRegistrar = $("#modalRegistrarTipoDocumento");
+    $("#registrarTipoDocumentoForm").trigger("reset");
 
     modalRegistrar.modal({
         backdrop: 'static',
@@ -100,15 +96,15 @@ $(document).off("click", "#btnRegistrarTipoPersona").on("click", "#btnRegistrarT
     modalRegistrar.modal('show');
 
     modalRegistrar.on('shown.bs.modal', function () {
-        $("#descripcionTipoPersonaNuevo").focus();
+        $("#descripcionTipoDocumentoNuevo").focus();
     });
 });
 
 // REGISTRAR AREA DIRECTO A BD
-$(document).off('submit', '#registrarTipoPersonaForm').on('submit', '#registrarTipoPersonaForm', function (e) {
+$(document).off('submit', '#registrarTipoDocumentoForm').on('submit', '#registrarTipoDocumentoForm', function (e) {
     e.preventDefault();
 
-    let descripcion = $.trim($('#descripcionTipoPersonaNuevo').val());
+    let descripcion = $.trim($('#descripcionTipoDocumentoNuevo').val());
 
     if (descripcion.length === 0) {
         alert("Campos Vacíos");
@@ -128,7 +124,7 @@ $(document).off('submit', '#registrarTipoPersonaForm').on('submit', '#registrarT
     // descripcion = capitalizeWords(descripcion);
 
     $.ajax({
-        url: "./controllers/TipoPersonas/registrarTipoPersonas.php",
+        url: "./controllers/TipoDocumentos/registrarTipoDocumento.php",
         type: "POST",
         datatype: "json",
         data: { descripcion: descripcion },
@@ -136,8 +132,8 @@ $(document).off('submit', '#registrarTipoPersonaForm').on('submit', '#registrarT
             console.log(response);
             // return
             response = JSON.parse(response);
-            if (response.message === 'Tipo Persona encontrado') {
-                alert("Este Tipo de Persona ya se encuentra Registrado");
+            if (response.message === 'Tipo Documento encontrado') {
+                alert("Este Tipo de Documento ya se encuentra Registrado");
                 // Swal.fire({
                 //     icon: "warning",
                 //     title: "¡Advertencia!",
@@ -149,7 +145,7 @@ $(document).off('submit', '#registrarTipoPersonaForm').on('submit', '#registrarT
                 // });
             } else {
                 if (response.status === 'success') {
-                    alert("SE REGISTRO EL TIPO DE PERSONA");
+                    alert("SE REGISTRO EL TIPO DE DOCUMENTO");
                     // Swal.fire({
                     //     icon: "success",
                     //     title: "¡Éxito!",
@@ -159,14 +155,14 @@ $(document).off('submit', '#registrarTipoPersonaForm').on('submit', '#registrarT
                     //     allowOutsideClick: false,
                     //     stopKeydownPropagation: false
                     // }).then(() => {
-                    $('#modalRegistrarTipoPersona').modal('hide');
+                    $('#modalRegistrarTipoDocumento').modal('hide');
                     pagina = 1;
                     // generarOpcionesPaginacion();
-                    loadTipoPersonas(descripcionTPFiltro, pagina, registrosPorPagina);
-                    loadTotalTipoPersonas(descripcionTPFiltro);
+                    loadTipoDocumentos(descripcionTDFiltro, pagina, registrosPorPagina);
+                    loadTotalTipoDocumentos(descripcionTDFiltro);
                     // });
                 } else {
-                    alert("Error al Registrar el Tipo de Personas");
+                    alert("Error al Registrar el Tipo de Documentos");
                     // Swal.fire({
                     //     icon: "error",
                     //     title: "Error",
@@ -188,17 +184,17 @@ $(document).off('submit', '#registrarTipoPersonaForm').on('submit', '#registrarT
 // let descripcionDB = '';
 
 // Editar Area
-$(document).on("click", "#btnEditarTipoPersona", function (e) {
+$(document).on("click", "#btnEditarTipoDocumento", function (e) {
     e.preventDefault();
-    let modalEditar = $("#modalEditarTipoPersona");
+    let modalEditar = $("#modalEditarTipoDocumento");
     let fila = $(this).closest("tr");
-    let idTipoPersona = parseInt(fila.find('td:eq(0)').text());
+    let idTipoDocumento = parseInt(fila.find('td:eq(0)').text());
     let descripcion = fila.find('td:eq(1)').text();
     let estado = fila.find('td:eq(2)').text();
     // descripcionDB = descripcion;
-    $("#estadoTipoPersona").val(estado.trim());
-    $("#descripcionTipoPersona").val(descripcion.trim());
-        $("#idTipoPersona").val(idTipoPersona);
+    $("#estadoTipoDocumento").val(estado.trim());
+    $("#descripcionTipoDocumento").val(descripcion.trim());
+        $("#idTipoDocumento").val(idTipoDocumento);
 
     modalEditar.modal({
         backdrop: 'static',
@@ -208,20 +204,20 @@ $(document).on("click", "#btnEditarTipoPersona", function (e) {
     modalEditar.modal('show');
 
     modalEditar.one('shown.bs.modal', function () {
-        $("#descripcionTipoPersona").focus();
+        $("#descripcionTipoDocumento").focus();
     });
 });
 
 // Actualizar Area en Modelo
-$(document).off('submit', '#editarTipoPersonaForm').on('submit', '#editarTipoPersonaForm', function (e) {
+$(document).off('submit', '#editarTipoDocumentoForm').on('submit', '#editarTipoDocumentoForm', function (e) {
     e.preventDefault();
     $(this).off('submit'); // Desenganchar el evento de submit
 
-    let estado = $.trim($('#estadoTipoPersona').val());
-    let descripcion = $.trim($('#descripcionTipoPersona').val());
-    let idTipoPersona = $.trim($('#idTipoPersona').val());
+    let estado = $.trim($('#estadoTipoDocumento').val());
+    let descripcion = $.trim($('#descripcionTipoDocumento').val());
+    let idTipoDocumento = $.trim($('#idTipoDocumento').val());
 
-    if (descripcion.length === 0 || idTipoPersona.length === 0) {
+    if (descripcion.length === 0 || idTipoDocumento.length === 0) {
         // Swal.fire({
         //     icon: "warning",
         //     title: "Campos Incompletos",
@@ -240,16 +236,16 @@ $(document).off('submit', '#editarTipoPersonaForm').on('submit', '#editarTipoPer
     // descripcion = capitalizeWords(descripcion);
 
     $.ajax({
-        url: "./controllers/TipoPersonas/actualizarTipoPersonas.php",
+        url: "./controllers/TipoDocumentos/actualizarTipoDocumento.php",
         type: "POST",
         datatype: "json",
-        data: { idTipoPersona, descripcion,estado },
+        data: { idTipoDocumento, descripcion,estado },
         success: function (response) {
             console.log(response);
             // return
             response = JSON.parse(response);
                 if (response.status === 'success') {
-                    alert("Se Actualizo el Tipo Persona");
+                    alert("Se Actualizo el Tipo Documento");
                     // return;
                     // Swal.fire({
                     //     icon: "success",
@@ -260,8 +256,8 @@ $(document).off('submit', '#editarTipoPersonaForm').on('submit', '#editarTipoPer
                     //     allowOutsideClick: false,
                     //     stopKeydownPropagation: false
                     // }).then(() => {
-                        $('#modalEditarTipoPersona').modal('hide');
-                        loadTipoPersonas(descripcionTPFiltro,pagina, registrosPorPagina);
+                        $('#modalEditarTipoDocumento').modal('hide');
+                        loadTipoDocumentos(descripcionTDFiltro,pagina, registrosPorPagina);
                     // });
                 } else {
                     alert("Error");
@@ -288,23 +284,22 @@ $(document).off('submit', '#editarTipoPersonaForm').on('submit', '#editarTipoPer
 });
 
 
-
 // llenar select
 $.ajax({
-    url: './controllers/TipoPersonas/listarTipoPersonasCombo.php',
+    url: './controllers/TipoDocumentos/listarTipoDocumentoCombo.php',
     method: 'GET',
     dataType: 'json',
     data: {},
     success: function(data) {
-        // console.log(data);
         if (data && Array.isArray(data)) {
             let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
-                data.map(tipopersonas =>
-                    `<option value="${tipopersonas.idTipoPersona}">${tipopersonas.Descripcion}</option>`
+                data.map(tipodoc =>
+                    `<option value="${tipodoc.idTipoDocumento}">${tipodoc.Descripcion}</option>`
                 ).join('');
 
 
-            $('.selectTipoPersona').html(options);
+            $('.selectTipoDocumento').html(options);
+            
         } else {
             console.warn('No data received or data is not an array.');
         }

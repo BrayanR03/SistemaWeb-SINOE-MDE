@@ -1,29 +1,25 @@
 <?php
 
-class TipoCasilla
-{
-
-    private $idTipoCasilla;
+class TipoDocumento{
+    private $idTipoDocumento;
     private $Descripcion;
     private $Estado;
-
-    public function __construct() {}
-
-    public function getidTipoCasilla()
+    public function __construct()
     {
-        return $this->idTipoCasilla;
+        
     }
-    public function setidTipoCasilla($idTipoCasilla)
-    {
-        $this->idTipoCasilla = $idTipoCasilla;
+
+    public function getidTipoDocumento(){
+        return $this->idTipoDocumento;
     }
-    public function getDescripcion()
-    {
+    public function setidTipoDocumento($idTipoDocumento){
+        $this->idTipoDocumento=$idTipoDocumento;
+    }
+    public function getDescripcion(){
         return $this->Descripcion;
     }
-    public function setDescripcion($Descripcion)
-    {
-        $this->Descripcion = $Descripcion;
+    public function setDescripcion($Descripcion){
+        $this->Descripcion=$Descripcion;
     }
     public function getEstado(){
         return $this->Estado;
@@ -32,19 +28,16 @@ class TipoCasilla
         $this->Estado=$Estado;
     }
 
-    public function ListadoTipoCasillasCombo()
-    {
-        $sql = "SELECT Descripcion,idTipoCasilla FROM TIPOCASILLAS";
-        $stmt = database::connect()->prepare($sql);
+    public function listarTipoDocumentoCombo(){
+        $sql="SELECT Descripcion,idTipoDocumento FROM TIPODOCUMENTOS";
+        $stmt=database::connect()->prepare($sql);
         $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+        $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
 
-
-    public function listarTipoCasillasRegistrados(){
-        $sql="EXEC SP_ListarTipoCasillas @Descripcion=:Descripcion";
+    public function listarTipoDocumentosRegistrados(){
+        $sql="EXEC SP_ListarTipoDocumentos @Descripcion=:Descripcion";
         try{
             $stmt=database::connect()->prepare($sql);
             $stmt->bindParam("Descripcion",$this->Descripcion,PDO::PARAM_STR);
@@ -55,7 +48,7 @@ class TipoCasilla
                     'status'=>'success',
                     'message'=>'Listado Cargado',
                     'action'=>'listar',
-                    'module'=>'tipocasilla',
+                    'module'=>'tipodocumento',
                     'data'=>$results,
                     'info'=>''
                 ];   
@@ -65,7 +58,7 @@ class TipoCasilla
                 'status'=>'success',
                 'message'=>'No se encontraron registros',
                 'action'=>'listar',
-                'module'=>'tipocasilla',
+                'module'=>'tipodocumento',
                 'data'=>[],
                 'info'=>''
             ];
@@ -73,15 +66,15 @@ class TipoCasilla
         }catch(PDOException $e){
             return [
                 'status'=>'failed',
-                'message'=>'Ocurrio un error al cargar los tipo de casilla',
+                'message'=>'Ocurrio un error al cargar los tipo de documento',
                 'action'=>'listar',
-                'module'=>'tipocasilla',
+                'module'=>'tipodocumento',
                 'info'=>$e->getMessage()
             ];
         }
     }
-    public function registrarTipoCasilla(){
-        $sql="INSERT INTO TIPOCASILLAS(Descripcion)VALUES(:Descripcion)";
+    public function registrarTipoDocumento(){
+        $sql="INSERT INTO TIPODOCUMENTOS(Descripcion)VALUES(:Descripcion)";
         try{
             $stmt=database::connect()->prepare($sql);
             $stmt->bindParam(":Descripcion",$this->Descripcion,PDO::PARAM_STR);
@@ -89,9 +82,9 @@ class TipoCasilla
 
             return [
                 'status'=>'success',
-                'message' => 'Tipo Casilla Registrada Correctamente',
+                'message' => 'Tipo Documento Registrada Correctamente',
                 'action' => 'registrar',
-                'module' => 'tipocasilla',
+                'module' => 'tipodocumento',
                 'info' =>''
             ];
 
@@ -99,16 +92,16 @@ class TipoCasilla
         }catch(PDOException $e){
             return [
                 'status'=>'failed',
-                'message' => 'Ocurrio un error al momento de registrar el Tipo de Casilla',
+                'message' => 'Ocurrio un error al momento de registrar el Tipo de Documento',
                 'action' => 'registrar',
-                'module' => 'tipocasilla',
+                'module' => 'tipodocumento',
                 'info' => $e->getMessage()
             ];
         }
     }
 
-    public function obtenerTotalTipoCasillasRegistradas($Descripcion=''){
-        $sql = "SELECT count(idTipoCasilla) AS 'total' FROM TIPOCASILLAS WHERE Descripcion LIKE '%'+ :Descripcion + '%'";
+    public function obtenerTotalTipoDocumentosRegistrados($Descripcion=''){
+        $sql = "SELECT count(idTipoDocumento) AS 'total' FROM TIPODOCUMENTOS WHERE Descripcion LIKE '%'+ :Descripcion + '%'";
 
         $stmt = database::connect()->prepare($sql);
         $stmt->bindParam("Descripcion", $Descripcion, PDO::PARAM_STR);
@@ -117,8 +110,8 @@ class TipoCasilla
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function existeTipoCasilla(){
-        $sql= "SELECT * FROM TIPOCASILLAS WHERE Descripcion = :Descripcion";
+    public function existeTipoDocumento(){
+        $sql= "SELECT * FROM TIPODOCUMENTOS WHERE Descripcion = :Descripcion";
 
         try{
             $stmt = database::connect()->prepare($sql);
@@ -129,9 +122,9 @@ class TipoCasilla
             if (count($results) > 0) {
                 return [
                     'status' => 'success',
-                    'message' => 'Tipo Casilla encontrado',
+                    'message' => 'Tipo Documento encontrado',
                     'action' => 'buscar',
-                    'module' => 'tipocasilla',
+                    'module' => 'tipodocumento',
                     'data' => [],
                     'info' => ''
                 ];
@@ -141,52 +134,51 @@ class TipoCasilla
                 'status' => 'success',
                 'message' => '¡No se encontraron resultados!',
                 'action' => 'buscar',
-                'module' => 'tipocasilla',
+                'module' => 'tipodocumento',
                 'data' => [],
                 'info' => ''
             ];
         }catch (PDOException $e) {
             return [
                 'status' => 'failed',
-                'message' => 'Ocurrio un error al momento de verificar si el tipo de casilla existe',
+                'message' => 'Ocurrio un error al momento de verificar si el tipo de documento existe',
                 'action' => 'buscar',
-                'module' => 'tipocasilla',
+                'module' => 'tipodocumento',
                 'info' => $e->getMessage()
             ];
         }
     }
 
-    public function actualizarTipoCasilla(){
-        $sql = "UPDATE TIPOCASILLAS SET Descripcion = :Descripcion,Estado=:Estado WHERE idTipoCasilla = :idTipoCasilla";
+    public function actualizarTipoDocumento(){
+        $sql = "UPDATE TIPODOCUMENTOS SET Descripcion = :Descripcion,Estado=:Estado WHERE idTipoDocumento = :idTipoDocumento";
 
         try {
             $stmt = database::connect()->prepare($sql);
 
             $stmt->bindParam(":Descripcion", $this->Descripcion, PDO::PARAM_STR);
             $stmt->bindParam(":Estado", $this->Estado, PDO::PARAM_STR);
-            $stmt->bindParam(":idTipoCasilla", $this->idTipoCasilla, PDO::PARAM_INT);
+            $stmt->bindParam(":idTipoDocumento", $this->idTipoDocumento, PDO::PARAM_INT);
 
             $stmt->execute();
 
             return [
                 'status' => 'success',
-                'message' => 'Tipo Casilla actualizada',
+                'message' => 'Tipo Documento actualizada',
                 'action' => 'actualizar',
-                'module' => 'tipocasilla',
+                'module' => 'tipodocumento',
                 'info' => ''
             ];
 
         }catch (PDOException $e){
             return [
                 'status' => 'failed',
-                'message' => 'Ocurrio un error al momento de actualizar el tipo de casilla',
+                'message' => 'Ocurrio un error al momento de actualizar el tipo de documento',
                 'action' => 'actualizar',
-                'module' => 'tipocasilla',
+                'module' => 'tipodocumento',
                 'info' => $e->getMessage()
             ];
         }
     }
-
 }
 
 ?>

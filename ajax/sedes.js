@@ -185,7 +185,7 @@ function loadTotalSedes(descripcionSedeFiltro) {
         });
     });
 
-    let descripcionDB = '';
+    // let descripcionDB = '';
 
 
 
@@ -196,7 +196,7 @@ function loadTotalSedes(descripcionSedeFiltro) {
         let fila = $(this).closest("tr");
         let idSede = parseInt(fila.find('td:eq(0)').text());
         let descripcion = fila.find('td:eq(1)').text();
-        descripcionDB = descripcion;
+        // descripcionDB = descripcion;
         $("#descripcionSede").val(descripcion.trim());
         $("#idSede").val(idSede);
 
@@ -235,20 +235,20 @@ function loadTotalSedes(descripcionSedeFiltro) {
             return;
         }
 
-        if (descripcionDB === descripcion) {
-            // Swal.fire({
-            //     icon: "warning",
-            //     title: "¡Advertencia!",
-            //     text: "Para actualizar el área tiene que tener una nueva descripción.",
-            //     allowEnterKey: false,
-            //     allowEscapeKey: false,
-            //     allowOutsideClick: false,
-            //     stopKeydownPropagation: false
-            // });
-            // return;
-            alert("Para actualizar la sede tiene que tener una nueva descripción.");
-            return;
-        }
+        // if (descripcionDB === descripcion) {
+        //     // Swal.fire({
+        //     //     icon: "warning",
+        //     //     title: "¡Advertencia!",
+        //     //     text: "Para actualizar el área tiene que tener una nueva descripción.",
+        //     //     allowEnterKey: false,
+        //     //     allowEscapeKey: false,
+        //     //     allowOutsideClick: false,
+        //     //     stopKeydownPropagation: false
+        //     // });
+        //     // return;
+        //     alert("Para actualizar la sede tiene que tener una nueva descripción.");
+        //     return;
+        // }
 
         // descripcion = capitalizeWords(descripcion);
 
@@ -318,7 +318,7 @@ $(document).on("click", "#btnEstadoSede", function (e) {
     let idSede = parseInt(fila.find('td:eq(0)').text());
     let descripcion = fila.find('td:eq(1)').text();
     let estadoSede = fila.find('td:eq(2)').text();
-    descripcionDB = descripcion;
+    // descripcionDB = descripcion;
     estadoSedeBD=estadoSede;
     // if(estadoArea.trim()=="Habilitada"){
 
