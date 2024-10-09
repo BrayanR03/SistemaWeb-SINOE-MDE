@@ -55,6 +55,5 @@ require_once('../../config/parameters.php');
 
 <?php  require_once "registroSede.php"?>
 <?php  require_once "editarSede.php"?>
-<?php  require_once "estadoSede.php"?>
 
 <script src="<?= base_url ?>ajax/sedes.js"></script>

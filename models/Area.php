@@ -141,11 +141,12 @@ class Area{
     }
 
     public function actualizarArea(){
-        $sql = "UPDATE AREAS SET Descripcion = :Descripcion WHERE idArea = :idArea";
+        $sql = "UPDATE AREAS SET Descripcion = :Descripcion,Estado=:Estado WHERE idArea = :idArea";
 
         try {
             $stmt = database::connect()->prepare($sql);
 
+            $stmt->bindParam(":Estado", $this->Estado, PDO::PARAM_STR);
             $stmt->bindParam(":Descripcion", $this->Descripcion, PDO::PARAM_STR);
             $stmt->bindParam(":idArea", $this->idArea, PDO::PARAM_INT);
 

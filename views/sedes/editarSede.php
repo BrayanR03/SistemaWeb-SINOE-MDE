@@ -10,6 +10,13 @@
                         <label for="descripcionArea" class="form-label">Descripción (*):</label>
                         <input type="text" class="descripcionArea" id="descripcionSede" autocomplete="off">
                     </div>
+                    <div>
+                        <label for="">Estado</label>
+                        <select name="estadoSede" id="estadoSede">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
                     <input type="hidden" name="codArea" id="idSede">
                     <p>Todos los campos (*) son obligatorios</p>
                 </div>

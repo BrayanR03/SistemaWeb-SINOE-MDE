@@ -142,11 +142,12 @@ class Sede{
     }
 
     public function actualizarSede(){
-        $sql = "UPDATE SEDES SET Descripcion = :Descripcion WHERE idSede = :idSede";
+        $sql = "UPDATE SEDES SET Descripcion = :Descripcion,Estado=:Estado WHERE idSede = :idSede";
 
         try {
             $stmt = database::connect()->prepare($sql);
 
+            $stmt->bindParam(":Estado", $this->Estado, PDO::PARAM_STR);
             $stmt->bindParam(":Descripcion", $this->Descripcion, PDO::PARAM_STR);
             $stmt->bindParam(":idSede", $this->idSede, PDO::PARAM_INT);
 

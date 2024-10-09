@@ -37,7 +37,6 @@ $(document).ready(function () {
                         <td>${area.Estado}</td>
                         <td>
                         <a href="#" id="btnEditarArea" >Editar</a>
-                        <a href="#" id="btnEstadoArea" >Estado</a>
                         </td>
 
                     </tr>`).join('');
@@ -196,7 +195,9 @@ $(document).ready(function () {
         let fila = $(this).closest("tr");
         let codArea = parseInt(fila.find('td:eq(0)').text());
         let descripcion = fila.find('td:eq(1)').text();
+        let estado = fila.find('td:eq(2)').text();
         // descripcionDB = descripcion;
+        $("#estadoArea").val(estado.trim());
         $("#descripcionArea").val(descripcion.trim());
         $("#codArea").val(codArea);
 
@@ -217,6 +218,7 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).off('submit'); // Desenganchar el evento de submit
 
+        let estado = $.trim($('#estadoArea').val());
         let descripcion = $.trim($('#descripcionArea').val());
         let codArea = $.trim($('#codArea').val());
 
@@ -256,24 +258,24 @@ $(document).ready(function () {
             url: "./controllers/Areas/actualizarAreas.php",
             type: "POST",
             datatype: "json",
-            data: { codArea, descripcion },
+            data: { codArea, descripcion,estado },
             success: function (response) {
                 console.log(response);
                 // return
                 response = JSON.parse(response);
-                if (response.message === 'Area encontrada') {
-                    alert("La descripción que intenta actualizar ya existe en la base de datos");
-                    return;
-                    // Swal.fire({
-                    //     icon: "warning",
-                    //     title: "¡Advertencia!",
-                    //     text: "La descripción que intenta actualizar ya existe en la base de datos",
-                    //     allowEnterKey: false,
-                    //     allowEscapeKey: false,
-                    //     allowOutsideClick: false,
-                    //     stopKeydownPropagation: false
-                    // });
-                } else {
+                // if (response.message === 'Area encontrada') {
+                //     alert("La descripción que intenta actualizar ya existe en la base de datos");
+                //     return;
+                //     // Swal.fire({
+                //     //     icon: "warning",
+                //     //     title: "¡Advertencia!",
+                //     //     text: "La descripción que intenta actualizar ya existe en la base de datos",
+                //     //     allowEnterKey: false,
+                //     //     allowEscapeKey: false,
+                //     //     allowOutsideClick: false,
+                //     //     stopKeydownPropagation: false
+                //     // });
+                // } else {
                     if (response.status === 'success') {
                         alert("Se Actualizo el Área");
                         // return;
@@ -302,7 +304,7 @@ $(document).ready(function () {
                         //     stopKeydownPropagation: false
                         // });
                     }
-                }
+                
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error updating the area:', textStatus, errorThrown);

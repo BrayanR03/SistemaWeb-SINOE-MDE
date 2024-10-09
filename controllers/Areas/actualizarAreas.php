@@ -4,18 +4,12 @@ require_once "../../config/database.php";
 
 $codArea = trim($_POST['codArea']);
 $area = trim($_POST['descripcion']);
+$estado = trim($_POST['estado']);
 
 
 $areaModel = new Area();
+$areaModel->setidArea($codArea);
 $areaModel->setDescripcion($area);
-
-$response = $areaModel->existeArea();
-
-if ($response['message'] == 'Area encontrada'){
-    print json_encode($response);
-}else{
-    $areaModel->setidArea($codArea);
-    $areaModel->setDescripcion($area);
-    $response = $areaModel->actualizarArea();
-    print json_encode($response);
-}
+$areaModel->setEstado($estado);
+$response = $areaModel->actualizarArea();
+print json_encode($response);

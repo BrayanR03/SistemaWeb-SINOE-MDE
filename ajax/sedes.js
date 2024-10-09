@@ -35,7 +35,6 @@ $(document).ready(function () {
                     <td>${sede.Estado}</td>
                     <td>
                     <a href="#" id="btnEditarSede" >Editar</a>
-                    <a href="#" id="btnEstadoSede" >Estado</a>
                     </td>
 
                 </tr>`).join('');
@@ -196,7 +195,9 @@ function loadTotalSedes(descripcionSedeFiltro) {
         let fila = $(this).closest("tr");
         let idSede = parseInt(fila.find('td:eq(0)').text());
         let descripcion = fila.find('td:eq(1)').text();
+        let estado = fila.find('td:eq(2)').text();
         // descripcionDB = descripcion;
+        $("#estadoSede").val(estado.trim());
         $("#descripcionSede").val(descripcion.trim());
         $("#idSede").val(idSede);
 
@@ -217,6 +218,7 @@ function loadTotalSedes(descripcionSedeFiltro) {
         e.preventDefault();
         $(this).off('submit'); // Desenganchar el evento de submit
 
+        let estado = $.trim($('#estadoSede').val());
         let descripcion = $.trim($('#descripcionSede').val());
         let idSede = $.trim($('#idSede').val());
 
@@ -256,24 +258,24 @@ function loadTotalSedes(descripcionSedeFiltro) {
             url: "./controllers/sedes/actualizarSede.php",
             type: "POST",
             datatype: "json",
-            data: { idSede, descripcion },
+            data: { idSede, descripcion,estado },
             success: function (response) {
                 console.log(response);
                 // return
                 response = JSON.parse(response);
-                if (response.message === 'Sede encontrada') {
-                    alert("La descripción que intenta actualizar ya existe en la base de datos");
-                    return;
-                    // Swal.fire({
-                    //     icon: "warning",
-                    //     title: "¡Advertencia!",
-                    //     text: "La descripción que intenta actualizar ya existe en la base de datos",
-                    //     allowEnterKey: false,
-                    //     allowEscapeKey: false,
-                    //     allowOutsideClick: false,
-                    //     stopKeydownPropagation: false
-                    // });
-                } else {
+                // if (response.message === 'Sede encontrada') {
+                //     alert("La descripción que intenta actualizar ya existe en la base de datos");
+                //     return;
+                //     // Swal.fire({
+                //     //     icon: "warning",
+                //     //     title: "¡Advertencia!",
+                //     //     text: "La descripción que intenta actualizar ya existe en la base de datos",
+                //     //     allowEnterKey: false,
+                //     //     allowEscapeKey: false,
+                //     //     allowOutsideClick: false,
+                //     //     stopKeydownPropagation: false
+                //     // });
+                // } else {
                     if (response.status === 'success') {
                         alert("Se Actualizo la Sede");
                         // return;
@@ -302,7 +304,7 @@ function loadTotalSedes(descripcionSedeFiltro) {
                         //     stopKeydownPropagation: false
                         // });
                     }
-                }
+                
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error updating the area:', textStatus, errorThrown);
