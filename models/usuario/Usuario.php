@@ -142,6 +142,51 @@ class Usuario
         }
     }
 
+
+    public function informacionPerfilUsuario($usuario)
+    {
+        $sql = "EXEC SP_InformacionPerfil @Usuario=:Usuario";
+        try {
+            $stmt = database::connect()->prepare($sql);
+            $stmt->bindParam(":Usuario", $usuario, PDO::PARAM_STR);
+            $stmt->execute();
+            $results = $stmt->fetchAll();
+            if (count($results) > 0) {
+                return [
+                    'status' => 'success',
+                    'message' => 'Informacion del Perfil Cargada',
+                    'action' => 'listar',
+                    'module' => 'usuario',
+                    'data' => $results,
+                    'info' => ''
+                ];
+            } else {
+                return [
+                    'status' => 'success',
+                    'message' => 'No se encontraron informacion del perfil',
+                    'action' => 'listar',
+                    'module' => 'usuario',
+                    'data' => [],
+                    'info' => ''
+                ];
+            }
+        } catch (PDOException $e) {
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al cargar el perfil del usuario',
+                'action' => 'listar',
+                'module' => 'usuario',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function actualizarInformacionPerfil($nombres,$email,$telefono,$domicilio,$tipoPersona,
+    $tipoDocumentoIdentidad,$numDocumentoIdentidad,$representanteLegal=null,$dniCUI=null,$usuario=null,$password=null){
+        $sql="";
+
+    }
+
     public function listadoTotalUsuarios($datosBusquedaFiltro = null, $filtroBusqueda = null)
     {
         $sql = "EXEC SP_ListadoTotalUsuariosPersonas :DatosBusquedaFiltro,:FiltroBusqueda";

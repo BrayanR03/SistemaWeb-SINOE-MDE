@@ -271,7 +271,7 @@ $(document).ready(function () {
                 console.log(response);
                 // return
                 response = JSON.parse(response);
-                if (response.message === 'encontrada') {
+                if (response.message === 'Usuario encontrado') {
                     alert("El Usuario ingresado, pertenece  otra Persona");
                     $("#usuarioUsuarioEditar").focus();
                 } else {
