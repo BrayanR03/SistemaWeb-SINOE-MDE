@@ -16,19 +16,16 @@ $dniCUI=$_POST['dniCUI'];
 $usuario=$_POST['usuario'];
 $password=$_POST['password'];
 
-
-$usuarioModel = new Usuario();
+// $usuarioModel = new Usuario();
 $personaModel=new Persona();
-$usuarioModel->setUsuario($usuario);
-$response=$usuarioModel->existeUsuario();
+// $usuarioModel->setUsuario($usuario);
+// $response=$usuarioModel->existeUsuario();
 $personaModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
-$response=$personaModel->existeDni();
-if ($response['message'] === 'Usuario encontrado') {
-    print json_encode($response);
-}else if($response['message']==='NumDoc encontrado'){
+$response=$personaModel->existeNumDocIdentidadActualizarPerfil($idUsuario);
+if($response['message']==='EXISTE EN OTRO USUARIO, NO ACTUALICES'){
+    echo "dentro de if num doc";
     print json_encode($response);
 } else {
-
     // $usuarioModel->setidPersona($idPersona);
     // $usuarioModel->setidTipoUsuario($idTipoUsuario);
     // $usuarioModel->setidUsuario($idUsuario);

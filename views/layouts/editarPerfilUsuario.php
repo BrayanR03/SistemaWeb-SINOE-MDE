@@ -90,10 +90,10 @@
                                 <div class="datosOrigenBody">
                                     <div>
                                         <label>Usuario: </label>
-                                        <input type="text" id="usuarioAdministrador" name="usuarioAdministrador">
+                                        <input readonly type="text" id="usuarioAdministrador" name="usuarioAdministrador">
                                     </div>
                                     <div>
-                                        <label>Contraseña Nueva: </label>
+                                        <label>Nueva Contraseña: </label>
                                         <i class="fas fa-lock"></i>
                                         <input type="password" id="passwordEditarAdministrador" name="passwordEditarAdministrador">
                                     </div>
@@ -209,7 +209,7 @@
                                         <input readonly type="text" id="usuarioUsuarioEditar" name="usuarioUsuarioEditar">
                                     </div>
                                     <div>
-                                        <label>Contraseña Nueva: </label>
+                                        <label>Nueva Contraseña: </label>
                                         <i class="fas fa-lock"></i>
                                         <input type="password" id="passwordUsuarioEditar" name="passwordUsuarioEditar">
                                     </div>

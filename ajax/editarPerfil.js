@@ -68,9 +68,10 @@ $(document).ready(function () {
         let email = $.trim($('#emailPersonaAdministrador').val());
         let telefono = $.trim($('#telefonoPersonaAdministrador').val());
         let domicilio = $.trim($('#domicilioPersonaAdministrador').val());
-        let tipoPersona = $('#tipoPersonaAdmnistrador').val();
-        console.log(tipoPersona);
+        let tipoPersona = $('#tipoPersonaAdministrador').val();
+        // console.log(tipoPersona);
         let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadAdministrador').val();
+        // console.log(tipoDocumentoIdentidad);
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadAdministrador').val());
         let representanteLegal = $.trim($('#representanteLegalAdministrador').val());
         let dniCUI= $.trim($('#CUIPersonaAdministrador').val());
@@ -90,8 +91,10 @@ $(document).ready(function () {
             datatype: "json",
             data: { idUsuario,nombres,email,telefono,domicilio,tipoPersona,tipoDocumentoIdentidad,numDocumentoIdentidad,representanteLegal,dniCUI,usuario,password},
             success: function (response) {
+                // console.log(response);
+                // return
                 response = JSON.parse(response);
-                if(response.message==='NumDoc encontrado'){
+                if(response.message==='EXISTE EN OTRO USUARIO, NO ACTUALICES'){
                     alert("Este Número de Documento que ingresaste, se encuentra asignado a otro usuario!");
                     $("numDocumentoIdentidadAdministrador").focus;
                 }else if(response.message==='Usuario Encontrado'){

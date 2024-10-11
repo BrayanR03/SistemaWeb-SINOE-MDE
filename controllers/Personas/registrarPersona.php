@@ -26,7 +26,7 @@ if ($dniCUI === '' && $representanteLegal === '') {
 
 $personaModel = new Persona();
 $personaModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
-$response = $personaModel->existeDni();
+$response = $personaModel->existeNumDocIdentidad();
 
 if ($response['message'] == 'NumDoc encontrado') {
     print json_encode($response);
