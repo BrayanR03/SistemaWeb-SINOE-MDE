@@ -427,7 +427,7 @@ class Persona
     public function actualizarDatosPerfilUsuario($idUsuario)
     {
         $sql = "UPDATE P SET Nombres=:Nombres,Apellidos=:Apellidos,Email=:Email,Telefono=:Telefono,Domicilio=:Domicilio,idTipoPersona=:idTipoPersona,
-                idTipoDocumentoIdentidad=:idTipoDocumentoIdentidad,NumDocumentoIdentidad=:NumDocumentoIdentidad,RepresentanteLegal=:RepresentanteLegal,Estado=:Estado,DniCUI=:DniCUI 
+                idTipoDocumentoIdentidad=:idTipoDocumentoIdentidad,NumDocumentoIdentidad=:NumDocumentoIdentidad,DniCUI=:DniCUI 
                 FROM Personas P INNER JOIN Usuarios U
                 ON P.idPersona=U.idPersona
                 WHERE U.idUsuario=:idUsuario";
@@ -450,9 +450,9 @@ class Persona
             // echo "NOMBRES: ",$this->tipoDocumentoIdentidad,"\n";
             $stmt->bindParam(":NumDocumentoIdentidad", $this->numDocumentoIdentidad, PDO::PARAM_STR);
             // echo "NOMBRES: ",$this->numDocumentoIdentidad,"\n";
-            $stmt->bindParam(":RepresentanteLegal", $this->representanteLegal, PDO::PARAM_STR);
+            // $stmt->bindParam(":RepresentanteLegal", $this->representanteLegal, PDO::PARAM_STR);
             // echo "NOMBRES: ",$this->representanteLegal,"\n";
-            $stmt->bindParam(":Estado", $this->estado, PDO::PARAM_STR);
+            // $stmt->bindParam(":Estado", $this->estado, PDO::PARAM_STR);
             // echo "NOMBRES: ",$this->estado,"\n";
             $stmt->bindParam(":DniCUI", $this->dniCUI, PDO::PARAM_STR);
             // echo "NOMBRES: ",$this->dniCUI,"\n";
