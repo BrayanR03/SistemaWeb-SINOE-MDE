@@ -3,29 +3,33 @@ require_once "../../models/usuario/Usuario.php";
 require_once "../../models/Persona.php";
 require_once "../../config/database.php";
 
-$idUsuario=$_POST['idUsuario'];
-$nombres=$_POST['nombres'];
-$email=$_POST['email'];
-$telefono=$_POST['telefono'];
-$domicilio=$_POST['domicilio'];
-$tipoPersona=$_POST['tipoPersona'];
-$tipoDocumentoIdentidad=$_POST['tipoDocumentoIdentidad'];
-$numDocumentoIdentidad=$_POST['numDocumentoIdentidad'];
-$representanteLegal=$_POST['representanteLegal'];
-$dniCUI=$_POST['dniCUI'];
-$usuario=$_POST['usuario'];
-$password=$_POST['password'];
+$idUsuario = $_POST['idUsuario'];
+$nombres = $_POST['nombres'];
+$email = $_POST['email'];
+$telefono = $_POST['telefono'];
+$domicilio = $_POST['domicilio'];
+$tipoPersona = $_POST['tipoPersona'];
+$tipoDocumentoIdentidad = $_POST['tipoDocumentoIdentidad'];
+$numDocumentoIdentidad = $_POST['numDocumentoIdentidad'];
+$representanteLegal = $_POST['representanteLegal'];
+$dniCUI = $_POST['dniCUI'];
+// $usuario=$_POST['usuario'];
+// $password=$_POST['password'];
 
-// $usuarioModel = new Usuario();
-$personaModel=new Persona();
-// $usuarioModel->setUsuario($usuario);
-// $response=$usuarioModel->existeUsuario();
+$personaModel = new Persona();
+$personaModel->setNombres($nombres);
+// $personaModel->setApellidos($apellidos);
+$personaModel->setEmail($email);
+$personaModel->setTelefono($telefono);
+$personaModel->setDomicilio($domicilio);
+$personaModel->setTipoPersona($tipoPersona);
+$personaModel->setTipoDocumentoIdentidad($tipoDocumentoIdentidad);
 $personaModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
-$response=$personaModel->existeNumDocIdentidadActualizarPerfil($idUsuario);
-if($response['message']==='EXISTE EN OTRO USUARIO, NO ACTUALICES'){
-    echo "dentro de if num doc";
-    print json_encode($response);
-} else {
+$personaModel->setDniCUI($dniCUI);
+// $personaModel->setEstado($estado);
+$personaModel->setRepresentanteLegal($representanteLegal);
+$response = $personaModel->actualizarDatosPerfilUsuario($idUsuario);
+print json_encode($response);
     // $usuarioModel->setidPersona($idPersona);
     // $usuarioModel->setidTipoUsuario($idTipoUsuario);
     // $usuarioModel->setidUsuario($idUsuario);
@@ -33,6 +37,3 @@ if($response['message']==='EXISTE EN OTRO USUARIO, NO ACTUALICES'){
     // $usuarioModel->setPassword($Password);
     // $response = $usuarioModel->actualizarUsuario();
     // print json_encode($response);
-}
-
-

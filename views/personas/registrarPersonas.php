@@ -13,31 +13,72 @@
                                     Datos Personales
                                 </h3>
                             </div>
+                            <div class="datosDestino">
+                                <div class="datosDestinoBody">
+                                    <div>
+                                        <label>Tipo Persona: </label>
+                                        <select class="selectTipoPersona" required id="tipoPersonaPersonaNuevo">
+
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Tipo Documento: </label>
+                                        <select class="selectTipoDocumentoIdentidad" required id="tipoDocumentoIdentidadPersonaNuevo">
+
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Estado: </label>
+                                        <input
+                                            type="text"
+                                            placeholder="Activo"
+                                            readonly>
+                                    </div>
+                                    <div class="representanteLegalDiv" hidden>
+                                        <label>Representante Legal</label>
+                                        <input required
+                                            type="text"
+                                            name="representanteLegalPersonaNuevo"
+                                            id="representanteLegalPersonaNuevo">
+                                    </div>
+                                    <div>
+                                        <label>Nro Documento: </label>
+                                        <input required type="text" id="numDocumentoIdentidadPersonaNuevo" name="numDocumentoIdentidadPersonaNuevo">
+                                    </div>
+                                    <div class="dniCUIDiv" hidden>
+                                        <label>Dni CUI: </label>
+                                        <input type="text" id="CUIPersonaNuevo" name="CUIPersonaNuevo">
+                                    </div>
+                                </div>
+                                <div class="datosDestinoHeader">
+
+                                </div>
+                            </div>
                             <div class="datosOrigenBody">
-                                <div>
+                                <div class="razonSocialDiv" hidden>
+                                    <label>Razon Social: </label>
+                                    <input required
+                                        type="text"
+                                        name="razonSocialPersonaNuevo"
+                                        id="razonSocialPersonaNuevo">
+                                </div>
+                                <div class="nombresPersonaDiv" hidden>
                                     <label>Nombres: </label>
                                     <input required
                                         type="text"
                                         name="nombresPersonaNuevo"
                                         id="nombresPersonaNuevo">
                                 </div>
-                                <div>
-                                    <label>Email: </label>
-                                    <input required type="email" name="emailPersonaNuevo" id="emailPersonaNuevo">
-                                </div>
-                                <div>
-                                    <!-- <label>Documento Identidad:</label>
-                                <input
-                                        type="text"
-                                        name="representanteLegalPersonaNuevo"
-                                        id="representanteLegalPersonaNuevo"> -->
-                                </div>
-                                <div>
+                                <div class="apellidosPersonaDiv" hidden>
                                     <label>Apellidos: </label>
                                     <input required
                                         type="text"
                                         name="apellidosPersonaNuevo"
                                         id="apellidosPersonaNuevo">
+                                </div>
+                                <div>
+                                    <label>Email: </label>
+                                    <input required type="email" name="emailPersonaNuevo" id="emailPersonaNuevo">
                                 </div>
                                 <div>
                                     <label>Teléfono: </label>
@@ -55,68 +96,63 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="datosDestino">
-                            <div class="datosDestinoHeader">
-                                
-                            </div>
-                            <div class="datosDestinoBody">
-                                <div>
-                                    <label>Tipo Persona: </label>
-                                    <select class="selectTipoPersona" required id="tipoPersonaPersonaNuevo">
 
-                                    </select>
-                                </div>
-                                <div>
-                                    <label>Tipo Documento: </label>
-                                    <select class="selectTipoDocumentoIdentidad" required id="tipoDocumentoIdentidadPersonaNuevo">
-
-                                    </select>
-                                </div>
-                                <div>
-                                    <label>Estado: </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Activo"
-                                        readonly>
-                                </div>
-                                <div>
-                                    <label>Representante Legal</label>
-                                    <input
-                                        type="text"
-                                        name="representanteLegalPersonaNuevo"
-                                        id="representanteLegalPersonaNuevo">
-                                </div>
-                                <div>
-                                    <label>Nro Documento: </label>
-                                    <input required type="text" id="numDocumentoIdentidadPersonaNuevo" name="numDocumentoIdentidadPersonaNuevo">
-                                </div>
-                                <div>
-                                    <label>Dni CUI: </label>
-                                    <input type="text" id="CUIPersonaNuevo" name="CUIPersonaNuevo">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="containerObservacion">
-                        <div>
-                            <label>Observación</label>
-                            <textarea
-                                class="disabled form-control"
-                                name="observacion"
-                                id="observacionDetalle"
-                                readonly>
-                        </textarea>
-                        </div>
-                    </div> -->
                     </div>
                 </div>
                 <div class="containerButtonsEditarArea">
                     <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
-                <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
-                <button type="button" class="btnCerrarModal" data-bs-dismiss="modal">Cerrar</button> -->
             </form>
-
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('tipoPersonaPersonaNuevo').addEventListener('click', function() {
+        const select = document.getElementById('tipoPersonaPersonaNuevo');
+        const valorSeleccionado = select.value;
+        const nombresDiv = document.querySelector('.nombresPersonaDiv'); // Div de Nombres
+        const apellidosDiv = document.querySelector('.apellidosPersonaDiv'); // Div de Apellidos
+        const dniCUIDiv = document.querySelector('.dniCUIDiv'); // Div de DNI CUI
+        const representanteLegalDiv = document.querySelector('.representanteLegalDiv'); // Div de Representante Legal
+        const razonSocialDiv = document.querySelector('.razonSocialDiv');
+        const tipoDocumentoSelect = document.getElementById('tipoDocumentoIdentidadPersonaNuevo');
+
+        if (valorSeleccionado == 1) {
+            // Mostrar campos de persona natural
+            nombresDiv.hidden = false;
+            apellidosDiv.hidden = false;
+            dniCUIDiv.hidden = false;
+            razonSocialDiv.hidden = true;
+            representanteLegalDiv.hidden = true;
+            tipoDocumentoSelect.value = 1;
+            tipoDocumentoSelect.disabled = false;
+            tipoDocumentoSelect.querySelector('option[value="2"]').disabled = true;
+            representanteLegalDiv.querySelector('input').removeAttribute('required');
+            razonSocialDiv.querySelector('input').removeAttribute('required');
+            // Añadir required a los campos de natural
+            nombresDiv.querySelector('input').setAttribute('required', 'required');
+            apellidosDiv.querySelector('input').setAttribute('required', 'required');
+            dniCUIDiv.querySelector('input').setAttribute('required', 'required');
+
+
+        } else if (valorSeleccionado == 2) {
+            nombresDiv.hidden = true;
+            apellidosDiv.hidden = true;
+            dniCUIDiv.hidden = true;
+            representanteLegalDiv.hidden = false;
+            razonSocialDiv.hidden = false;
+            tipoDocumentoSelect.value = 2;
+            tipoDocumentoSelect.disabled = true;
+             // Quitar required de los campos de natural
+             nombresDiv.querySelector('input').removeAttribute('required');
+            apellidosDiv.querySelector('input').removeAttribute('required');
+            dniCUIDiv.querySelector('input').removeAttribute('required');
+
+            // Añadir required a los campos de jurídico
+            representanteLegalDiv.querySelector('input').setAttribute('required', 'required');
+            razonSocialDiv.querySelector('input').setAttribute('required', 'required');
+        }
+
+    });
+</script>

@@ -41,6 +41,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         let usuarioPerfil = window.usuarioPerfil;
+        // const tipoPersonaSelect = document.getElementById('tipoPersonaAdministrador');
         console.log(usuarioPerfil);
         let modalRegistrar = $("#modalPerfilAdministrador");
         $("#editarPerfilAdministradorForm").trigger("reset");
@@ -63,7 +64,7 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).off('submit'); // Desenganchar el evento de submit
         // let dni = $.trim($('#dniPersonaNuevo').val());
-        let idUsuario= $.trim($('#idUsuarioAdministrador').val());
+        let idUsuario = $.trim($('#idUsuarioAdministrador').val());
         let nombres = $.trim($('#nombresPersonaAdministrador').val());
         let email = $.trim($('#emailPersonaAdministrador').val());
         let telefono = $.trim($('#telefonoPersonaAdministrador').val());
@@ -74,11 +75,11 @@ $(document).ready(function () {
         // console.log(tipoDocumentoIdentidad);
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadAdministrador').val());
         let representanteLegal = $.trim($('#representanteLegalAdministrador').val());
-        let dniCUI= $.trim($('#CUIPersonaAdministrador').val());
-        let usuario= $.trim($('#usuarioAdministrador').val());
-        let password= $.trim($('#passwordEditarAdministrador').val());
+        let dniCUI = $.trim($('#CUIPersonaAdministrador').val());
+        let usuario = $.trim($('#usuarioAdministrador').val());
+        let password = $.trim($('#passwordEditarAdministrador').val());
 
-        if ( idUsuario.length===0 || nombres.length === 0 || email.length === 0 || telefono.length === 0 ||
+        if (idUsuario.length === 0 || nombres.length === 0 || email.length === 0 || telefono.length === 0 ||
             domicilio.length === 0 || usuario.length === 0 || numDocumentoIdentidad.length === 0) {
             alert("Campos Vacíos");
             return
@@ -89,18 +90,18 @@ $(document).ready(function () {
             url: "./controllers/Usuario/actualizarPerfilUsuario.php",
             type: "POST",
             datatype: "json",
-            data: { idUsuario,nombres,email,telefono,domicilio,tipoPersona,tipoDocumentoIdentidad,numDocumentoIdentidad,representanteLegal,dniCUI,usuario,password},
+            data: { idUsuario, nombres, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad, representanteLegal, dniCUI },
             success: function (response) {
                 // console.log(response);
                 // return
                 response = JSON.parse(response);
-                if(response.message==='EXISTE EN OTRO USUARIO, NO ACTUALICES'){
+                if (response.message === 'EXISTE EN OTRO USUARIO, NO ACTUALICES') {
                     alert("Este Número de Documento que ingresaste, se encuentra asignado a otro usuario!");
                     $("numDocumentoIdentidadAdministrador").focus;
-                }else if(response.message==='Usuario Encontrado'){
+                } else if (response.message === 'Usuario Encontrado') {
                     alert("El Usuario ingresado, pertenece  otra Persona");
                     $("usuarioAdministrador").focus;
-                }else{
+                } else {
                     if (response.status === 'success') {
                         alert("Se Actualizaron tus Datos del Perfil");
                         // return;

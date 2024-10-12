@@ -38,11 +38,13 @@ $(document).ready(function () {
         e.preventDefault();
 
         // let dni = $.trim($('#dniPersonaNuevo').val());
+        let razonSocialPersonaNuevo= $.trim($('#razonSocialPersonaNuevo').val());
+        console.log(razonSocialPersonaNuevo);
         let nombres = $.trim($('#nombresPersonaNuevo').val());
         let apellidos = $.trim($('#apellidosPersonaNuevo').val());
         // let apellidoPaterno = $.trim($('#apellidoPaternoPersonaNuevo').val());
         // let apellidoMaterno = $.trim($('#apellidoMaternoPersonaNuevo').val());
-        let dniCUI = $.trim($('#dniCUIPersonaNuevo').val());
+        let dniCUI = $.trim($('#CUIPersonaNuevo').val());
         let email = $.trim($('#emailPersonaNuevo').val());
         let telefono = $.trim($('#telefonoPersonaNuevo').val());
         let domicilio = $.trim($('#domicilioPersonaNuevo').val());
@@ -51,7 +53,7 @@ $(document).ready(function () {
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadPersonaNuevo').val());
         let representanteLegal = $.trim($('#representanteLegalPersonaNuevo').val());
 
-        if (nombres.length === 0 || apellidos.length === 0 || email.length === 0 ||
+        if (email.length === 0 ||
             telefono.length === 0 || domicilio.length === 0 || numDocumentoIdentidad.length === 0) {
             alert("Campos Vacíos");
             return
@@ -66,7 +68,7 @@ $(document).ready(function () {
             data: {
                 nombres: nombres, apellidos: apellidos, dniCUI: dniCUI, email: email,
                 telefono: telefono, domicilio: domicilio, tipoPersona: tipoPersona, tipoDocumentoIdentidad: tipoDocumentoIdentidad, numDocumentoIdentidad: numDocumentoIdentidad,
-                representanteLegal: representanteLegal
+                representanteLegal: representanteLegal,razonSocialPersonaNuevo:razonSocialPersonaNuevo
             },
             success: function (response) {
                 console.log(response);
@@ -115,7 +117,7 @@ $(document).ready(function () {
                     <tr>
                         <td>${persona.idPersona}</td>
                         <td>${persona.Nombres}</td>
-                        <td>${persona.Apellidos}</td>
+                        <td>${persona.Apellidos ? persona.Apellidos:''}</td>
                         <td>${persona.Email}</td>
                         <td>${persona.Telefono}</td>
                         <td>${persona.Domicilio}</td>
@@ -280,7 +282,7 @@ $(document).ready(function () {
         //     idTipoDocumentoIdentidad=3;
         // }
         if (nombres.length === 0 || apellidos.length === 0 || email.length === 0 ||
-            telefono.length === 0 || domicilio.length === 0 || numDocumentoIdentidad.length === 0 || idPersona.length === 0 || estado.length === 0) {
+            telefono.length === 0 || domicilio.length === 0 || numDocumentoIdentidad.length === 0 || idPersona.length === 0 ) {
 
             alert("Campos Incompletos");
             return;

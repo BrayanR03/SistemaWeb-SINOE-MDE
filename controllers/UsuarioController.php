@@ -54,6 +54,7 @@ class UsuarioController
             $_SESSION['Usuario'] = $response['data'][0]['Usuario'];
             $_SESSION['TipoUsuario'] = $response['data'][0]['TipoUsuario'];
             $_SESSION['Persona'] = $response['data'][0]['Persona'];
+            $_SESSION['TipoPersona'] = $response['data'][0]['TipoPersona'];
             $_SESSION['autenticado'] = true;
             // echo "
             // <script>
@@ -77,6 +78,7 @@ class UsuarioController
         $_SESSION['Usuario'] = false;
         $_SESSION['TipoUsuario'] = false;
         $_SESSION['Persona'] = false;
+        $_SESSION['TipoPersona'] = false;
         $_SESSION['autenticado'] = false;
         unset($_SESSION['autenticado']);
         unset($_SESSION['Usuario']);
