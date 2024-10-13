@@ -51,7 +51,7 @@ require_once __DIR__ . "/../../views/personas/registrarPersonas.php";
                         <label for="">Contraseña</label>
                         <input type="password" required name="Password" id="Password" autocomplete="off" placeholder="Ingresa tu contraseña"> -->
                         <div>
-                            <button class="login-btn">Ingresar</button>
+                            <button id="btnLogin" class="login-btn">Ingresar</button>
                         </div>
                         <div class="help-link">
                             <p>Si no tiene usuario <a id="btnSolicitarCasilla" href="#">Solicitar Registro de Casilla</a></p>

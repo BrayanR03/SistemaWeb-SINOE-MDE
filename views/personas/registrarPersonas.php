@@ -1,14 +1,14 @@
 <div id="modalRegistrarPersona" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Completa los siguientes campos</h5>
+            <div style="background-color: #006B2D;" class="modal-header">
+                <h5 class="modal-title" style="background-color: #006B2D;" id="exampleModalLabel">Completa los siguientes campos</h5>
             </div>
             <form class="formPersona" id="registrarPersonaForm" action="" method="post">
                 <div class="seguimiento_body">
                     <div class="detalle">
                         <div class="datosOrigen">
-                            <div class="datosOrigenHeader">
+                            <div style="background-color: #006B2D;" class="datosOrigenHeader">
                                 <h3>
                                     Datos Personales
                                 </h3>

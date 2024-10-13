@@ -74,6 +74,7 @@ class Usuario
 
             if (count($result) == 0) {
                 return [
+                    'code'=>404,
                     'status' => 'success',
                     'message' => 'Credenciales incorrectas',
                     'action' => 'login',
@@ -83,6 +84,7 @@ class Usuario
                 ];
             }
             return [
+                'code'=>200,
                 'status' => 'success',
                 'message' => 'inicio de sesión correcto',
                 'action' => 'login',
@@ -93,6 +95,7 @@ class Usuario
             ];
         } catch (PDOException $e) {
             return [
+                'code'=>500,
                 'status' => 'failed',
                 'message' => 'Algo salio mal al iniciar sesión',
                 'action' => 'login',
