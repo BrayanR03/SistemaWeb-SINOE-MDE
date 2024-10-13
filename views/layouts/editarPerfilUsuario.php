@@ -425,13 +425,13 @@
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
     </script>
 
-    <div id="modalPerfilNormal" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div id="modalPerfilJuridicoNormal" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
                 </div>
-                <form class="formPerfilNormal" id="editarPerfilNormalForm" action="" method="post">
+                <form class="formPerfilJuridicoNormal" id="editarPerfilJuridicoNormalForm" action="" method="post">
                     <div class="seguimiento_body">
                         <div class="detalle">
                             <div class="datosOrigen">
@@ -444,17 +444,17 @@
                                     <div>
                                         <label>Tipo Persona: </label>
                                         <select class="tipoPersonaJuridicoNormal" required id="tipoPersonaJuridicoNormal" name="tipoPersonaJuridicoNormal">
-                                            <option value="1">Natural</option>
-                                            <option value="2">Juridica</option>
+                                            <option value="1">NATURAL</option>
+                                            <option value="2">JURIDICO</option>
                                         </select>
 
                                     </div>
                                     <div>
                                         <label>Tipo Documento: </label>
                                         <select class="tipoDocumentoIdentidadJuridicoNormal" required id="tipoDocumentoIdentidadJuridicoNormal" name="tipoDocumentoIdentidadJuridicoNormal">
-                                            <option value="1">Dni</option>
-                                            <option value="2">Ruc</option>
-                                            <option value="3">Pasaporte</option>
+                                            <option value="1">DNI</option>
+                                            <option value="2">RUC</option>
+                                            <option value="3">PASAPORTE</option>
                                         </select>
 
                                     </div>

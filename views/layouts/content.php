@@ -11,8 +11,11 @@
                         <?php if (trim($_SESSION['TipoUsuario']) == 'ADMINISTRADOR'):  ?> 
                         <a id="PerfilUsuarioAdmin" href="" style="color: white;margin-left: 200px;">Editar Pefil</a>
                         <?php endif; ?>
-                        <?php if (trim($_SESSION['TipoUsuario']) != 'ADMINISTRADOR'):  ?> 
+                        <?php if (trim($_SESSION['TipoUsuario']) != 'ADMINISTRADOR' && trim($_SESSION['TipoPersona'])=='NATURAL'):  ?> 
                         <a id="PerfilUsuarioNormal" href="" style="color: white;margin-left: 0px;">Editar Pefil</a>
+                        <?php endif; ?>
+                        <?php if (trim($_SESSION['TipoUsuario']) != 'ADMINISTRADOR' && trim($_SESSION['TipoPersona'])=='JURIDICO'):  ?> 
+                        <a id="PerfilUsuarioJuridicoNormal" href="" style="color: white;margin-left: 0px;">Editar Pefil</a>
                         <?php endif; ?>
                     </div>
                 </div>

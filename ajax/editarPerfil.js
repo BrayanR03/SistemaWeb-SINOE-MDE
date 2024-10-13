@@ -161,9 +161,9 @@ $(document).ready(function () {
                     $('#tipoPersonaJuridicoNormal').val(parseInt(perfil.TipoPersona));
                     $('#tipoDocumentoIdentidadJuridicoNormal').val(parseInt(perfil.TipoDocumentoIdentidad));
                     $('#numDocumentoIdentidadJuridicoNormal').val(perfil.NroDocumentoIdentidad);
-                    $('#CUIPersonaJuridicoNormal').val(perfil.DniCUI);
-                    $('#nombresPersonaJuridicoNormal').val(perfil.Nombres);
-                    $('#apellidosPersonaJuridicoNormal').val(perfil.Apellidos);
+                    // $('#CUIPersonaJuridicoNormal').val(perfil.DniCUI);
+                    $('#razonSocialPersonaJuridicoNormal').val(perfil.Nombres);
+                    $('#representanteLegalJuridicoNormal').val(perfil.RepresentanteLegal);
                     $('#emailPersonaJuridicoNormal').val(perfil.Email);
                     $('#telefonoPersonaJuridicoNormal').val(perfil.Telefono);
                     $('#domicilioPersonaJuridicoNormal').val(perfil.Domicilio);
@@ -391,6 +391,123 @@ $(document).ready(function () {
                         //     stopKeydownPropagation: false
                         // }).then(() => {
                         $('#modalPerfilNormal').modal('hide');
+                        // loadAreas(descripcionAreaFiltro, pagina, registrosPorPagina);
+                        // });
+                    } else {
+                        alert("Error");
+                        return;
+                        // Swal.fire({
+                        //     icon: "error",
+                        //     title: "Error",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // });
+                    }
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error updating the area:', textStatus, errorThrown);
+            }
+        });
+    });
+
+
+
+
+
+
+    // ABRIR MODAL EDITAR PERFIL JURIDICO NORMAL
+    $(document).off("click", "#PerfilUsuarioJuridicoNormal").on("click", "#PerfilUsuarioJuridicoNormal", function (e) {
+        e.preventDefault();
+
+        let usuarioPerfil = window.usuarioPerfil;
+        let usuarioTipoPersona = window.usuarioTipoPersona;
+        let usuarioTipoUsuario = window.usuarioTipoUsuario;
+
+        let modalRegistrar = $("#modalPerfilJuridicoNormal");
+        $("#editarPerfilJuridicoNormalForm").trigger("reset");
+        if(usuarioTipoPersona==='NATURAL' && usuarioTipoUsuario==='NORMAL'){
+            loadInformacionUsuarioNaturalNormalPerfil(usuarioPerfil);
+        }else if(usuarioTipoPersona==='JURIDICO' && usuarioTipoUsuario==='NORMAL'){
+            loadInformacionUsuarioJuridicoNormalPerfil(usuarioPerfil);
+        }else{
+            console.log("OPCIONES INVALIDAS");
+        }
+        console.log(usuarioPerfil);
+
+        modalRegistrar.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalRegistrar.modal('show');
+
+        modalRegistrar.on('shown.bs.modal', function () {
+            $("#razonSocialPersonaJuridicoNormal").focus();
+        });
+    });
+
+
+    // Actualizar 
+    $(document).off('submit', '#editarPerfilJuridicoNormalForm').on('submit', '#editarPerfilJuridicoNormalForm', function (e) {
+        e.preventDefault();
+        $(this).off('submit'); // Desenganchar el evento de submit
+        // let dni = $.trim($('#dniPersonaNuevo').val());
+        let idUsuario = $.trim($('#idUsuarioJuridicoNormal').val());
+        let tipoPersona = $('#tipoPersonaJuridicoNormal').val();
+        let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadJuridicoNormal').val();
+        let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadJuridicoNormal').val());
+        let dniCUI = $.trim($('#CUIPersonaJuridicoNormal').val());
+        let nombres = $.trim($('#razonSocialPersonaJuridicoNormal').val());
+        let apellidos = $.trim($('#apellidosPersonaNaturalNormal').val());
+        let email = $.trim($('#emailPersonaJuridicoNormal').val());
+        let telefono = $.trim($('#telefonoPersonaJuridicoNormal').val());
+        let domicilio = $.trim($('#domicilioPersonaJuridicoNormal').val());
+        let representanteLegal= $.trim($('#representanteLegalJuridicoNormal').val());
+        console.log(tipoPersona);
+        let usuario = $.trim($('#usuarioUsuarioJuridicoNormalEditar').val());
+        // let password = $.trim($('#passwordEditarAdministrador').val());
+
+        if (idUsuario.length === 0 || nombres.length === 0 ||  email.length === 0 || representanteLegal.length===0||
+            telefono.length === 0 || domicilio.length === 0 || usuario.length === 0 || numDocumentoIdentidad.length === 0) {
+            alert("Campos Vacíos");
+            return
+        }
+
+
+        $.ajax({
+            url: "./controllers/Usuario/actualizarPerfilUsuario.php",
+            type: "POST",
+            datatype: "json",
+            data: { idUsuario, nombres, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad,representanteLegal,dniCUI,apellidos },
+            success: function (response) {
+                console.log(response);
+                // return
+                response = JSON.parse(response);
+                if (response.message === 'EXISTE EN OTRO USUARIO, NO ACTUALICES') {
+                    alert("Este Número de Documento que ingresaste, se encuentra asignado a otro usuario!");
+                    $("numDocumentoIdentidadJuridicoNormal").focus;
+                } else if (response.message === 'Usuario Encontrado') {
+                    alert("El Usuario ingresado, pertenece  otra Persona");
+                    $("usuarioUsuarioJuridicoNormalEditar").focus;
+                } else {
+                    if (response.status === 'success') {
+                        alert("Se Actualizaron tus Datos del Perfil");
+                        // return;
+                        // Swal.fire({
+                        //     icon: "success",
+                        //     title: "Actualización Exitosa",
+                        //     text: response.message,
+                        //     allowEnterKey: false,
+                        //     allowEscapeKey: false,
+                        //     allowOutsideClick: false,
+                        //     stopKeydownPropagation: false
+                        // }).then(() => {
+                        $('#modalPerfilJuridicoNormal').modal('hide');
                         // loadAreas(descripcionAreaFiltro, pagina, registrosPorPagina);
                         // });
                     } else {
