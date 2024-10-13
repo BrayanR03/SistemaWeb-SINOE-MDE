@@ -230,7 +230,8 @@ $(document).ready(function () {
         let domicilio = $.trim($('#domicilioPersonaNaturalAdministrador').val());
         console.log(tipoPersona);
         let usuario = $.trim($('#usuarioNaturalAdministrador').val());
-        // let password = $.trim($('#passwordEditarAdministrador').val());
+        let password = $.trim($('#passwordPersonaNaturalEditarAdministrador').val());
+        console.log(password);
 
         if (idUsuario.length === 0 || nombres.length === 0 || apellidos.length === 0 || email.length === 0 || 
             telefono.length === 0 || domicilio.length === 0 || usuario.length === 0 || numDocumentoIdentidad.length === 0) {
@@ -243,7 +244,7 @@ $(document).ready(function () {
             url: "./controllers/Usuario/actualizarPerfilUsuario.php",
             type: "POST",
             datatype: "json",
-            data: { idUsuario, nombres,apellidos, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad, dniCUI },
+            data: { idUsuario, nombres,apellidos, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad, dniCUI,password },
             success: function (response) {
                 console.log(response);
                 // return
@@ -353,7 +354,7 @@ $(document).ready(function () {
         let domicilio = $.trim($('#domicilioPersonaNaturalNormal').val());
         console.log(tipoPersona);
         let usuario = $.trim($('#usuarioUsuarioNaturalNormalEditar').val());
-        // let password = $.trim($('#passwordEditarAdministrador').val());
+        let password = $.trim($('#passwordUsuarioNaturalNormalEditar').val());
 
         if (idUsuario.length === 0 || nombres.length === 0 || apellidos.length === 0 || email.length === 0 || 
             telefono.length === 0 || domicilio.length === 0 || usuario.length === 0 || numDocumentoIdentidad.length === 0) {
@@ -366,7 +367,7 @@ $(document).ready(function () {
             url: "./controllers/Usuario/actualizarPerfilUsuario.php",
             type: "POST",
             datatype: "json",
-            data: { idUsuario, nombres,apellidos, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad, dniCUI },
+            data: { idUsuario, nombres,apellidos, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad, dniCUI,password },
             success: function (response) {
                 console.log(response);
                 // return
@@ -470,7 +471,7 @@ $(document).ready(function () {
         let representanteLegal= $.trim($('#representanteLegalJuridicoNormal').val());
         console.log(tipoPersona);
         let usuario = $.trim($('#usuarioUsuarioJuridicoNormalEditar').val());
-        // let password = $.trim($('#passwordEditarAdministrador').val());
+        let password = $.trim($('#passwordUsuarioJuridicoNormalEditar').val());
 
         if (idUsuario.length === 0 || nombres.length === 0 ||  email.length === 0 || representanteLegal.length===0||
             telefono.length === 0 || domicilio.length === 0 || usuario.length === 0 || numDocumentoIdentidad.length === 0) {
@@ -483,7 +484,7 @@ $(document).ready(function () {
             url: "./controllers/Usuario/actualizarPerfilUsuario.php",
             type: "POST",
             datatype: "json",
-            data: { idUsuario, nombres, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad,representanteLegal,dniCUI,apellidos },
+            data: { idUsuario, nombres, email, telefono, domicilio, tipoPersona, tipoDocumentoIdentidad, numDocumentoIdentidad,representanteLegal,dniCUI,apellidos,password },
             success: function (response) {
                 console.log(response);
                 // return

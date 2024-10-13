@@ -424,13 +424,20 @@ class Persona
             ];
         }
     }
-    public function actualizarDatosPerfilUsuario($idUsuario)
+    public function actualizarDatosPerfilUsuario($idUsuario,$Password)
     {
-        $sql = "UPDATE P SET Nombres=:Nombres,Apellidos=:Apellidos,Email=:Email,Telefono=:Telefono,Domicilio=:Domicilio,idTipoPersona=:idTipoPersona,
-                idTipoDocumentoIdentidad=:idTipoDocumentoIdentidad,NumDocumentoIdentidad=:NumDocumentoIdentidad,DniCUI=:DniCUI 
-                FROM Personas P INNER JOIN Usuarios U
-                ON P.idPersona=U.idPersona
-                WHERE U.idUsuario=:idUsuario";
+        $sql = "EXEC SP_ActualizarPerfilUsuarios 
+            @Nombres = :Nombres,
+            @Apellidos = :Apellidos,
+            @Email = :Email,
+            @Telefono = :Telefono,
+            @Domicilio = :Domicilio,
+            @idTipoPersona = :idTipoPersona,
+            @idTipoDocumentoIdentidad = :idTipoDocumentoIdentidad,
+            @NumDocumentoIdentidad = :NumDocumentoIdentidad,
+            @DniCUI = :DniCUI,
+            @idUsuario = :idUsuario,
+            @Password = :Password";
         try {
             $stmt = database::connect()->prepare($sql);
             // echo "ANTES DE ENTRAR A ASIGNAR PARAMETROS\n";
@@ -457,6 +464,7 @@ class Persona
             $stmt->bindParam(":DniCUI", $this->dniCUI, PDO::PARAM_STR);
             // echo "NOMBRES: ",$this->dniCUI,"\n";
             $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+            $stmt->bindParam(":Password", $Password, PDO::PARAM_STR);
             // echo "NOMBRES: ",$this->idPersona,"\n";
             $stmt->execute();
             return [

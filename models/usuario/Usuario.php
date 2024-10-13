@@ -181,9 +181,40 @@ class Usuario
         }
     }
 
-    public function actualizarInformacionPerfil($nombres,$email,$telefono,$domicilio,$tipoPersona,
-    $tipoDocumentoIdentidad,$numDocumentoIdentidad,$representanteLegal=null,$dniCUI=null,$usuario=null,$password=null){
-        $sql="";
+    public function actualizarContraseñaUsuario(){
+        $sql="EXEC SP_ActualizarPasswordUsuario @idUsuario=:idUsuario,@Password=:Password";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam(":idUsuario",$this->idUsuario,PDO::PARAM_INT);
+            $stmt->bindParam(":Password",$this->Password,PDO::PARAM_STR);
+            $stmt->execute();
+            $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($results)>0){
+                return [
+                    'status' => 'success',
+                    'message' => 'Contraseña Actualizada',
+                    'action' => 'listar',
+                    'module' => 'usuario',
+                    'data' => $results,
+                    'info' => ''
+                ];
+            }else{
+                return [
+                    'status' => 'success',
+                    'message' => 'No se actualizo la contraseña',
+                    'action' => 'listar',
+                    'module' => 'usuario',
+                    'data' => $results,
+                    'info' => ''
+                ];
+            }
+        }catch(PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al actualizar la contraseña',
+                'info' => $e->getMessage()
+            ];
+        }
 
     }
 
