@@ -112,12 +112,12 @@
                 </div>
                 <div>
                     <p>Notificaciones</p>
-                    <svg class="svgOption <?= ($_SESSION['optionActive'] == "reportes") ? "open" : ""?>" id="svgOptionReportes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
+                    <svg class="svgOption <?= ($_SESSION['optionActive'] == "reportes") ? "open" : ""?>" id="svgOptionNotificaciones" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
                 </div>
             </div>
 
             <div class="submenu"  id="submenuReportes">
-                <div id="options-reportes" class="options">
+                <div id="options-notificaciones" class="options">
                     <?php if (trim($_SESSION['TipoUsuario']) == 'ADMINISTRADOR'):  ?>
                     <a href="views/personas/listadoPersonas.php">
                         <span>
@@ -172,12 +172,12 @@
                 </div>
                 <div>
                     <p>Reportes</p>
-                    <svg class="svgOption" id="svgOptionDocumentos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
+                    <svg class="svgOption" id="svgOptionReportes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
                 </div>
             </div>
 
             <div class="submenu"  id="submenuReportesUsuarios">
-                <div id="options-documentos" class="options">
+                <div id="options-reportes" class="options">
                     <a href="">
                         <span>
                             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
