@@ -66,7 +66,7 @@ class Usuario
         $sql = "EXEC SP_LoginUsuarioSINOE :Usuario,:Password";
 
         try {
-            $stmt = dataBase::connect()->prepare($sql);
+            $stmt = database::connect()->prepare($sql);
             $stmt->bindParam('Usuario', $this->Usuario, PDO::PARAM_STR);
             $stmt->bindParam('Password', $this->Password, PDO::PARAM_STR);
             $stmt->execute();

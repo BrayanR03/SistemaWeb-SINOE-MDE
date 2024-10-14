@@ -1,13 +1,17 @@
 <?php
 session_start();
-require_once "../../config/parameters.php";
+require_once "../config/parameters.php";
+
+$usuario=$_POST['data'][0]['Usuario'];
+$tipousuario=$_POST['data'][0]['TipoUsuario'];
+$persona=$_POST['data'][0]['Persona'];
+$tipopersona=$_POST['data'][0]['TipoPersona'];
 
 
-
-$_SESSION['Usuario'] = $response['data'][0]['Usuario'];
-$_SESSION['TipoUsuario'] = $response['data'][0]['TipoUsuario'];
-$_SESSION['Persona'] = $response['data'][0]['Persona'];
-$_SESSION['TipoPersona'] = $response['data'][0]['TipoPersona'];
+$_SESSION['Usuario'] = $usuario;
+$_SESSION['TipoUsuario'] = $tipousuario;
+$_SESSION['Persona'] = $persona;
+$_SESSION['TipoPersona'] = $tipopersona;
 $_SESSION['autenticado'] = true;
 // $_SESSION['Usuario'] = $_POST['data'];
 // $_SESSION['autenticado'] = true;
@@ -18,4 +22,5 @@ $response = (isset($_SESSION['Usuario'], $_SESSION['Persona'], $_SESSION['TipoUs
              !empty($_SESSION['Usuario']) && !empty($_SESSION['Persona'])
              && !empty($_SESSION['TipoPersona']) && !empty($_SESSION['TipoUsuario']) && $_SESSION['autenticado'] === true);
 
-print json_encode($response);
+print json_encode($_SESSION['Usuario']);
+// print json_encode([$usuario,$persona,$tipousuario,$tipopersona]);

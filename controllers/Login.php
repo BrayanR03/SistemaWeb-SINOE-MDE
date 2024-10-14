@@ -1,6 +1,8 @@
 <?php
-require_once "<?=>models/usuario/Usuario.php";
-require_once "config/database.php";
+// echo getcwd();
+require_once "../models/usuario/Usuario.php";
+require_once "../config/database.php";
+
 
 $usuario = $_POST["user"];
 $password = $_POST["password"];

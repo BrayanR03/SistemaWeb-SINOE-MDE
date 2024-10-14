@@ -8,7 +8,7 @@ $(document).ready(function () {
             $.ajax({
                 url: './controllers/Login.php',
                 method: 'POST',
-                // dataType: 'json',
+                dataType: 'json',
                 data: {user, password},
                 success: function (response) {
                     console.log(response);
@@ -59,8 +59,9 @@ $(document).ready(function () {
                     dataType: 'json',
                     data: {data},
                     success: function (response) {
+                        console.log(response);
                         if (response) {
-                            // location.reload();
+                            location.reload();
                         }
                     }, error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error fetching the content:', textStatus, errorThrown);
