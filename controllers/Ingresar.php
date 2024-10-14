@@ -22,5 +22,5 @@ $response = (isset($_SESSION['Usuario'], $_SESSION['Persona'], $_SESSION['TipoUs
              !empty($_SESSION['Usuario']) && !empty($_SESSION['Persona'])
              && !empty($_SESSION['TipoPersona']) && !empty($_SESSION['TipoUsuario']) && $_SESSION['autenticado'] === true);
 
-print json_encode($_SESSION['Usuario']);
+print json_encode($response);
 // print json_encode([$usuario,$persona,$tipousuario,$tipopersona]);

@@ -6,7 +6,7 @@ require_once('../../config/parameters.php');
     <div class="listadoAreas_header">
         <div>
             <h3 style="font-weight: bold;">CONSULTA DE CASILLAS ELECTRÓNICAS</h3>
-            <p style="color: #006B2D;">Movimientos</p>
+            <p style="color: #006B2D;">Información de Casilla Electrónica</p>
             <div class="listadoAreas_body" style="margin-top: 15px;">
                 <table>
                     <thead>
@@ -60,6 +60,7 @@ require_once('../../config/parameters.php');
             </ul>
         </div>
     </div>
+    <p style="color: #006B2D;">Notificaciones</p>
     <div class="listadoAreas_body container-table" style="margin-top: 15px;">
     <table>
         <thead>
@@ -68,54 +69,29 @@ require_once('../../config/parameters.php');
                 <th>Nro Documento</th>
                 <th>Documento</th>
                 <th>Fecha de Notificación</th>
+                <th hidden>FechaDocumento</th>
+                <th hidden>Estado Documento</th>
+                <th hidden>Sumilla</th>
+                <th hidden>Area</th>
+                <th hidden>Sede</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody id="bodyListaMovimientosCasillas">
-            <tr class="row-main">
+            <!-- <tr class="row-main">
                 <td>RESOLUCIÓN</td>
                 <td>125-2024-MDE</td>
                 <td>NOTIFICACIÓN</td>
                 <td>07/10/2024</td>
-                <td><a href="#" class="toggle-details">Ver Detalle</a></td>
-            </tr>
-            <tr class="row-details" style="display: none;">
-                <td colspan="5">
-                    <div>
-                        <strong>Descripción:</strong> Detalles completos sobre la notificación y resolución. <br>
-                        <strong>Fecha de Emisión:</strong> 05/10/2024 <br>
-                        <strong>Autoridad Emisora:</strong> Oficina Central
-                    </div>
-                </td>
-            </tr>
+                <td><a href="#" id="btnDetalleMovimiento">Ver Detalle</a>
+            </tr> -->
         </tbody>
     </table>
 </div>
 
 
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleLinks = document.querySelectorAll('.toggle-details');
 
-    toggleLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            // Encuentra la fila de detalles más cercana y cambia su visibilidad
-            const row = this.closest('tr');
-            const detailsRow = row.nextElementSibling;
-            
-            if (detailsRow.style.display === "none") {
-                detailsRow.style.display = "table-row";
-                this.textContent = "Ocultar Detalle";
-            } else {
-                detailsRow.style.display = "none";
-                this.textContent = "Ver Detalle";
-            }
-        });
-    });
-});
-
-
-</script>
+<?php  require_once "../../views/movimientos/detalleMovimientos.php"?>
+<script src="<?= base_url ?>ajax/movimientos.js"></script>
+<script src="<?= base_url ?>ajax/informacionCasillaPersona.js"></script>

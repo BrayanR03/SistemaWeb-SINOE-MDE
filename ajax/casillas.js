@@ -113,6 +113,8 @@ $(document).ready(function () {
 
     let pagina = 1;
     let datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+    // let usuario = $('#UsuarioPersona').val();
+    // let usuario= window.usuarioPerfil;
     // let numDocumentoIdentidadPersonaFiltro = $('#numDocumentoIdentidadPersonaFiltro').val();
     let filtroBusqueda = document.querySelector('input[name="filtroBusqueda"]:checked').value;
     // console.log(filtroBusqueda);
@@ -172,9 +174,12 @@ $(document).ready(function () {
         });
     }
 
+   
+
     // loadUltimoIdCasilla();
     loadTotalCasillas(datosBusquedaFiltro, filtroBusqueda);
     loadCasillas(datosBusquedaFiltro, filtroBusqueda, pagina, registrosPorPagina);
+    // loadInformacionCasilla(usuario);
     // buscarPersonas
     // $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
     $(document).off("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']").on("input change", "#datosBusquedaFiltro, input[name='filtroBusqueda']", function (e) {

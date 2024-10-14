@@ -8,6 +8,7 @@ date_default_timezone_set('America/Lima');
 // $_SESSION['base_url']=base_url;
 
 if(isset($_SESSION["autenticado"])){
+    require_once "views/layouts/editarPerfilUsuario.php";
     require_once 'views/layouts/navbar.php';
     require_once 'views/layouts/content.php';
 
