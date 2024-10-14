@@ -1165,3 +1165,13 @@ table thead{
     top: 0;
     z-index: 1;
 }
+
+.row-details {
+    background-color: #f9f9f9;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.row-details div {
+    padding: 10px;
+}
