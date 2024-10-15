@@ -1,0 +1,69 @@
+<div id="modalRegistrarMovimientoCasilla" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Envío de Notificación</h5>
+            </div>
+            <form class="formMovimiento" id="registrarMovimientoCasillaForm" action="" method="post">
+                <div class="seguimiento_body">
+                    <div class="detalle">
+                        <div class="datosOrigen">
+                            <div class="datosOrigenHeader">
+                                <h3>
+                                    Datos del Usuario
+                                </h3>
+                                <input id="idPersonaAsignado" hidden readonly>
+                            </div>
+                            <div class="listadoAreas_body" style="margin-top: 15px;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nro Casilla</th>
+                                            <th>Persona</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyListaInformacionCasillaPersona">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="datosDestino">
+                            <div class="datosDestinoHeader">
+
+                            </div>
+                            <div class="datosDestinoBody">
+                                <div>
+                                    <label>Tipo Usuario: </label>
+                                    <select class="selectTipoUsuario" required id="tipoUsuarioAsignar">
+
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label>Usuario: </label>
+                                    <input type="text" id="usuarioUsuario" name="usuarioUsuario">
+                                </div>
+                                <div>
+                                    <label>Contraseña: </label>
+                                    <input type="password" id="passwordUsuario" name="passwordUsuario">
+                                </div>
+                                <div>
+                                    <label>Confirmar Contraseña: </label>
+                                    <input type="password" id="confirmPasswordUsuario" name="confirmPasswordUsuario">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerButtonsEditarArea">
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Asignar">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
+                <button type="button" class="btnCerrarModal" data-bs-dismiss="modal">Cerrar</button> -->
+            </form>
+
+        </div>
+    </div>
+</div>

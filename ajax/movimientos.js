@@ -168,4 +168,33 @@ $(document).ready(function () {
     //     });
     });
 
+
+
+
+    // Registro del Movimiento
+    $(document).on("click", "#btnRegistroMovimientoCasilla", function (e) {
+        e.preventDefault();
+        let modalEditar = $("#modalRegistrarMovimientoCasilla");
+        let fila = $(this).closest("tr");
+        
+
+        modalEditar.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalEditar.modal('show');
+
+        modalEditar.one('shown.bs.modal', function () {
+            // $("#nombresPersona").focus();
+        });
+    });
+
+    // Actualizar Area en Modelo
+    $(document).off('submit', '#registrarMovimientoCasillaForm').on('submit', '#registrarMovimientoCasillaForm', function (e) {
+        e.preventDefault();
+        $(this).off('submit'); // Desenganchar el evento de submit
+
+    });
+
 });
