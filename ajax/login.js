@@ -21,6 +21,7 @@ $(document).ready(function () {
                     }
 
                     if (code === 200) {
+                        showModalAutenticacionUltimosDigitos();
                         saveDataSession(data);
                         // showModalAutenticacionCUI();
                         // validateCUI(data);
@@ -42,17 +43,22 @@ $(document).ready(function () {
     })
 
     function saveDataSession(data) {
-        console.log(data);
-        // const {cui} = data;
-        // $(document).off("click", "#btnConfirmarCUI").on("click", "#btnConfirmarCUI", function (e) {
-        //     e.preventDefault();
-        //     let valueCUI = $("#cui").val();
+        // console.log(data);
+        const {NumDocumentoIdentidad} = data[0];
+        let cantidadDigitos=NumDocumentoIdentidad.length;
+        // console.log(cantidadDigitos);
+        let ultimosDigitos=NumDocumentoIdentidad.substring(cantidadDigitos-2,cantidadDigitos);
+        // console.log(ultimosDigitos);
+        $(document).off("click", "#btnConfirmarUltimosDigitos").on("click", "#btnConfirmarUltimosDigitos", function (e) {
+            e.preventDefault();
+            let valueUltimosDigitos = $("#ultimosDigitos").val();
 
-        //     if (!isValidFieldCUI(valueCUI)) return
+            // if (!isValidFieldCUI(valueCUI)) return
 
-        //     if (cui !== valueCUI) {
-        //         showAlertIncorrectCUI();
-        //     } else {
+            if (ultimosDigitos !== valueUltimosDigitos) {
+                alert("Los últimos dígitos no coindicen con el de tu usuario!.");
+                // showAlertIncorrectCUI();
+            } else {
                 $.ajax({
                     url: './controllers/Ingresar.php',
                     method: 'POST',
@@ -60,6 +66,7 @@ $(document).ready(function () {
                     data: {data},
                     success: function (response) {
                         console.log(response);
+                        // return
                         if (response) {
                             location.reload();
                         }
@@ -67,8 +74,29 @@ $(document).ready(function () {
                         console.error('Error fetching the content:', textStatus, errorThrown);
                     }
                 })
-            // }
-        // })
+            }
+        })
+    }
+
+    function showModalAutenticacionUltimosDigitos() {
+        let modalValidarCUI = $("#modalValidar");
+        $("#validarUltimosDigitosForm").trigger("reset");
+
+        modalValidarCUI.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modalValidarCUI.modal('show');
+
+        modalValidarCUI.on('shown.bs.modal', function () {
+            $("#ultimosDigitos").focus();
+        });
+
+        $(document).off("click", "#btnCancelarUltimosDigitos").on("click", "#btnCancelarUltimosDigitos", function (e) {
+            alert("Importante: Debes completar la autenticación doble factor!!");
+            return
+        })
     }
 
     // function validateCUI(data) {

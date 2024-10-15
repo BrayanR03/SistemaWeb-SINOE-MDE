@@ -64,6 +64,7 @@ require_once __DIR__ . "/../../views/personas/registrarPersonas.php";
             Jr. Carlos María de Alvear 999 - La Esperanza - Trujillo - La Libertad - Perú - 13012
         </footer>
     </div>
+    <?php require_once "validacionDobleFactor.php"?>
     <script src="<?= base_url ?>ajax/login.js"></script>
     <script src="<?= base_url ?>ajax/personas.js"></script>
     <script src="<?= base_url ?>ajax/tipodocidentidad.js"></script>
