@@ -131,6 +131,47 @@ class Casilla
     }
 
 
+    public function InformacionCasillaNotificacion($filtroBusqueda=null){
+        $sql="EXEC SP_InformacionCasillaNotificacion @filtroBusqueda=:filtroBusqueda";
+        try{
+            
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam(":filtroBusqueda",$filtroBusqueda,PDO::PARAM_STR);
+            $stmt->execute();
+            $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($results)>0){
+                return [
+                    'status' => 'success',
+                    'message' => 'Informacion de la Casilla del Usuario',
+                    'action' => 'listar',
+                    'module' => 'casilla',
+                    'data' => $results,
+                    'info' => ''
+                ];
+            }else{
+                return [
+                    'status' => 'success',
+                    'message' => 'No se encontraron registros',
+                    'action' => 'listar',
+                    'module' => 'casilla',
+                    'data' => [],
+                    'info' => ''
+                ];
+            }
+
+        }catch(PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrión un error al cargar la información',
+                'action' => 'listar',
+                'module' => 'casilla',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
+
+
+
     public function ListadoTotalUsuariosCasillas($datosBusquedaFiltro = null, $filtroBusqueda = null)
     {
         $sql = "EXEC SP_ListarTotalUsuariosCasillas :DatosBusquedaFiltro,:FiltroBusqueda";

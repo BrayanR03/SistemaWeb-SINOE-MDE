@@ -15,25 +15,43 @@
                                 <input id="idPersonaAsignado" hidden readonly>
                             </div>
                             <div class="listadoAreas_body" style="margin-top: 15px;">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nro Casilla</th>
-                                            <th>Persona</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="bodyListaInformacionCasillaPersona">
 
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                         <div class="datosDestino">
+                            <div class="busqueda">
+                                <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24.25 22.5002L18.8213 17.4334M18.8213 17.4334C19.7499 16.5667 20.4865 15.5378 20.989 14.4054C21.4916 13.273 21.7503 12.0593 21.7503 10.8336C21.7503 9.60787 21.4916 8.39417 20.989 7.26177C20.4865 6.12937 19.7499 5.10044 18.8213 4.23374C17.8927 3.36704 16.7902 2.67953 15.5769 2.21048C14.3637 1.74142 13.0633 1.5 11.75 1.5C10.4368 1.5 9.13637 1.74142 7.92308 2.21048C6.70979 2.67953 5.60737 3.36704 4.67876 4.23374C2.80335 5.98413 1.74976 8.35816 1.74976 10.8336C1.74976 13.309 2.80335 15.683 4.67876 17.4334C6.55418 19.1838 9.09778 20.1671 11.75 20.1671C14.4022 20.1671 16.9459 19.1838 18.8213 17.4334Z" stroke="#0C7260" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <input
+                                    id="datosBusquedaFiltro"
+                                    type="text"
+                                    name="datosBusquedaFiltro"
+                                    value=""
+                                    autocomplete="off"
+                                    placeholder="Buscar Usuario">
+                            </div>
                             <div class="datosDestinoHeader">
+                                <div class="listadoAreas_body container-table-usuario-notificacion" style="margin-top: 15px;">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Persona</th>
+                                                <th>Tipo Persona</th>
+                                                <th>Nro Documento Identidad</th>
+                                                <th>Nro Casilla</th>
+                                                <th>Tipo Casilla</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyListaCasillasNotificacion">
 
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="datosDestinoBody">
-                                <div>
+                                <!-- <div>
                                     <label>Tipo Usuario: </label>
                                     <select class="selectTipoUsuario" required id="tipoUsuarioAsignar">
 
@@ -51,7 +69,7 @@
                                 <div>
                                     <label>Confirmar Contraseña: </label>
                                     <input type="password" id="confirmPasswordUsuario" name="confirmPasswordUsuario">
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
