@@ -28,6 +28,7 @@
                                     type="text"
                                     name="datosBusquedaFiltro"
                                     value=""
+                                    autofocus
                                     autocomplete="off"
                                     placeholder="Buscar Usuario">
                             </div>

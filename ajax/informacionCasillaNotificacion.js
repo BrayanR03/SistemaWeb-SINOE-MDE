@@ -78,11 +78,13 @@ $(document).ready(function () {
         datosMovimientoDiv.hidden=true;
         $("#NroCasillaNotificacion").val("");
         $("#datosBusquedaFiltro").val("");
+        datosBusquedaFiltro="";
+        loadInformacionCasillaNotificacion(datosBusquedaFiltro);
         // loadInformacionCasillaNotificacion(datosBusquedaFiltro);
         $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
             e.preventDefault();
             datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
-            console.log(datosBusquedaFiltro);
+            // console.log(datosBusquedaFiltro);
             pagina = 1
             loadInformacionCasillaNotificacion(datosBusquedaFiltro);
         });

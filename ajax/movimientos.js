@@ -186,6 +186,7 @@ $(document).ready(function () {
         modalEditar.modal('show');
 
         modalEditar.one('shown.bs.modal', function () {
+            $("#datosBusquedaFiltro").focus();
             // $("#nombresPersona").focus();
         });
     });
