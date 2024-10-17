@@ -65,15 +65,27 @@ $(document).ready(function () {
         let datosMovimientoDiv = document.querySelector('#datosMovimiento');
         datosMovimientoDiv.hidden=false;
         let idCasilla = $(this).data('id'); 
-        let casillaNotificacion=document.getElementById("NroCasillaNotificacion");
-        casillaNotificacion=idCasilla;
+        console.log(idCasilla);
+        // let casillaNotificacion=document.getElementById("NroCasillaNotificacion");
+        // casillaNotificacion=idCasilla;
+        $("#NroCasillaNotificacion").val(idCasilla);
 
     });
-    
+
     $(document).on('click',"#cancelarNotificacion",function(e){
         e.preventDefault();
         let datosMovimientoDiv = document.querySelector('#datosMovimiento');
         datosMovimientoDiv.hidden=true;
+        $("#NroCasillaNotificacion").val("");
+        $("#datosBusquedaFiltro").val("");
+        // loadInformacionCasillaNotificacion(datosBusquedaFiltro);
+        $(document).off("input", "#datosBusquedaFiltro").on("input", "#datosBusquedaFiltro", function (e) {
+            e.preventDefault();
+            datosBusquedaFiltro = $('#datosBusquedaFiltro').val();
+            console.log(datosBusquedaFiltro);
+            pagina = 1
+            loadInformacionCasillaNotificacion(datosBusquedaFiltro);
+        });
     });
 
 });
