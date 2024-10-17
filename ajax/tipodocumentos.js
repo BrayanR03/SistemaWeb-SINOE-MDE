@@ -291,6 +291,7 @@ $.ajax({
     dataType: 'json',
     data: {},
     success: function(data) {
+        // console.log(data);
         if (data && Array.isArray(data)) {
             let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
                 data.map(tipodoc =>

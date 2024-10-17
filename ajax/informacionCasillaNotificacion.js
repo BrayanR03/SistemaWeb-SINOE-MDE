@@ -34,7 +34,7 @@ $(document).ready(function () {
                         <td>${casilla.NroCasilla}</td>
                         <td>${casilla.TipoCasilla}</td>
                         <td>
-                        <a href="" >Notificar</a>
+                        <a id="btnNotificar" href="#" data-id="${casilla.NroCasilla}" >Notificar</a>
                         </td>
 
                     </tr>`).join('');
@@ -58,6 +58,22 @@ $(document).ready(function () {
         console.log(datosBusquedaFiltro);
         pagina = 1
         loadInformacionCasillaNotificacion(datosBusquedaFiltro);
-    })
+    });
+
+    $(document).on("click","#btnNotificar",function(e){
+        e.preventDefault();
+        let datosMovimientoDiv = document.querySelector('#datosMovimiento');
+        datosMovimientoDiv.hidden=false;
+        let idCasilla = $(this).data('id'); 
+        let casillaNotificacion=document.getElementById("NroCasillaNotificacion");
+        casillaNotificacion=idCasilla;
+
+    });
+    
+    $(document).on('click',"#cancelarNotificacion",function(e){
+        e.preventDefault();
+        let datosMovimientoDiv = document.querySelector('#datosMovimiento');
+        datosMovimientoDiv.hidden=true;
+    });
 
 });

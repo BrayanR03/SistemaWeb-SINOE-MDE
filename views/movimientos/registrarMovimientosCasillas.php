@@ -50,25 +50,49 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="datosDestinoBody">
-                                <!-- <div>
-                                    <label>Tipo Usuario: </label>
-                                    <select class="selectTipoUsuario" required id="tipoUsuarioAsignar">
+                            <div class="datosDestinoBody" hidden id="datosMovimiento">
+                                <div>
+                                    <label>Nro Casilla: </label>
+                                    <input type="text" readonly id="NroCasillaNotificacion">
+                                </div>
+                                <div>
+                                    <label>Tipo Documento: </label>
+                                    <select class="selectTipoDocumentoNotificacion" required id="tipoDocumentoNotificacion">
 
                                     </select>
                                 </div>
 
                                 <div>
-                                    <label>Usuario: </label>
-                                    <input type="text" id="usuarioUsuario" name="usuarioUsuario">
+                                    <label>Nro Documento: </label>
+                                    <input type="text" id="nroDocumento" name="nroDocumento">
                                 </div>
                                 <div>
-                                    <label>Contraseña: </label>
-                                    <input type="password" id="passwordUsuario" name="passwordUsuario">
+                                    <label>Fecha Documento: </label>
+                                    <input type="date" id="fechaDocumento" name="fechaDocumento">
                                 </div>
                                 <div>
-                                    <label>Confirmar Contraseña: </label>
-                                    <input type="password" id="confirmPasswordUsuario" name="confirmPasswordUsuario">
+                                    <label>Fecha Notificación: </label>
+                                    <input type="date" id="fechaNotificacion" name="fechaNotificacion">
+                                </div>
+                                <div>
+                                    <label>Adjuntar Documento: </label>
+                                    <input type="file" id="FotoDocumento" name="FotoDocumento">
+                                </div>
+                                <div>
+                                    <label>Sumilla: </label>
+                                    <textarea name="sumilla" id="sumilla"></textarea>
+                                </div>
+                                <!-- <div>
+                                    <label>Area: </label>
+                                    <select class="selectArea" required id="areaNotificacion">
+
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Sede: </label>
+                                    <select class="selectSede" required id="sedeNotificacion">
+
+                                    </select>
                                 </div> -->
                             </div>
                         </div>
@@ -76,12 +100,11 @@
                 </div>
                 <div class="containerButtonsEditarArea">
                     <input style="background-color: #006B2D;" type="submit" class="btn" value="Asignar">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" id="cancelarNotificacion" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
                 <button type="button" class="btnCerrarModal" data-bs-dismiss="modal">Cerrar</button> -->
             </form>
-
         </div>
     </div>
 </div>
