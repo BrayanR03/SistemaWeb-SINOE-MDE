@@ -3,16 +3,19 @@
 class Movimiento{
     private $idMovimiento;
     private $NroDocumento;
+    private $EstadoDocumento;
     private $FechaDocumento;
     private $FechaNotificacion;
     private $Sumilla;
-    private $Registrador;
     private $NombreDocumento;
-    private $FotoDocumento;
+    private $ArchivoDocumento;
     private $TipoDocumento;
     private $Area;
     private $Sede;
     private $Casilla;
+    private $FechaLectura;
+    private $FechaDescarga;
+    private $Usuario;
 
     public function getIdMovimiento() {
         return $this->idMovimiento;
@@ -54,12 +57,12 @@ class Movimiento{
         $this->Sumilla = $Sumilla;
     }
 
-    public function getRegistrador() {
-        return $this->Registrador;
+    public function getUsuario() {
+        return $this->Usuario;
     }
 
-    public function setRegistrador($Registrador) {
-        $this->Registrador = $Registrador;
+    public function setUsuario($Usuario) {
+        $this->Usuario = $Usuario;
     }
 
     public function getNombreDocumento() {
@@ -70,12 +73,12 @@ class Movimiento{
         $this->NombreDocumento = $NombreDocumento;
     }
 
-    public function getFotoDocumento() {
-        return $this->FotoDocumento;
+    public function getArchivoDocumento() {
+        return $this->ArchivoDocumento;
     }
 
-    public function setFotoDocumento($FotoDocumento) {
-        $this->FotoDocumento = $FotoDocumento;
+    public function setArchivoDocumento($ArchivoDocumento) {
+        $this->ArchivoDocumento = $ArchivoDocumento;
     }
 
     public function getTipoDocumento() {
@@ -85,7 +88,24 @@ class Movimiento{
     public function setTipoDocumento($TipoDocumento) {
         $this->TipoDocumento = $TipoDocumento;
     }
-
+    public function getEstadoDocumento(){
+        return $this->EstadoDocumento;
+    }
+    public function setEstadoDocumento($EstadoDocumento){
+        $this->EstadoDocumento=$EstadoDocumento;
+    }
+    public function getFechaLectura(){
+        return $this->FechaLectura;
+    }
+    public function setFechaLectura($FechaLectura){
+        $this->FechaLectura=$FechaLectura;
+    }
+    public function getFechaDescarga(){
+        return $this->FechaDescarga;
+    }
+    public function setFechaDescarga($FechaDescarga){
+        $this->FechaDescarga=$FechaDescarga;
+    }
     public function getArea() {
         return $this->Area;
     }
@@ -147,4 +167,40 @@ class Movimiento{
                 ];
         }
     }
+
+    public function registrarMovimiento(){
+        $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
+              VALUES(:NroDocumento,:ArchivoDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
+            $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
+            $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
+            $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
+            $stmt->bindParam(":Sumilla",$this->Sumilla,PDO::PARAM_STR);
+            $stmt->bindParam(":idTipoDocumento",$this->TipoDocumento,PDO::PARAM_INT);
+            $stmt->bindParam(":idArea",$this->Area,PDO::PARAM_INT);
+            $stmt->bindParam(":idSede",$this->Sede,PDO::PARAM_INT);
+            $stmt->bindParam(":idCasilla",$this->Casilla,PDO::PARAM_INT);
+            $stmt->bindParam(":idUsuario",$this->Usuario,PDO::PARAM_INT);
+            $stmt->execute();
+            return [
+                'status' => 'success',
+                'message' => 'Movimiento Registrado Correctamente',
+                'action' => 'registrar',
+                'module' => 'movimiento',
+                'info' => ''
+            ];
+
+        }catch(PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrio un error al registrar el movimiento',
+                'action' => 'registrar',
+                'module' => 'movimiento',
+                'info' => $e->getMessage()
+            ];
+        }
+    }
+
 }

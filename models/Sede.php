@@ -55,6 +55,14 @@ class Sede{
         }
     }
 
+    public function ListarSedeCombo()
+    {
+        $sql = "SELECT Descripcion, idSede FROM SEDES";
+        $stmt = database::connect()->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
     public function ListarSedesRegistradas($Descripcion=null){
         $sql = "EXEC SP_ListadoSedes :Descripcion";
         try{

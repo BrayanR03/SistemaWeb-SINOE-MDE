@@ -2,6 +2,7 @@
 <?php if (trim($_SESSION['TipoPersona']) == 'NATURAL' && trim($_SESSION['TipoUsuario']) == 'ADMINISTRADOR'):  ?>
 
     <script type="text/javascript">
+        window.idUsuario = '<?php echo $_SESSION['idUsuario']; ?>';
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
@@ -135,6 +136,7 @@
 <?php if (trim($_SESSION['TipoPersona']) == 'JURIDICO' && trim($_SESSION['TipoUsuario']) == 'ADMINISTRADOR') :  ?>
 
     <script type="text/javascript">
+        window.idUsuario = '<?php echo $_SESSION['idUsuario']; ?>';
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
@@ -270,6 +272,7 @@
 
 <?php if (trim($_SESSION['TipoPersona']) == 'NATURAL' && trim($_SESSION['TipoUsuario']) != 'ADMINISTRADOR'):  ?>
     <script type="text/javascript">
+        window.idUsuario = '<?php echo $_SESSION['idUsuario']; ?>';
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
@@ -420,6 +423,7 @@
 
 <?php if (trim($_SESSION['TipoPersona']) == 'JURIDICO' && trim($_SESSION['TipoUsuario']) != 'ADMINISTRADOR'):  ?>
     <script type="text/javascript">
+        window.idUsuario = '<?php echo $_SESSION['idUsuario']; ?>';
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';

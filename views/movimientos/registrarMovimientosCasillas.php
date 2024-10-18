@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Envío de Notificación</h5>
             </div>
-            <form class="formMovimiento" id="registrarMovimientoCasillaForm" action="" method="post">
+            <form class="formMovimiento" enctype="multipart/form-data" id="registrarMovimientoCasillaForm" action="" method="post">
                 <div class="seguimiento_body">
                     <div class="detalle">
                         <div class="datosOrigen">
@@ -54,7 +54,7 @@
                             <div class="datosDestinoBody" hidden id="datosMovimiento">
                                 <div>
                                     <label>Nro Casilla: </label>
-                                    <input type="text" readonly id="NroCasillaNotificacion">
+                                    <input type="text" required readonly id="NroCasillaNotificacion">
                                 </div>
                                 <div>
                                     <label>Tipo Documento: </label>
@@ -65,25 +65,25 @@
 
                                 <div>
                                     <label>Nro Documento: </label>
-                                    <input type="text" id="nroDocumento" name="nroDocumento">
+                                    <input type="text" required id="nroDocumento" name="nroDocumento">
                                 </div>
                                 <div>
                                     <label>Fecha Documento: </label>
-                                    <input type="date" id="fechaDocumento" name="fechaDocumento">
+                                    <input type="date" required id="fechaDocumento" name="fechaDocumento">
                                 </div>
                                 <div>
                                     <label>Fecha Notificación: </label>
-                                    <input type="date" id="fechaNotificacion" name="fechaNotificacion">
+                                    <input type="date" required id="fechaNotificacion" name="fechaNotificacion">
                                 </div>
                                 <div>
                                     <label>Adjuntar Documento: </label>
-                                    <input type="file" id="FotoDocumento" name="FotoDocumento">
+                                    <input type="file" id="archivoDocumento" name="archivoDocumento">
                                 </div>
                                 <div>
                                     <label>Sumilla: </label>
                                     <textarea name="sumilla" id="sumilla"></textarea>
                                 </div>
-                                <!-- <div>
+                                <div>
                                     <label>Area: </label>
                                     <select class="selectArea" required id="areaNotificacion">
 
@@ -94,13 +94,13 @@
                                     <select class="selectSede" required id="sedeNotificacion">
 
                                     </select>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="containerButtonsEditarArea">
-                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Asignar">
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
                     <button type="button" class="btn btn-secondary" id="cancelarNotificacion" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">

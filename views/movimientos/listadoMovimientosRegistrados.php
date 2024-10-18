@@ -139,5 +139,7 @@ require_once('../../config/parameters.php');
 </div>
 <?php require_once "registrarMovimientosCasillas.php" ?>
 <script src="<?= base_url ?>ajax/movimientos.js"></script>
+<script src="<?= base_url ?>ajax/areas.js"></script>
+<script src="<?= base_url ?>ajax/sedes.js"></script>
 <script src="<?= base_url ?>ajax/informacionCasillaNotificacion.js"></script>
 <!-- <script src="<?= base_url ?>ajax/tipodocumento.js"></script> -->
