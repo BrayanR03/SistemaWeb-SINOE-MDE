@@ -170,11 +170,11 @@ class Movimiento{
 
     public function registrarMovimiento(){
         $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
-              VALUES(:NroDocumento,:ArchivoDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
+              VALUES(:NroDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         try{
             $stmt=database::connect()->prepare($sql);
             $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
-            $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
+            // $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
             $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
             $stmt->bindParam(":Sumilla",$this->Sumilla,PDO::PARAM_STR);

@@ -196,144 +196,146 @@ $(document).ready(function () {
 
     // Registrar Movimiento
 
-    $(document).off('submit', '#registrarMovimientoCasillaForm').on('submit', '#registrarMovimientoCasillaForm', function (e) {
-        e.preventDefault();
-        $(this).off('submit'); // Desenganchar el evento de submit
-    
-        // Crear el objeto FormData para manejar tanto el archivo como los datos de texto
-        let formData = new FormData();
-    
-        // Añadir los datos al FormData
-        formData.append('nroCasilla', $('#NroCasillaNotificacion').val());
-        formData.append('tipoDocumento', $('#tipoDocumentoNotificacion').val());
-        formData.append('nroDocumento', $.trim($('#nroDocumento').val()));
-        formData.append('fechaDocumento', $('#fechaDocumento').val());
-        formData.append('fechaNotificacion', $('#fechaNotificacion').val());
-        formData.append('sumilla', $('#sumilla').val());
-        formData.append('areaNotificacion', $('#areaNotificacion').val());
-        formData.append('sedeNotificacion', $('#sedeNotificacion').val());
-        formData.append('usuarioRegistrador', idUsuario);
-    
-        // Capturar el archivo (solo si se ha subido uno)
-        let archivoInput = $('#archivoDocumento')[0].files[0];
-        if (archivoInput) {
-            formData.append('archivoDocumento', archivoInput);  // Agregar el archivo al FormData
-        } else {
-            alert("Por favor selecciona un archivo.");
-            return;
-        }
-    
-        // Validación de campos obligatorios
-        if ($('#NroCasillaNotificacion').val().length === 0 || $('#nroDocumento').val().length === 0) {
-            alert("Aún hay campos vacíos.");
-            return;
-        }
-    
-        // Enviar los datos usando AJAX
-        $.ajax({
-            url: "./controllers/Movimientos/registrarMovimiento.php",
-            type: "POST",
-            data: formData,
-            contentType: false, // Importante para no establecer el tipo de contenido por defecto
-            processData: false, // Impide que jQuery procese los datos
-            success: function (response) {
-                console.log(response);
-                response = JSON.parse(response);
-    
-                if (response.message === 'Usuario Notificado Mismo Documento') {
-                    let usuarioNotificadoRepetido = confirm("¿Estás seguro de notificar el mismo documento al usuario?");
-                    if (usuarioNotificadoRepetido) {
-                        if (response.status === 'success') {
-                            alert("Se notificó el documento correctamente");
-                            $('#modalRegistrarMovimientoCasilla').modal('hide');
-                            pagina = 1;
-                        } else {
-                            alert("Error al notificar al usuario");
-                        }
-                    } else {
-                        console.log("Se canceló la notificación.");
-                    }
-                } else {
-                    if (response.status === 'success') {
-                        alert("Se notificó el documento correctamente");
-                        $('#modalRegistrarMovimientoCasilla').modal('hide');
-                        pagina = 1;
-                    } else {
-                        alert("Error al notificar al usuario");
-                    }
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('Error al notificar al usuario:', textStatus, errorThrown);
-            }
-        });
-    });
-    
     // $(document).off('submit', '#registrarMovimientoCasillaForm').on('submit', '#registrarMovimientoCasillaForm', function (e) {
     //     e.preventDefault();
     //     $(this).off('submit'); // Desenganchar el evento de submit
-
-    //     let nroCasilla=$('#NroCasillaNotificacion');
-    //     let tipoDocumento=$('#tipoDocumentoNotificacion');
-    //     let nroDocumento=$.trim($('#nroDocumento'));
-    //     let fechaDocumento=$('#fechaDocumento');
-    //     let fechaNotificacion=$('#fechaNotificacion');
-    //     let archivoDocumento=$('#archivoDocumento');
-    //     let sumilla=$('#sumilla');
-    //     let areaNotificacion=$('#areaNotificacion');
-    //     let sedeNotificacion=$('#sedeNotificacion');
-    //     let usuarioRegistrador=idUsuario;
-
-    //     if(nroCasilla.length===0 || nroDocumento.length===0){
-    //         alert("Aún Hay Campos Vacíos");
-    //         return 
-    //     }else{
-    //         $.ajax({
-    //             url: "./controllers/Movimientos/registrarMovimiento.php",
-    //             type: "POST",
-    //             datatype: "json",
-    //             data: {
-    //                 nroCasilla:nroCasilla,tipoDocumento:tipoDocumento,nroDocumento:nroDocumento,fechaDocumento:fechaDocumento,
-    //                 fechaNotificacion:fechaNotificacion,archivoDocumento:archivoDocumento,sumilla:sumilla,areaNotificacion:areaNotificacion,
-    //                 sedeNotificacion:sedeNotificacion,usuarioRegistrador:usuarioRegistrador
-    //             },
-    //             success: function (response) {
-    //                 console.log(response);
-    //                 // return
-    //                 response = JSON.parse(response);
-    //                 if (response.message === 'Usuario Notificado Mismo Documento') {
-    //                     let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar el mismo documento al usuario?");
-    //                     if(usuarioNotificadoRepetido){
-    //                         if (response.status === 'success') {
-    //                             alert("Se Notificó el Documento Correctamente");
-    //                             $('#modalRegistrarMovimientoCasilla').modal('hide');
-    //                             pagina = 1;
-    //                             // LLAMAR A FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
-    //                         } else {
-    //                             alert("Error al Notificar al Usuario");
-    //                         }
-    //                     }else{
-    //                         console.log("se cancelo la notificacion.");
-    //                     }
-    //                 } else {
+    
+    //     // Crear el objeto FormData para manejar tanto el archivo como los datos de texto
+    //     let formData = new FormData();
+    //     console.log(formData);
+    
+    //     // Añadir los datos al FormData
+    //     formData.append('nroCasilla', $('#NroCasillaNotificacion').val());
+    //     formData.append('tipoDocumento', $('#tipoDocumentoNotificacion').val());
+    //     formData.append('nroDocumento', $.trim($('#nroDocumento').val()));
+    //     formData.append('fechaDocumento', $('#fechaDocumento').val());
+    //     formData.append('fechaNotificacion', $('#fechaNotificacion').val());
+    //     formData.append('sumilla', $('#sumilla').val());
+    //     formData.append('areaNotificacion', $('#areaNotificacion').val());
+    //     formData.append('sedeNotificacion', $('#sedeNotificacion').val());
+    //     formData.append('usuarioRegistrador', idUsuario);
+    
+    //     console.log(formData);
+    //     // Capturar el archivo (solo si se ha subido uno)
+    //     let archivoInput = $('#archivoDocumento')[0].files[0];
+    //     if (archivoInput) {
+    //         formData.append('archivoDocumento', archivoInput);  // Agregar el archivo al FormData
+    //     } else {
+    //         alert("Por favor selecciona un archivo.");
+    //         return;
+    //     }
+    
+    //     // Validación de campos obligatorios
+    //     if ($('#NroCasillaNotificacion').val().length === 0 || $('#nroDocumento').val().length === 0) {
+    //         alert("Aún hay campos vacíos.");
+    //         return;
+    //     }
+    
+    //     // Enviar los datos usando AJAX
+    //     $.ajax({
+    //         url: "./controllers/Movimientos/registrarMovimiento.php",
+    //         type: "POST",
+    //         data: formData,
+    //         contentType: false, // Importante para no establecer el tipo de contenido por defecto
+    //         processData: false, // Impide que jQuery procese los datos
+    //         success: function (response) {
+    //             console.log(response);
+    //             response = JSON.parse(response);
+    
+    //             if (response.message === 'Usuario Notificado Mismo Documento') {
+    //                 let usuarioNotificadoRepetido = confirm("¿Estás seguro de notificar el mismo documento al usuario?");
+    //                 if (usuarioNotificadoRepetido) {
     //                     if (response.status === 'success') {
-    //                         alert("Se Notificó el Documento Correctamente");
+    //                         alert("Se notificó el documento correctamente");
     //                         $('#modalRegistrarMovimientoCasilla').modal('hide');
     //                         pagina = 1;
-    //                         // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
     //                     } else {
-    //                         alert("Error al Notificar al Usuario");
+    //                         alert("Error al notificar al usuario");
     //                     }
+    //                 } else {
+    //                     console.log("Se canceló la notificación.");
     //                 }
-    //             },
-    //             error: function (jqXHR, textStatus, errorThrown) {
-    //                 console.error('Error updating the area:', textStatus, errorThrown);
+    //             } else {
+    //                 if (response.status === 'success') {
+    //                     alert("Se notificó el documento correctamente");
+    //                     $('#modalRegistrarMovimientoCasilla').modal('hide');
+    //                     pagina = 1;
+    //                 } else {
+    //                     alert("Error al notificar al usuario");
+    //                 }
     //             }
-    //         });
-    //     }
-
-
+    //         },
+    //         error: function (jqXHR, textStatus, errorThrown) {
+    //             console.error('Error al notificar al usuario:', textStatus, errorThrown);
+    //         }
+    //     });
     // });
+    
+    $(document).off('submit', '#registrarMovimientoCasillaForm').on('submit', '#registrarMovimientoCasillaForm', function (e) {
+        e.preventDefault();
+        $(this).off('submit'); // Desenganchar el evento de submit
+
+        let nroCasilla=$('#NroCasillaNotificacion');
+        let tipoDocumento=$('#tipoDocumentoNotificacion');
+        let nroDocumento=$.trim($('#nroDocumento'));
+        let fechaDocumento=$('#fechaDocumento');
+        let fechaNotificacion=$('#fechaNotificacion');
+        // let archivoDocumento=$('#archivoDocumento');
+        let sumilla=$('#sumilla');
+        let areaNotificacion=$('#areaNotificacion');
+        let sedeNotificacion=$('#sedeNotificacion');
+        let usuarioRegistrador=idUsuario;
+
+        if(nroCasilla.length===0 || nroDocumento.length===0){
+            alert("Aún Hay Campos Vacíos");
+            return 
+        }else{
+            $.ajax({
+                url: "./controllers/Movimientos/registrarMovimiento.php",
+                type: "POST",
+                // datatype: "json",
+                data: {
+                    nroCasilla:nroCasilla,tipoDocumento:tipoDocumento,nroDocumento:nroDocumento,fechaDocumento:fechaDocumento,
+                    fechaNotificacion:fechaNotificacion,sumilla:sumilla,areaNotificacion:areaNotificacion,
+                    sedeNotificacion:sedeNotificacion,usuarioRegistrador:usuarioRegistrador
+                },
+                success: function (response) {
+                    console.log(response);
+                    // return
+                    response = JSON.parse(response);
+                    if (response.message === 'Usuario Notificado Mismo Documento') {
+                        let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar el mismo documento al usuario?");
+                        if(usuarioNotificadoRepetido){
+                            if (response.status === 'success') {
+                                alert("Se Notificó el Documento Correctamente");
+                                $('#modalRegistrarMovimientoCasilla').modal('hide');
+                                pagina = 1;
+                                // LLAMAR A FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                            } else {
+                                alert("Error al Notificar al Usuario");
+                            }
+                        }else{
+                            console.log("se cancelo la notificacion.");
+                        }
+                    } else {
+                        if (response.status === 'success') {
+                            alert("Se Notificó el Documento Correctamente");
+                            $('#modalRegistrarMovimientoCasilla').modal('hide');
+                            pagina = 1;
+                            // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                        } else {
+                            alert("Error al Notificar al Usuario");
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error updating the area:', textStatus, errorThrown);
+                }
+            });
+        }
+
+
+    });
     // llenar select
 $.ajax({
     url: './controllers/TipoDocumentos/listarTipoDocumentoCombo.php',
