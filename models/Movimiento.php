@@ -169,7 +169,7 @@ class Movimiento{
     }
 
     public function registrarMovimiento(){
-        $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
+        $sql="INSERT INTO Movimientos(NroDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
               VALUES(:NroDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         try{
             $stmt=database::connect()->prepare($sql);

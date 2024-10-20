@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Envío de Notificación</h5>
             </div>
-            <form class="formMovimiento" enctype="multipart/form-data" id="registrarMovimientoCasillaForm" action="" method="post">
+            <form class="formMovimiento" id="registrarMovimientoCasillaForm" action="" method="post">
                 <div class="seguimiento_body">
                     <div class="detalle">
                         <div class="datosOrigen">

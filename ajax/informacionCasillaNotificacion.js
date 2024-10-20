@@ -60,7 +60,7 @@ $(document).ready(function () {
         loadInformacionCasillaNotificacion(datosBusquedaFiltro);
     });
 
-    $(document).on("click","#btnNotificar",function(e){
+    $(document).off("click","#btnNotificar").on("click","#btnNotificar",function(e){
         e.preventDefault();
         let datosMovimientoDiv = document.querySelector('#datosMovimiento');
         datosMovimientoDiv.hidden=false;
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click',"#cancelarNotificacion",function(e){
+    $(document).off("click","#cancelarNotificacion").on('click',"#cancelarNotificacion",function(e){
         e.preventDefault();
         let datosMovimientoDiv = document.querySelector('#datosMovimiento');
         datosMovimientoDiv.hidden=true;

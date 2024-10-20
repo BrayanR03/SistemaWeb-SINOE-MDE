@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 require_once "../../models/Movimiento.php";
 require_once "../../config/database.php";
 

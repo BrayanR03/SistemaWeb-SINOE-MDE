@@ -270,18 +270,18 @@ $(document).ready(function () {
     //         }
     //     });
     // });
-    
-    $(document).off('submit', '#registrarMovimientoCasillaForm').on('submit', '#registrarMovimientoCasillaForm', function (e) {
-        e.preventDefault();
-        $(this).off('submit'); // Desenganchar el evento de submit
+    $('#registrarMovimientoCasillaForm').off('submit').on('submit', function (e) {
 
-        let nroCasilla=$('#NroCasillaNotificacion');
+    // $(document).off('submit', '#registrarMovimientoCasillaForm').on('submit', '#registrarMovimientoCasillaForm', function (e) {
+        e.preventDefault();// Desenganchar el evento de submit
+
+        let nroCasilla=$.trim($('#NroCasillaNotificacion').val());
         let tipoDocumento=$('#tipoDocumentoNotificacion');
-        let nroDocumento=$.trim($('#nroDocumento'));
+        let nroDocumento=$.trim($('#nroDocumento').val());
         let fechaDocumento=$('#fechaDocumento');
         let fechaNotificacion=$('#fechaNotificacion');
         // let archivoDocumento=$('#archivoDocumento');
-        let sumilla=$('#sumilla');
+        let sumilla=$.trim($('#sumilla').val());
         let areaNotificacion=$('#areaNotificacion');
         let sedeNotificacion=$('#sedeNotificacion');
         let usuarioRegistrador=idUsuario;
@@ -293,7 +293,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "./controllers/Movimientos/registrarMovimiento.php",
                 type: "POST",
-                // datatype: "json",
+                datatype: "json",
                 data: {
                     nroCasilla:nroCasilla,tipoDocumento:tipoDocumento,nroDocumento:nroDocumento,fechaDocumento:fechaDocumento,
                     fechaNotificacion:fechaNotificacion,sumilla:sumilla,areaNotificacion:areaNotificacion,
@@ -301,22 +301,23 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     console.log(response);
+                    return
                     // return
                     response = JSON.parse(response);
                     if (response.message === 'Usuario Notificado Mismo Documento') {
-                        let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar el mismo documento al usuario?");
-                        if(usuarioNotificadoRepetido){
-                            if (response.status === 'success') {
-                                alert("Se Notificó el Documento Correctamente");
-                                $('#modalRegistrarMovimientoCasilla').modal('hide');
-                                pagina = 1;
-                                // LLAMAR A FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
-                            } else {
-                                alert("Error al Notificar al Usuario");
-                            }
-                        }else{
-                            console.log("se cancelo la notificacion.");
-                        }
+                        // let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar el mismo documento al usuario?");
+                        // if(usuarioNotificadoRepetido){
+                        //     if (response.status === 'success') {
+                        //         alert("Se Notificó el Documento Correctamente");
+                        //         $('#modalRegistrarMovimientoCasilla').modal('hide');
+                        //         pagina = 1;
+                        //         // LLAMAR A FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                        //     } else {
+                        //         alert("Error al Notificar al Usuario");
+                        //     }
+                        // }else{
+                        //     console.log("se cancelo la notificacion.");
+                        // }
                     } else {
                         if (response.status === 'success') {
                             alert("Se Notificó el Documento Correctamente");
@@ -336,29 +337,30 @@ $(document).ready(function () {
 
 
     });
-    // llenar select
-$.ajax({
-    url: './controllers/TipoDocumentos/listarTipoDocumentoCombo.php',
-    method: 'GET',
-    dataType: 'json',
-    data: {},
-    success: function(data) {
-        // console.log(data);
-        if (data && Array.isArray(data)) {
-            let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
-                data.map(tipodoc =>
-                    `<option value="${tipodoc.idTipoDocumento}">${tipodoc.Descripcion}</option>`
-                ).join('');
-
-
-            $('.selectTipoDocumentoNotificacion').html(options);
-            
-        } else {
-            console.warn('No data received or data is not an array.');
-        }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.error('Error fetching the content:', textStatus, errorThrown);
-    }});
-
 });
+
+    // llenar select
+    $.ajax({
+        url: './controllers/TipoDocumentos/listarTipoDocumentoCombo.php',
+        method: 'GET',
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            // console.log(data);
+            if (data && Array.isArray(data)) {
+                let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
+                    data.map(tipodoc =>
+                        `<option value="${tipodoc.idTipoDocumento}">${tipodoc.Descripcion}</option>`
+                    ).join('');
+    
+    
+                $('.selectTipoDocumentoNotificacion').html(options);
+                
+            } else {
+                console.warn('No data received or data is not an array.');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching the content:', textStatus, errorThrown);
+        }});
+    
