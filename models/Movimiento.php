@@ -173,7 +173,7 @@ class Movimiento{
               VALUES(:NroDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         try{
             $stmt=database::connect()->prepare($sql);
-            $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
+            $stmt->bindParam(":NroDocumento",ltrim(rtrim($this->NroDocumento)),PDO::PARAM_STR);
             // $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
             $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
@@ -200,6 +200,45 @@ class Movimiento{
                 'module' => 'movimiento',
                 'info' => $e->getMessage()
             ];
+        }
+    }
+
+    public function existeNotificacionDocumentoUsuario(){
+        $sql="SELECT LTRIM(RTRIM(NroDocumento)) as NroDocumento,idCasilla FROM Movimientos WHERE NroDocumento=:NroDocumento AND idCasilla=:idCasilla";
+        try{
+            $stmt=database::connect()->prepare($sql);
+            $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
+            $stmt->bindParam(":idCasilla",$this->Casilla,PDO::PARAM_INT);
+            $stmt->execute();
+            $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($results)>0){
+                return [
+                    'status' => 'success',
+                    'message' => 'Usuario Notificado Mismo Documento',
+                    'action' => 'buscar',
+                    'module' => 'movimiento',
+                    'data' => [],
+                    'info' => ''
+                ];
+            }else{
+                return [
+                    'status' => 'success',
+                    'message' => '¡No se encontraron resultados!',
+                    'action' => 'buscar',
+                    'module' => 'movimiento',
+                    'data' => [],
+                    'info' => ''
+                ];
+            }
+        }catch(PDOException $e){
+            return [
+                'status' => 'failed',
+                'message' => 'Ocurrió un error al momento de verificar la existencia de la notificación',
+                'action' => 'buscar',
+                'module' => 'movimiento',
+                'info' => $e->getMessage()
+            ];
+
         }
     }
 

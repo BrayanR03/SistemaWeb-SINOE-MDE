@@ -6,7 +6,7 @@ require_once "../../config/database.php";
 
 $nroCasilla = trim($_POST['nroCasilla']);
 $tipoDocumento = $_POST['tipoDocumento'];
-$nroDocumento = trim($_POST['nroDocumento']);
+$nroDocumento = ltrim(rtrim($_POST['nroDocumento']));
 $fechaDocumento = $_POST['fechaDocumento'];
 $fechaNotificacion = $_POST['fechaNotificacion'];
 // $archivoDocumento = $_POST['archivoDocumento'];
@@ -45,6 +45,7 @@ $movimientoModel->setSede($sedeNotificacion);
 $movimientoModel->setUsuario($idUsuario);
 // $movimientoModel->setArchivoDocumento($archivoContenido);
 $response=$movimientoModel->registrarMovimiento();
+print json_encode($response);
 // $movimientoModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
 // $response = $movimientoModel->existeNumDocIdentidad();
 

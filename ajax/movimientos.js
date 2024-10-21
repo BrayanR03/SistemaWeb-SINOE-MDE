@@ -276,14 +276,14 @@ $(document).ready(function () {
         e.preventDefault();// Desenganchar el evento de submit
 
         let nroCasilla=$.trim($('#NroCasillaNotificacion').val());
-        let tipoDocumento=$('#tipoDocumentoNotificacion');
+        let tipoDocumento=$('#tipoDocumentoNotificacion').val();
         let nroDocumento=$.trim($('#nroDocumento').val());
-        let fechaDocumento=$('#fechaDocumento');
-        let fechaNotificacion=$('#fechaNotificacion');
+        let fechaDocumento=$('#fechaDocumento').val();
+        let fechaNotificacion=$('#fechaNotificacion').val();
         // let archivoDocumento=$('#archivoDocumento');
         let sumilla=$.trim($('#sumilla').val());
-        let areaNotificacion=$('#areaNotificacion');
-        let sedeNotificacion=$('#sedeNotificacion');
+        let areaNotificacion=$('#areaNotificacion').val();
+        let sedeNotificacion=$('#sedeNotificacion').val();
         let usuarioRegistrador=idUsuario;
 
         if(nroCasilla.length===0 || nroDocumento.length===0){
@@ -300,24 +300,24 @@ $(document).ready(function () {
                     sedeNotificacion:sedeNotificacion,usuarioRegistrador:usuarioRegistrador
                 },
                 success: function (response) {
-                    console.log(response);
-                    return
+                    // console.log(response);
+                    // return
                     // return
                     response = JSON.parse(response);
                     if (response.message === 'Usuario Notificado Mismo Documento') {
-                        // let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar el mismo documento al usuario?");
-                        // if(usuarioNotificadoRepetido){
-                        //     if (response.status === 'success') {
-                        //         alert("Se Notificó el Documento Correctamente");
-                        //         $('#modalRegistrarMovimientoCasilla').modal('hide');
-                        //         pagina = 1;
-                        //         // LLAMAR A FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
-                        //     } else {
-                        //         alert("Error al Notificar al Usuario");
-                        //     }
-                        // }else{
-                        //     console.log("se cancelo la notificacion.");
-                        // }
+                        let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar otra vez el mismo documento al mismo usuario?");
+                        if(usuarioNotificadoRepetido){
+                            if (response.status === 'success') {
+                                alert("Se Notificó el Documento Correctamente");
+                                $('#modalRegistrarMovimientoCasilla').modal('hide');
+                                pagina = 1;
+                                // LLAMAR A FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                            } else {
+                                alert("Error al Notificar al Usuario");
+                            }
+                        }else{
+                            console.log("se cancelo la notificacion.");
+                        }
                     } else {
                         if (response.status === 'success') {
                             alert("Se Notificó el Documento Correctamente");
@@ -330,6 +330,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("excepcion error");
                     console.error('Error updating the area:', textStatus, errorThrown);
                 }
             });
