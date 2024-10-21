@@ -173,7 +173,7 @@ class Movimiento{
               VALUES(:NroDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         try{
             $stmt=database::connect()->prepare($sql);
-            $stmt->bindParam(":NroDocumento",ltrim(rtrim($this->NroDocumento)),PDO::PARAM_STR);
+            $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
             // $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
             $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
@@ -241,5 +241,4 @@ class Movimiento{
 
         }
     }
-
 }

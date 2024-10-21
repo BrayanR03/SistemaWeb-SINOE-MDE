@@ -6,7 +6,7 @@ require_once "../../config/database.php";
 
 $nroCasilla = trim($_POST['nroCasilla']);
 $tipoDocumento = $_POST['tipoDocumento'];
-$nroDocumento = ltrim(rtrim($_POST['nroDocumento']));
+$nroDocumento = rtrim($_POST['nroDocumento']);
 $fechaDocumento = $_POST['fechaDocumento'];
 $fechaNotificacion = $_POST['fechaNotificacion'];
 // $archivoDocumento = $_POST['archivoDocumento'];
@@ -35,17 +35,34 @@ $idUsuario = $_POST['usuarioRegistrador'];
 
 $movimientoModel = new Movimiento();
 $movimientoModel->setCasilla($nroCasilla);
-$movimientoModel->setTipoDocumento($tipoDocumento);
 $movimientoModel->setNroDocumento($nroDocumento);
-$movimientoModel->setFechaDocumento($fechaDocumento);
-$movimientoModel->setFechaNotificacion($fechaNotificacion);
-$movimientoModel->setSumilla($sumilla);
-$movimientoModel->setArea($areaNotificacion);
-$movimientoModel->setSede($sedeNotificacion);
-$movimientoModel->setUsuario($idUsuario);
-// $movimientoModel->setArchivoDocumento($archivoContenido);
-$response=$movimientoModel->registrarMovimiento();
-print json_encode($response);
+$response=$movimientoModel->existeNotificacionDocumentoUsuario();
+
+if($response['message']==='Usuario Notificado Mismo Documento'){
+    print json_encode($response);
+}else{
+    $movimientoModel->setTipoDocumento($tipoDocumento);
+    $movimientoModel->setFechaDocumento($fechaDocumento);
+    $movimientoModel->setFechaNotificacion($fechaNotificacion);
+    $movimientoModel->setSumilla($sumilla);
+    $movimientoModel->setArea($areaNotificacion);
+    $movimientoModel->setSede($sedeNotificacion);
+    $movimientoModel->setUsuario($idUsuario);
+    // $movimientoModel->setArchivoDocumento($archivoContenido);
+    $response=$movimientoModel->registrarMovimiento();
+    print json_encode($response);
+}
+
+// $movimientoModel->setTipoDocumento($tipoDocumento);
+// $movimientoModel->setFechaDocumento($fechaDocumento);
+// $movimientoModel->setFechaNotificacion($fechaNotificacion);
+// $movimientoModel->setSumilla($sumilla);
+// $movimientoModel->setArea($areaNotificacion);
+// $movimientoModel->setSede($sedeNotificacion);
+// $movimientoModel->setUsuario($idUsuario);
+// // $movimientoModel->setArchivoDocumento($archivoContenido);
+// $response=$movimientoModel->registrarMovimiento();
+// print json_encode($response);
 // $movimientoModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
 // $response = $movimientoModel->existeNumDocIdentidad();
 

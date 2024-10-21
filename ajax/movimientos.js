@@ -290,6 +290,16 @@ $(document).ready(function () {
             alert("Aún Hay Campos Vacíos");
             return 
         }else{
+            // console.log(nroCasilla);
+            // console.log(tipoDocumento);
+            // console.log(nroDocumento);
+            // console.log(fechaDocumento);
+            // console.log(fechaNotificacion);
+            // console.log(sumilla);
+            // console.log(areaNotificacion);
+            // console.log(sedeNotificacion);
+            // console.log(usuarioRegistrador);
+            // return
             $.ajax({
                 url: "./controllers/Movimientos/registrarMovimiento.php",
                 type: "POST",
@@ -307,6 +317,30 @@ $(document).ready(function () {
                     if (response.message === 'Usuario Notificado Mismo Documento') {
                         let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar otra vez el mismo documento al mismo usuario?");
                         if(usuarioNotificadoRepetido){
+                            $.ajax({
+                                url: "./controllers/Movimientos/registrarMovimiento.php",
+                                type: "POST",
+                                datatype: "json",
+                                data: {
+                                    nroCasilla:nroCasilla,tipoDocumento:tipoDocumento,nroDocumento:nroDocumento,fechaDocumento:fechaDocumento,
+                                    fechaNotificacion:fechaNotificacion,sumilla:sumilla,areaNotificacion:areaNotificacion,
+                                    sedeNotificacion:sedeNotificacion,usuarioRegistrador:usuarioRegistrador
+                                },
+                                success: function (response) {
+                                        if (response.status === 'success') {
+                                            alert("Se Notificó el Documento Correctamente");
+                                            $('#modalRegistrarMovimientoCasilla').modal('hide');
+                                            pagina = 1;
+                                            // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                                        } else {
+                                            alert("Error al Notificar al Usuario");
+                                        }
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.log("excepcion error");
+                                    console.error('Error updating the area:', textStatus, errorThrown);
+                                }
+                            });
                             if (response.status === 'success') {
                                 alert("Se Notificó el Documento Correctamente");
                                 $('#modalRegistrarMovimientoCasilla').modal('hide');
