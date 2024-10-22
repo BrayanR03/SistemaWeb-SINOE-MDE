@@ -236,7 +236,7 @@ $(document).ready(function () {
             // $("#nombresPersona").focus();
         });
     });
-
+    /*VALEEEEEEEEEEE */
     // Actualizar Area en Modelo
     $(document).off('submit', '#editarUsuarioForm').on('submit', '#editarUsuarioForm', function (e) {
         e.preventDefault();
@@ -260,13 +260,13 @@ $(document).ready(function () {
         $.ajax({
             url: "./controllers/Usuario/actualizarUsuario.php",
             type: "POST",
-            datatype: "json",
+            // datatype: "json",
             data: {
                 idTipoUsuario,Usuario,Password,idUsuario,idPersona
             },
             success: function (response) {
                 console.log(response);
-                // return
+                return
                 response = JSON.parse(response);
                 if (response.message === 'Usuario encontrado') {
                     alert("El Usuario ingresado, pertenece  otra Persona");

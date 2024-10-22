@@ -12,7 +12,7 @@
                                 <h3>
                                     Datos de la Persona
                                 </h3>
-                                <input  id="idPersonaAsignado" hidden readonly>
+                                <input id="idPersonaAsignado" hidden readonly>
                             </div>
                             <div class="datosOrigenBody">
                                 <div>
@@ -37,7 +37,7 @@
                                         name="telefonoPersonaUsuario"
                                         id="telefonoPersonaUsuario">
                                 </div>
-                                
+
                                 <div>
                                     <label>Tipo Documento: </label>
                                     <input type="text" readonly id="tipoDocumentoIdentidadUsuario">
@@ -66,11 +66,11 @@
                                 </div>
                                 <div>
                                     <label>Contraseña: </label>
-                                    <input type="password" id="passwordUsuario" name="passwordUsuario">
+                                    <input type="password" id="passwordUsuario" oninput="syncPasswordsAsign()" name="passwordUsuario">
                                 </div>
                                 <div>
                                     <label>Confirmar Contraseña: </label>
-                                    <input type="password" id="confirmPasswordUsuario" name="confirmPasswordUsuario">
+                                    <input type="password" readonly id="confirmPasswordUsuario" name="confirmPasswordUsuario">
                                 </div>
                             </div>
                         </div>
@@ -98,3 +98,9 @@
         </div>
     </div>
 </div>
+<script>
+    function syncPasswordsAsign() {
+        var password = document.getElementById("passwordUsuario").value;
+        document.getElementById("confirmPasswordUsuario").value = password;
+    }
+</script>

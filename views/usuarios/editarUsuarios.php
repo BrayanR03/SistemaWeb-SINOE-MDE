@@ -64,15 +64,15 @@
 
                                 <div>
                                     <label>Usuario: </label>
-                                    <input type="text" id="usuarioUsuarioEditar" name="usuarioUsuarioEditar">
+                                    <input type="text" id="usuarioUsuarioEditar" name="usuarioUsuarioEditar">   
                                 </div>
                                 <div>
                                     <label>Nueva Contraseña: </label>
-                                    <input type="password" id="passwordUsuarioEditar" name="passwordUsuarioEditar">
+                                    <input type="password" id="passwordUsuarioEditar" oninput="syncPasswords()" name="passwordUsuarioEditar">
                                 </div>
                                 <div>
                                     <label>Confirmar Contraseña: </label>
-                                    <input type="password" id="confirmPasswordUsuarioEditar" name="confirmPasswordUsuarioEditar">
+                                    <input readonly type="password" id="confirmPasswordUsuarioEditar" name="confirmPasswordUsuarioEditar">
                                 </div>
                             </div>
                         </div>
@@ -90,3 +90,10 @@
         </div>
     </div>
 </div>
+
+<script>
+        function syncPasswords() {
+            var password = document.getElementById("passwordUsuarioEditar").value;
+            document.getElementById("confirmPasswordUsuarioEditar").value = password;
+        }
+    </script>
