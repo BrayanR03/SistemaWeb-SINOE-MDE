@@ -7,7 +7,7 @@ class Movimiento{
     private $FechaDocumento;
     private $FechaNotificacion;
     private $Sumilla;
-    private $NombreDocumento;
+    private $ExtensionDocumento;
     private $ArchivoDocumento;
     private $TipoDocumento;
     private $Area;
@@ -65,12 +65,12 @@ class Movimiento{
         $this->Usuario = $Usuario;
     }
 
-    public function getNombreDocumento() {
-        return $this->NombreDocumento;
+    public function getExtensionDocumento() {
+        return $this->ExtensionDocumento;
     }
 
-    public function setNombreDocumento($NombreDocumento) {
-        $this->NombreDocumento = $NombreDocumento;
+    public function setExtensionDocumento($ExtensionDocumento) {
+        $this->ExtensionDocumento = $ExtensionDocumento;
     }
 
     public function getArchivoDocumento() {
@@ -183,6 +183,16 @@ class Movimiento{
             $stmt->bindParam(":idSede",$this->Sede,PDO::PARAM_INT);
             $stmt->bindParam(":idCasilla",$this->Casilla,PDO::PARAM_INT);
             $stmt->bindParam(":idUsuario",$this->Usuario,PDO::PARAM_INT);
+
+            // Si hay archivo, lo añadimos
+            // if ($this->ArchivoDocumento !== null) {
+            //     $stmt->bindParam(':ArchivoDocumento', $this->ArchivoDocumento, PDO::PARAM_LOB);
+            //     $stmt->bindParam(':ExtensionDocumento', $this->ExtensionDocumento);
+            // } else {
+            //     $stmt->bindValue(':ArchivoDocumento', null, PDO::PARAM_NULL);
+            //     $stmt->bindValue(':ExtensionDocumento', null, PDO::PARAM_NULL);
+            // }
+
             $stmt->execute();
             return [
                 'status' => 'success',

@@ -15,14 +15,14 @@ $areaNotificacion = $_POST['areaNotificacion'];
 $sedeNotificacion = $_POST['sedeNotificacion'];
 $idUsuario = $_POST['usuarioRegistrador'];
 
-// Manejar el archivo subido
+// // Manejar el archivo subido
 // if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] === UPLOAD_ERR_OK) {
 //     // Obtener información del archivo
 //     $archivoNombre = $_FILES['archivoDocumento']['name'];
 //     $archivoTipo = $_FILES['archivoDocumento']['type'];
 //     $archivoTamaño = $_FILES['archivoDocumento']['size'];
 //     $archivoTmpName = $_FILES['archivoDocumento']['tmp_name'];
-    
+
 //     // Leer el archivo en binario (si se va a guardar en la base de datos)
 //     $archivoContenido = file_get_contents($archivoTmpName);
 
@@ -32,53 +32,42 @@ $idUsuario = $_POST['usuarioRegistrador'];
 //     $archivoContenido = null;
 // }
 
+// Manejar el archivo subido
+// if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] === UPLOAD_ERR_OK) {
+//     // Obtener información del archivo
+//     $archivoNombre = $_FILES['archivoDocumento']['name'];
+//     $archivoTipo = $_FILES['archivoDocumento']['type'];
+//     $archivoTamaño = $_FILES['archivoDocumento']['size'];
+//     $archivoTmpName = $_FILES['archivoDocumento']['tmp_name'];
+
+//     // Leer el archivo en binario
+//     $archivoContenido = file_get_contents($archivoTmpName);
+
+//     // Extraer la extensión del archivo
+//     $archivoExtension = pathinfo($archivoNombre, PATHINFO_EXTENSION);
+// } else {
+//     // Si no hay archivo o ocurre un error
+//     $archivoContenido = null;
+//     $archivoExtension = null;
+// }
+
 
 $movimientoModel = new Movimiento();
 $movimientoModel->setCasilla($nroCasilla);
 $movimientoModel->setNroDocumento($nroDocumento);
-$response=$movimientoModel->existeNotificacionDocumentoUsuario();
 
-if($response['message']==='Usuario Notificado Mismo Documento'){
-    print json_encode($response);
-}else{
-    $movimientoModel->setTipoDocumento($tipoDocumento);
-    $movimientoModel->setFechaDocumento($fechaDocumento);
-    $movimientoModel->setFechaNotificacion($fechaNotificacion);
-    $movimientoModel->setSumilla($sumilla);
-    $movimientoModel->setArea($areaNotificacion);
-    $movimientoModel->setSede($sedeNotificacion);
-    $movimientoModel->setUsuario($idUsuario);
-    // $movimientoModel->setArchivoDocumento($archivoContenido);
-    $response=$movimientoModel->registrarMovimiento();
-    print json_encode($response);
-}
-
-// $movimientoModel->setTipoDocumento($tipoDocumento);
-// $movimientoModel->setFechaDocumento($fechaDocumento);
-// $movimientoModel->setFechaNotificacion($fechaNotificacion);
-// $movimientoModel->setSumilla($sumilla);
-// $movimientoModel->setArea($areaNotificacion);
-// $movimientoModel->setSede($sedeNotificacion);
-// $movimientoModel->setUsuario($idUsuario);
-// // $movimientoModel->setArchivoDocumento($archivoContenido);
-// $response=$movimientoModel->registrarMovimiento();
-// print json_encode($response);
-// $movimientoModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
-// $response = $movimientoModel->existeNumDocIdentidad();
-
-// if ($response['message'] == 'NumDoc encontrado') {
-//     print json_encode($response);
-// } else {
-//     $personaModel->setNombres($razonSocial);
-//     $personaModel->setApellidos($apellidos);
-//     $personaModel->setDniCUI($dniCUI);
-//     $personaModel->setEmail($email);
-//     $personaModel->setTelefono($telefono);
-//     $personaModel->setDomicilio($domicilio);
-//     $personaModel->setTipoPersona($tipoPersona);
-//     $personaModel->setTipoDocumentoIdentidad($tipoDocumentoIdentidad);
-//     $personaModel->setNumDocumentoIdentidad($numDocumentoIdentidad);
-//     $personaModel->setRepresentanteLegal($representanteLegal);
-//     $response = $personaModel->registrarPersona();
-//     print json_encode($response);
+$movimientoModel->setTipoDocumento($tipoDocumento);
+$movimientoModel->setFechaDocumento($fechaDocumento);
+$movimientoModel->setFechaNotificacion($fechaNotificacion);
+$movimientoModel->setSumilla($sumilla);
+$movimientoModel->setArea($areaNotificacion);
+$movimientoModel->setSede($sedeNotificacion);
+$movimientoModel->setUsuario($idUsuario);
+// Si hay archivo, asignarlo al modelo
+// if ($archivoContenido !== null) {
+//     $movimientoModel->setArchivoDocumento($archivoContenido);
+//     $movimientoModel->setExtensionDocumento($archivoExtension); // Asegúrate de tener este campo en tu modelo y base de datos
 // }
+// $movimientoModel->setArchivoDocumento($archivoContenido);
+$response = $movimientoModel->registrarMovimiento();
+print json_encode($response);
