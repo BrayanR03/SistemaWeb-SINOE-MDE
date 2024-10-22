@@ -40,16 +40,12 @@ require_once __DIR__ . "/../../views/personas/registrarPersonas.php";
                     <form class="formLogin" id="formLogin" action="" method="post">
                         <div class="input-group">
                             <i class="fas fa-user"></i>
-                            <input type="text" name="Usuario" id="Usuario" autocomplete="off" placeholder="Ingresa tu usuario" required>
+                            <input autofocus type="text" name="Usuario" id="Usuario" autocomplete="off" placeholder="Ingresa tu usuario" required>
                         </div>
                         <div class="input-group">
                             <i class="fas fa-lock"></i>
                             <input type="password" name="Password" id="Password" autocomplete="off" placeholder="Ingresa tu contraseña" required>
                         </div>
-                        <!-- <label for="">Usuario</label>
-                        <input type="text" required name="Usuario" id="Usuario" autocomplete="off" placeholder="Ingresa tu usuario">
-                        <label for="">Contraseña</label>
-                        <input type="password" required name="Password" id="Password" autocomplete="off" placeholder="Ingresa tu contraseña"> -->
                         <div>
                             <button id="btnLogin" class="login-btn">Ingresar</button>
                         </div>

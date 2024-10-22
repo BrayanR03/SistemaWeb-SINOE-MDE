@@ -42,7 +42,7 @@
                                 </div>
                                 <div>
                                     <label>Teléfono: </label>
-                                    <input
+                                    <input oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                         type="text" required
                                         name="telefonoPersona"
                                         id="telefonoPersona">
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="datosDestino">
                             <div class="datosDestinoHeader">
                             </div>
@@ -72,19 +72,26 @@
                                 <div>
                                     <label>Tipo Documento: </label>
                                     <select class="tipoDocumentoIdentidad" required id="tipoDocumentoIdentidadEditar" name="tipoDocumentoIdentidad">
-                                        <option value="1">Dni</option>
-                                        <option value="2">Ruc</option>
-                                        <option value="3">Pasaporte</option>
+                                        <option value="1">DNI</option>
+                                        <option value="2">RUC</option>
+                                        <option value="3">PASAPORTE</option>
                                     </select>
 
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <label>Estado: </label>
                                     <input
                                         type="text"
                                         id="estadoPersonaEditar"
                                         name="estadoPersonaEditar"
                                         readonly>
+                                </div> -->
+                                <div class="mb-3">
+                                    <label for="estadoArea" class="form-label">Estado:</label>
+                                    <select name="estadoPersonaEditar" id="estadoPersonaEditar">
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label>Representante Legal</label>
@@ -95,11 +102,11 @@
                                 </div>
                                 <div>
                                     <label>Nro Documento: </label>
-                                    <input required type="text" id="numDocumentoIdentidad" name="numDocumentoIdentidad">
+                                    <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" required type="text" id="numDocumentoIdentidad" name="numDocumentoIdentidad">
                                 </div>
                                 <div>
                                     <label>Dni CUI: </label>
-                                    <input type="text" id="CUIPersona" name="CUIPersona">
+                                    <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="1" type="text" id="CUIPersona" name="CUIPersona">
                                 </div>
                             </div>
                         </div>
@@ -127,3 +134,78 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('tipoPersonaEditar').addEventListener('click', function() {
+        const select = document.getElementById('tipoPersonaEditar');
+        const valorSeleccionado = select.value;
+        const nombresDiv = document.querySelector('.nombresPersonaDiv'); // Div de Nombres
+        const apellidosDiv = document.querySelector('.apellidosPersonaDiv'); // Div de Apellidos
+        const dniCUIDiv = document.querySelector('.dniCUIDiv'); // Div de DNI CUI
+        const representanteLegalDiv = document.querySelector('.representanteLegalDiv'); // Div de Representante Legal
+        const razonSocialDiv = document.querySelector('.razonSocialDiv');
+        const tipoDocumentoSelect = document.getElementById('tipoDocumentoIdentidadEditar');
+        const telefono = document.getElementById('telefonoPersona');
+        const numDocumento = document.getElementById('numDocumentoIdentidad');
+        const email = document.getElementById('emailPersona');
+        const domicilio = document.getElementById('domicilioPersona');
+
+        if (valorSeleccionado == 1) { // Persona Natural
+            numDocumento.setAttribute('maxlength', '8');
+            // Mostrar campos de persona natural
+            nombresDiv.hidden = false;
+            apellidosDiv.hidden = false;
+            dniCUIDiv.hidden = false;
+            razonSocialDiv.hidden = true;
+            representanteLegalDiv.hidden = true;
+            telefono.disabled = false;
+            email.disabled = false;
+            domicilio.disabled = false;
+            numDocumento.disabled = false;
+            tipoDocumentoSelect.value = 1;
+            tipoDocumentoSelect.disabled = false;
+            tipoDocumentoSelect.querySelector('option[value="2"]').disabled = true;
+            representanteLegalDiv.querySelector('input').removeAttribute('required');
+            razonSocialDiv.querySelector('input').removeAttribute('required');
+            // Añadir required a los campos de natural
+            nombresDiv.querySelector('input').setAttribute('required', 'required');
+            apellidosDiv.querySelector('input').setAttribute('required', 'required');
+            dniCUIDiv.querySelector('input').setAttribute('required', 'required');
+
+        } else if (valorSeleccionado == 2) { // Persona Jurídica
+            numDocumento.setAttribute('maxlength', '11'); 
+            nombresDiv.hidden = true;
+            apellidosDiv.hidden = true;
+            dniCUIDiv.hidden = true;
+            representanteLegalDiv.hidden = false;
+            razonSocialDiv.hidden = false;
+            tipoDocumentoSelect.value = 2;
+            tipoDocumentoSelect.disabled = true;
+            telefono.disabled = false;
+            email.disabled = false;
+            domicilio.disabled = false;
+            numDocumento.disabled = false;
+            // Quitar required de los campos de natural
+            nombresDiv.querySelector('input').removeAttribute('required');
+            apellidosDiv.querySelector('input').removeAttribute('required');
+            dniCUIDiv.querySelector('input').removeAttribute('required');
+
+            // Añadir required a los campos de jurídico
+            representanteLegalDiv.querySelector('input').setAttribute('required', 'required');
+            razonSocialDiv.querySelector('input').setAttribute('required', 'required');
+        }
+
+    });
+
+    // Función para cambiar el maxlength del campo de documento según el tipo de documento
+    document.getElementById('tipoDocumentoIdentidadEditar').addEventListener('change', function() {
+        const valorTipoDocumento = this.value;
+        const numDocumento = document.getElementById('numDocumentoIdentidad');
+
+        if (valorTipoDocumento == 1) { // DNI
+            numDocumento.setAttribute('maxlength', '8');
+        } else if (valorTipoDocumento == 3) { // Pasaporte
+            numDocumento.setAttribute('maxlength', '20');
+        }
+    });
+
+</script>

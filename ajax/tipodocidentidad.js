@@ -293,7 +293,7 @@ $.ajax({
     data: {},
     success: function(data) {
         if (data && Array.isArray(data)) {
-            let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
+            let options = `<option disabled selected value="">Seleccionar</option>` +
                 data.map(tipodocident =>
                     `<option value="${tipodocident.idTipoDocumentoIdentidad}">${tipodocident.Descripcion}</option>`
                 ).join('');

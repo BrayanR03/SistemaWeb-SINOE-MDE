@@ -3,7 +3,7 @@ $(document).ready(function () {
         e.preventDefault();
         const user = $("#Usuario").val().trim();
         const password = $("#Password").val().trim();
-
+        if(user.length===0 || password.length===0){alert("Debes completar los campos requeridos!!"); return}
         // if (isFiledsValid(user, password)) {
             $.ajax({
                 url: './controllers/Login.php',

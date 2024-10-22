@@ -29,7 +29,11 @@ $(document).ready(function () {
         modalRegistrar.modal('show');
 
         modalRegistrar.on('shown.bs.modal', function () {
-            $("#nombresPersonaNuevo").focus();
+            // $("#nombresPersonaNuevo").focus();
+            // $("#numDocumentoIdentidadPersonaNuevo").disabled=false;
+            // email.disabled=false;
+            // domicilio.disabled=false;
+            // numDocumento.disabled=false;
         });
     });
 
@@ -52,6 +56,7 @@ $(document).ready(function () {
         let tipoDocumentoIdentidad = $('#tipoDocumentoIdentidadPersonaNuevo').val();
         let numDocumentoIdentidad = $.trim($('#numDocumentoIdentidadPersonaNuevo').val());
         let representanteLegal = $.trim($('#representanteLegalPersonaNuevo').val());
+        if(tipoPersona==='Seleccionar'){alert('Debes seleccionar un tipo de persona, para solicitar tu casilla.!!'); return}
 
         if (email.length === 0 ||
             telefono.length === 0 || domicilio.length === 0 || numDocumentoIdentidad.length === 0) {
@@ -131,7 +136,6 @@ $(document).ready(function () {
                         <td>${persona.Estado}</td>
                         <td>
                         <a href="#" id="btnEditarPersona" >Editar</a>
-                        <a href="#" id="btnEstadoPersona" >Estado</a>
                         </td>
     
                     </tr>`).join('');

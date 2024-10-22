@@ -8,11 +8,11 @@ $Password= trim($_POST['Password']);
 $idUsuario = trim($_POST['idUsuario']);
 $idPersona = trim($_POST['idPersona']);
 $usuarioModel = new Usuario();
-$usuarioModel->setUsuario($Usuario);
-$response=$usuarioModel->existeUsuario();
-if ($response['message'] == 'Usuario encontrado') {
-    print json_encode($response);
-} else {
+// $usuarioModel->setUsuario($Usuario);
+// $response=$usuarioModel->existeUsuario();
+// if ($response['message'] == 'Usuario encontrado') {
+//     print json_encode($response);
+// } else {
     $usuarioModel->setidPersona($idPersona);
     $usuarioModel->setidTipoUsuario($idTipoUsuario);
     $usuarioModel->setidUsuario($idUsuario);
@@ -20,6 +20,6 @@ if ($response['message'] == 'Usuario encontrado') {
     $usuarioModel->setPassword($Password);
     $response = $usuarioModel->actualizarUsuario();
     print json_encode($response);
-}
+// }
 
 

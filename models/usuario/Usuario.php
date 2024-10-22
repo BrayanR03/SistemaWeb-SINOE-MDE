@@ -310,35 +310,114 @@ class Usuario
         }
     }
 
+    // public function actualizarUsuario()
+    // {
+    //     $sql="EXEC SP_ActualizarUsuarioPassword @Usuario=:Usuario,@Password=:Password,@idTipoUsuario=:idTipoUsuario,@idUsuario=:idUsuario";
+    //     // $sql = "UPDATE USUARIOS SET Usuario=:Usuario,Password=:Password,idTipoUsuario=:idTipoUsuario WHERE idUsuario=:idUsuario";
+    //     try {
+    //         $stmt = database::connect()->prepare($sql);
+    //         $stmt->bindParam("Usuario", $this->Usuario, PDO::PARAM_STR);
+    //         $stmt->bindParam("Password", $this->Password, PDO::PARAM_STR);
+    //         $stmt->bindParam("idTipoUsuario", $this->idTipoUsuario, PDO::PARAM_INT);
+    //         $stmt->bindParam("idUsuario", $this->idUsuario, PDO::PARAM_INT);
+    //         $stmt->execute();
+    //         $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
+    //         if(count($results)>0){
+    //             return [
+    //                 'status' => 'success',
+    //                 'message' => 'Usuario actualizada',
+    //                 'action' => 'actualizar',
+    //                 'module' => 'usuario',
+    //                 'info' => ''
+    //             ];
+    //         }else{
+    //             return [
+    //                 'status' => 'success',
+    //                 'message' => 'Usuario encontrado',
+    //                 'action' => 'buscar',
+    //                 'module' => 'usuario',
+    //                 'data' => [],
+    //                 'info' => ''
+    //             ];
+    //         }
+
+            
+    //     } catch (PDOException $e) {
+    //         return [
+    //             'status' => 'failed',
+    //             'message' => 'Ocurrio un error al momento de actualizar el usuario',
+    //             'action' => 'actualizar',
+    //             'module' => 'usuario',
+    //             'info' => $e->getMessage()
+    //         ];
+    //     }
+    // }
     public function actualizarUsuario()
     {
-        $sql = "UPDATE USUARIOS SET Usuario=:Usuario,Password=:Password,idTipoUsuario=:idTipoUsuario WHERE idUsuario=:idUsuario";
+        // Consulta para ejecutar el procedimiento almacenado
+        $sql = "EXEC SP_ActualizarUsuarioPassword @Usuario=:Usuario, @Password=:Password, @idTipoUsuario=:idTipoUsuario, @idUsuario=:idUsuario";
+        
         try {
+            // Preparar la consulta
             $stmt = database::connect()->prepare($sql);
+            
+            // Enlazar los parámetros
             $stmt->bindParam("Usuario", $this->Usuario, PDO::PARAM_STR);
             $stmt->bindParam("Password", $this->Password, PDO::PARAM_STR);
             $stmt->bindParam("idTipoUsuario", $this->idTipoUsuario, PDO::PARAM_INT);
             $stmt->bindParam("idUsuario", $this->idUsuario, PDO::PARAM_INT);
+            
+            // Ejecutar la consulta
             $stmt->execute();
-
+            
+            // Obtener el resultado del procedimiento almacenado
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Si hay un resultado, manejarlo
+            if (count($results) > 0 && isset($results[0]['Mensaje'])) {
+                $mensaje = $results[0]['Mensaje'];
+    
+                // Verificar el contenido del mensaje y devolver la respuesta adecuada
+                if ($mensaje == 'Usuario actualizado correctamente') {
+                    return [
+                        'status' => 'success',
+                        'message' => 'Usuario actualizado correctamente',
+                        'action' => 'actualizar',
+                        'module' => 'usuario',
+                        'info' => ''
+                    ];
+                } elseif ($mensaje == 'El usuario ingresado ya pertenece a otra persona') {
+                    return [
+                        'status' => 'failed',
+                        'message' => 'Usuario encontrado',
+                        'action' => 'actualizar',
+                        'module' => 'usuario',
+                        'info' => ''
+                    ];
+                }
+            }
+    
+            // En caso de que no haya resultados o no se haya manejado el mensaje
             return [
-                'status' => 'success',
-                'message' => 'Usuario actualizada',
+                'status' => 'failed',
+                'message' => 'No se pudo actualizar el usuario',
                 'action' => 'actualizar',
                 'module' => 'usuario',
                 'info' => ''
             ];
+            
         } catch (PDOException $e) {
+            // Manejar el error y devolver un mensaje de fallo
             return [
                 'status' => 'failed',
-                'message' => 'Ocurrio un error al momento de actualizar el usuario',
+                'message' => 'Ocurrió un error al momento de actualizar el usuario',
                 'action' => 'actualizar',
                 'module' => 'usuario',
                 'info' => $e->getMessage()
             ];
         }
     }
-
+    
     public function estadoActualizarUsuario(){
         
         $sql = "UPDATE USUARIOS SET Estado = :Estado WHERE idUsuario = :idUsuario";

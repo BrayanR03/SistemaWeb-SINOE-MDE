@@ -147,7 +147,6 @@ $(document).ready(function () {
                                 <td>${usuario.Estado ? usuario.Estado : ''}</td>
                                 <td hidden>${usuario.idTipoUsuario}</td>
                                 <td hidden>${usuario.idUsuario}</td>
-                                <td hidden>${usuario.Password}</td>
                                 <td>
                                     ${acciones}
                                 </td>
@@ -214,7 +213,6 @@ $(document).ready(function () {
         let idTipoUsuario = parseInt(fila.find('td:eq(9)').text());
         let idUsuario = parseInt(fila.find('td:eq(10)').text());
         let usuario = fila.find('td:eq(0)').text();
-        let password = fila.find('td:eq(11)').text();
 
         $("#nombresPersonaUsuarioEditar").val(nombres.trim());
         $("#emailPersonaUsuarioEditar").val(email.trim());
@@ -226,7 +224,6 @@ $(document).ready(function () {
         $("#tipoUsuarioEditar").val(idTipoUsuario);
         $('#idUsuarioEditarVista').val(idUsuario);
         $('#usuarioUsuarioEditar').val(usuario);
-        $('#passwordUsuarioEditar').val(password);
 
         modalEditar.modal({
             backdrop: 'static',

@@ -26,7 +26,7 @@
                                 <div class="datosOrigenBody">
                                     <div>
                                         <label>Tipo Persona: </label>
-                                        <select class="tipoPersonaNaturalAdministrador" required id="tipoPersonaNaturalAdministrador" name="tipoPersonaNaturalAdministrador">
+                                        <select disabled class="tipoPersonaNaturalAdministrador" required id="tipoPersonaNaturalAdministrador" name="tipoPersonaNaturalAdministrador">
                                             <option value="1">Natural</option>
                                             <option value="2">Juridico</option>
                                         </select>
@@ -34,7 +34,7 @@
                                     </div>
                                     <div>
                                         <label>Tipo Documento: </label>
-                                        <select class="tipoDocumentoIdentidadNaturalAdministrador" required id="tipoDocumentoIdentidadNaturalAdministrador" name="tipoDocumentoIdentidadNaturalAdministrador">
+                                        <select disabled class="tipoDocumentoIdentidadNaturalAdministrador" required id="tipoDocumentoIdentidadNaturalAdministrador" name="tipoDocumentoIdentidadNaturalAdministrador">
                                             <option value="1">Dni</option>
                                             <option value="2">Ruc</option>
                                             <option value="3">Pasaporte</option>
@@ -50,11 +50,11 @@
                                     </div> -->
                                     <div>
                                         <label>Nro Documento: </label>
-                                        <input required type="text" id="numDocumentoIdentidadNaturalAdministrador" name="numDocumentoIdentidadNaturalAdministrador">
+                                        <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" required type="text" id="numDocumentoIdentidadNaturalAdministrador" name="numDocumentoIdentidadNaturalAdministrador">
                                     </div>
                                     <div class="dniCUIDivPerfil">
                                         <label>Dni CUI: </label>
-                                        <input type="text" id="CUIPersonaNaturalAdministrador" name="CUIPersonaNaturalAdministrador">
+                                        <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="1" type="text" id="CUIPersonaNaturalAdministrador" name="CUIPersonaNaturalAdministrador">
                                     </div>
 
                                 </div>
@@ -87,6 +87,7 @@
                                         <label>Teléfono: </label>
                                         <input
                                             type="text" required
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                                             name="telefonoPersonaNaturalAdministrador"
                                             id="telefonoPersonaNaturalAdministrador">
                                     </div>

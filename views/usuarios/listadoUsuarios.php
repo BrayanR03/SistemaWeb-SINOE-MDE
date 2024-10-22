@@ -64,7 +64,6 @@ require_once('../../config/parameters.php');
                     <th>Estado</th>
                     <th hidden>idTipoUsuario</th>
                     <th hidden>idUsuario</th>
-                    <th hidden>Password</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

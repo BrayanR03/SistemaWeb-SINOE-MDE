@@ -67,7 +67,7 @@
                                     <input type="text" id="usuarioUsuarioEditar" name="usuarioUsuarioEditar">
                                 </div>
                                 <div>
-                                    <label>Contraseña: </label>
+                                    <label>Nueva Contraseña: </label>
                                     <input type="password" id="passwordUsuarioEditar" name="passwordUsuarioEditar">
                                 </div>
                                 <div>
