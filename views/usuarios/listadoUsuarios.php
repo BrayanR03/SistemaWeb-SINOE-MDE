@@ -79,4 +79,5 @@ require_once('../../config/parameters.php');
 <?php  require_once "editarUsuarios.php"?>
 
 <script src="<?= base_url ?>ajax/usuarios.js"></script>
+<script src="<?= base_url ?>ajax/loadingScreen.js"></script>
 <script src="<?= base_url ?>ajax/tipousuarios.js"></script>

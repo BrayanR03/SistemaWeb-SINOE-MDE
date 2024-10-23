@@ -80,7 +80,13 @@ $(document).ready(function () {
                 usuarioRegister:usuarioRegister,passwordRegister:passwordRegister,
                 confirmPasswordRegister:confirmPasswordRegister,emailPersonaUsuario:emailPersonaUsuario
             },
+            beforeSend: function() {
+                // Mostrar la pantalla de carga antes de que se envíe la solicitud
+                showLoadingScreen();
+            },
             success: function (response) {
+                hideLoadingScreen();
+
                 console.log(response);
                 // return
                 response = JSON.parse(response);
@@ -101,7 +107,13 @@ $(document).ready(function () {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                hideLoadingScreen();
+
                 console.error('Error updating the area:', textStatus, errorThrown);
+            },
+            complete: function() {
+                // Ocultar la pantalla de carga cuando la solicitud haya terminado (éxito o error)
+                hideLoadingScreen();
             }
         });
     });

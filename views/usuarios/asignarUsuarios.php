@@ -4,6 +4,11 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Asignar Usuario</h5>
             </div>
+            <!-- Pantalla de carga -->
+            <div id="loading-screen" class="loading-screen">
+                <div class="loader"></div>
+            </div>
+
             <form class="formUsuario" id="asignarUsuarioForm" action="" method="post">
                 <div class="seguimiento_body">
                     <div class="detalle">
