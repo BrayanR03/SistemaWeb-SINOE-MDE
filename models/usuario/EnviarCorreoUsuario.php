@@ -10,7 +10,7 @@ require '../../Librerias/PHPMailer/src/Exception.php';
 
 class EnviarCorreoUsuario
 {
-    public function enviar($correoReceptor, $nombreReceptor, $asunto, $mensaje)
+    public function enviar($correoReceptor,$usuario,$password)
     {
         $mail = new PHPMailer(true);
 
@@ -26,12 +26,12 @@ class EnviarCorreoUsuario
 
             // Configuración del remitente y destinatario
             $mail->setFrom('bryanneciosup626@gmail.com', 'Sistema SINOE');
-            $mail->addAddress($correoReceptor, $nombreReceptor);
+            $mail->addAddress($correoReceptor);
 
             // Contenido del correo
             $mail->isHTML(true);
-            $mail->Subject = $asunto;
-            $mail->Body = "Bienvenido al SISTEMA SINOE, este es tu USUARIO ". $mensaje;
+            $mail->Subject = 'Tus Credenciales del Sistema SINOE - Municipalidad Distrital de la Esperanza';
+            $mail->Body = "Bienvenido al SISTEMA SINOE, este es tu USUARIO: ". $usuario .' y esta es tu CONTRASEÑA: '.$password;
 
             // Enviar el correo
             $mail->send();

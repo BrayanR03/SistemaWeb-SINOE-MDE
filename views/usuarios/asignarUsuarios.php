@@ -62,11 +62,11 @@
 
                                 <div>
                                     <label>Usuario: </label>
-                                    <input type="text" id="usuarioUsuario" name="usuarioUsuario">
+                                    <input type="text" required id="usuarioUsuario" name="usuarioUsuario">
                                 </div>
                                 <div>
                                     <label>Contraseña: </label>
-                                    <input type="password" id="passwordUsuario" oninput="syncPasswordsAsign()" name="passwordUsuario">
+                                    <input type="password" required id="passwordUsuario" oninput="syncPasswordsAsign()" name="passwordUsuario">
                                 </div>
                                 <div>
                                     <label>Confirmar Contraseña: </label>

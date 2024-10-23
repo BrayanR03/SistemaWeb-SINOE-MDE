@@ -62,6 +62,7 @@ $(document).ready(function () {
         let usuarioRegister = $.trim($('#usuarioUsuario').val());
         let passwordRegister= $.trim($('#passwordUsuario').val());
         let confirmPasswordRegister= $.trim($('#confirmPasswordUsuario').val());
+        let emailPersonaUsuario=$.trim($('#emailPersonaUsuario').val());
         if (idPersonaRegister.length === 0 || usuarioRegister.length === 0 || passwordRegister.length === 0 ||
             confirmPasswordRegister.length === 0 ) {
             alert("Hay Campos Vacíos Sin Completar!!");
@@ -77,7 +78,7 @@ $(document).ready(function () {
             data: {
                 idPersonaRegister: idPersonaRegister, tipoUsuarioRegister: tipoUsuarioRegister,
                 usuarioRegister:usuarioRegister,passwordRegister:passwordRegister,
-                confirmPasswordRegister:confirmPasswordRegister
+                confirmPasswordRegister:confirmPasswordRegister,emailPersonaUsuario:emailPersonaUsuario
             },
             success: function (response) {
                 console.log(response);

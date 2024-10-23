@@ -1,5 +1,6 @@
 <?php
-require_once '../../controllers/Usuario/EnviarCorreoUsuario.php';
+// require_once '../../models/usuario/EnviarCorreoUsuario.php';
+// require_once __DIR__ . '/../models/usuario/EnviarCorreoUsuario.php';
 
 class Usuario
 {
@@ -254,19 +255,19 @@ class Usuario
             $stmt->execute();
 
             // Llamar a la clase de envío de correo después de registrar el usuario
-            $correo = new EnviarCorreoUsuario();
-            $resultadoCorreo = $correo->enviar(
-                'mvegape@ucvvirtual.edu.pe',  // Correo del receptor
-                'NOMBRE USUARIO',                // Nombre del receptor
-                'Registro exitosom tus credenciales',            // Asunto del correo
-                $this->Usuario       // Mensaje del correo
-            );
+            // $correo = new EnviarCorreoUsuario();
+            // $resultadoCorreo = $correo->enviar(
+            //     'bneciosup@ucvvirtual.edu.pe',  // Correo del receptor
+            //     'NOMBRE USUARIO',                // Nombre del receptor
+            //     'Registro exitosom tus credenciales',            // Asunto del correo
+            //     $this->Usuario       // Mensaje del correo
+            // );
             return [
                 'status' => 'success',
                 'message' => 'Usuario Registrado Correctamente',
                 'action' => 'registrar',
                 'module' => 'usuario',
-                'info' => $resultadoCorreo
+                'info' => ''
             ];
         } catch (PDOException $e) {
 
