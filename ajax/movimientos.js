@@ -294,6 +294,28 @@ $(document).ready(function () {
         let areaNotificacion = $('#areaNotificacion').val();
         let sedeNotificacion = $('#sedeNotificacion').val();
         let usuarioRegistrador = idUsuario;
+        let formData = new FormData();
+        formData.append('nroCasilla', nroCasilla);
+        formData.append('tipoDocumento', tipoDocumento);
+        formData.append('nroDocumento', nroDocumento);
+        formData.append('fechaDocumento', fechaDocumento);
+        formData.append('fechaNotificacion', fechaNotificacion);
+        formData.append('sumilla', sumilla);
+        formData.append('areaNotificacion', areaNotificacion);
+        formData.append('sedeNotificacion', sedeNotificacion);
+        formData.append('usuarioRegistrador', usuarioRegistrador);
+        // Capturar el archivo (solo si se ha subido uno)
+        let archivoInput = $('#archivoDocumento')[0].files[0];
+        if (archivoInput) {
+            formData.append('archivoDocumento', archivoInput);  // Agregar el archivo al FormData
+        } else {
+            alert("Por favor selecciona un archivo.");
+            return;
+        }
+        // console.log(formData);
+        formData.forEach((value, key) => {
+            console.log(key + ': ' + value);
+        });
 
         if (nroCasilla.length === 0 || nroDocumento.length === 0) {
             alert("Aún Hay Campos Vacíos");
@@ -312,70 +334,100 @@ $(document).ready(function () {
             $.ajax({
                 url: "./controllers/Movimientos/registrarMovimiento.php",
                 type: "POST",
-                datatype: "json",
-                data: {
-                    nroCasilla: nroCasilla, tipoDocumento: tipoDocumento, nroDocumento: nroDocumento, fechaDocumento: fechaDocumento,
-                    fechaNotificacion: fechaNotificacion, sumilla: sumilla, areaNotificacion: areaNotificacion,
-                    sedeNotificacion: sedeNotificacion, usuarioRegistrador: usuarioRegistrador
-                },
+                data: formData,
+                contentType: false, // Importante para no establecer el tipo de contenido por defecto
+                processData: false,
+                // datatype: "json",
+                // data: {
+                //     nroCasilla: nroCasilla, tipoDocumento: tipoDocumento, nroDocumento: nroDocumento, fechaDocumento: fechaDocumento,
+                //     fechaNotificacion: fechaNotificacion, sumilla: sumilla, areaNotificacion: areaNotificacion,
+                //     sedeNotificacion: sedeNotificacion, usuarioRegistrador: usuarioRegistrador
+                // },
                 success: function (response) {
-                    // console.log(response);
+                    console.log(response);
+                    return
                     // return
-                    // return
-                    response = JSON.parse(response);
-                    if (response.message === 'Usuario Notificado Mismo Documento') {
-                        alert("Atención: Se le Notificará al Usuario por segunda vez el mismo documento");
-                        // let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar otra vez el mismo documento al mismo usuario?");
-                        // if(usuarioNotificadoRepetido){
-                        //     $.ajax({
-                        //         url: "./controllers/Movimientos/registrarMovimiento.php",
-                        //         type: "POST",
-                        //         datatype: "json",
-                        //         data: {
-                        //             nroCasilla:nroCasilla,tipoDocumento:tipoDocumento,nroDocumento:nroDocumento,fechaDocumento:fechaDocumento,
-                        //             fechaNotificacion:fechaNotificacion,sumilla:sumilla,areaNotificacion:areaNotificacion,
-                        //             sedeNotificacion:sedeNotificacion,usuarioRegistrador:usuarioRegistrador
-                        //         },
-                        //         success: function (response) {
-                        //                 if (response.status === 'success') {
-                        //                     alert("Se Notificó el Documento Correctamente");
-                        //                     $('#modalRegistrarMovimientoCasilla').modal('hide');
-                        //                     pagina = 1;
-                        //                     // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
-                        //                 } else {
-                        //                     alert("Error al Notificar al Usuario");
-                        //                 }
-                        //         },
-                        //         error: function (jqXHR, textStatus, errorThrown) {
-                        //             console.log("excepcion error");
-                        //             console.error('Error updating the area:', textStatus, errorThrown);
-                        //         }
-                        //     });
-                        // }else{
-                        //     console.log("se cancelo la notificacion.");
-                        // }
-                    } else {
-                        if (response.status === 'success') {
-                            alert("Se Notificó el Documento Correctamente");
-                            $('#modalRegistrarMovimientoCasilla').modal('hide');
-                            pagina = 1;
-                            let datosMovimientoDiv = document.querySelector('#datosMovimiento');
-                            datosMovimientoDiv.hidden = true;
-                            $('#NroCasillaNotificacion').val("");
-                            $('#tipoDocumentoNotificacion').val("");
-                            $('#nroDocumento').val("");
-                            $('#fechaDocumento').val("");
-                            $('#fechaNotificacion').val("");
-                            // let archivoDocumento=$('#archivoDocumento');
-                            $('#sumilla').val("");
-                            $('#areaNotificacion').val("");
-                            $('#sedeNotificacion').val("");
-
-                            // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                    try {
+                        response = JSON.parse(response);
+                        if (response.message === 'Usuario Notificado Mismo Documento') {
+                            alert("Atención: Se le Notificará al Usuario por segunda vez el mismo documento");
                         } else {
-                            alert("Error al Notificar al Usuario");
+                            if (response.status === 'success') {
+                                alert("Se Notificó el Documento Correctamente");
+                                $('#modalRegistrarMovimientoCasilla').modal('hide');
+                                pagina = 1;
+                                let datosMovimientoDiv = document.querySelector('#datosMovimiento');
+                                datosMovimientoDiv.hidden = true;
+                                $('#NroCasillaNotificacion').val("");
+                                $('#tipoDocumentoNotificacion').val("");
+                                $('#nroDocumento').val("");
+                                $('#fechaDocumento').val("");
+                                $('#fechaNotificacion').val("");
+                                $('#sumilla').val("");
+                                $('#areaNotificacion').val("");
+                                $('#sedeNotificacion').val("");
+                            } else {
+                                alert("Error al Notificar al Usuario: " + response.message);
+                            }
                         }
+                    } catch (e) {
+                        console.error('Error parsing JSON:', e);
+                        alert("Error en la respuesta del servidor.");
                     }
+                    // response = JSON.parse(response);
+                    // if (response.message === 'Usuario Notificado Mismo Documento') {
+                    //     alert("Atención: Se le Notificará al Usuario por segunda vez el mismo documento");
+                    //     // let usuarioNotificadoRepetido=confirm("¿Estás seguro de notificar otra vez el mismo documento al mismo usuario?");
+                    //     // if(usuarioNotificadoRepetido){
+                    //     //     $.ajax({
+                    //     //         url: "./controllers/Movimientos/registrarMovimiento.php",
+                    //     //         type: "POST",
+                    //     //         datatype: "json",
+                    //     //         data: {
+                    //     //             nroCasilla:nroCasilla,tipoDocumento:tipoDocumento,nroDocumento:nroDocumento,fechaDocumento:fechaDocumento,
+                    //     //             fechaNotificacion:fechaNotificacion,sumilla:sumilla,areaNotificacion:areaNotificacion,
+                    //     //             sedeNotificacion:sedeNotificacion,usuarioRegistrador:usuarioRegistrador
+                    //     //         },
+                    //     //         success: function (response) {
+                    //     //                 if (response.status === 'success') {
+                    //     //                     alert("Se Notificó el Documento Correctamente");
+                    //     //                     $('#modalRegistrarMovimientoCasilla').modal('hide');
+                    //     //                     pagina = 1;
+                    //     //                     // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                    //     //                 } else {
+                    //     //                     alert("Error al Notificar al Usuario");
+                    //     //                 }
+                    //     //         },
+                    //     //         error: function (jqXHR, textStatus, errorThrown) {
+                    //     //             console.log("excepcion error");
+                    //     //             console.error('Error updating the area:', textStatus, errorThrown);
+                    //     //         }
+                    //     //     });
+                    //     // }else{
+                    //     //     console.log("se cancelo la notificacion.");
+                    //     // }
+                    // } else {
+                    //     if (response.status === 'success') {
+                    //         alert("Se Notificó el Documento Correctamente");
+                    //         $('#modalRegistrarMovimientoCasilla').modal('hide');
+                    //         pagina = 1;
+                    //         let datosMovimientoDiv = document.querySelector('#datosMovimiento');
+                    //         datosMovimientoDiv.hidden = true;
+                    //         $('#NroCasillaNotificacion').val("");
+                    //         $('#tipoDocumentoNotificacion').val("");
+                    //         $('#nroDocumento').val("");
+                    //         $('#fechaDocumento').val("");
+                    //         $('#fechaNotificacion').val("");
+                    //         // let archivoDocumento=$('#archivoDocumento');
+                    //         $('#sumilla').val("");
+                    //         $('#areaNotificacion').val("");
+                    //         $('#sedeNotificacion').val("");
+
+                    //         // LLAMAR FUNCION DE NOTIFICACIONES REALIZADAS POR EL USUARIO
+                    //     } else {
+                    //         alert("Error al Notificar al Usuario");
+                    //     }
+                    // }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log("excepcion error");

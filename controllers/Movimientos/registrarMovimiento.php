@@ -4,6 +4,16 @@ require_once "../../models/Movimiento.php";
 require_once "../../config/database.php";
 
 
+// Depuración para ver si 'nroCasilla' está en $_POST
+// echo "<pre>";
+// print_r($_POST); // Para ver los datos enviados en el cuerpo de la solicitud
+// echo "</pre>";
+// die();  // Detener el script para ver el resultado antes de hacer cualquier otra cosa
+
+// echo "<pre>";
+// print_r($_FILES);
+// echo "</pre>";
+
 $nroCasilla = trim($_POST['nroCasilla']);
 $tipoDocumento = $_POST['tipoDocumento'];
 $nroDocumento = rtrim($_POST['nroDocumento']);
@@ -14,7 +24,6 @@ $sumilla = trim($_POST['sumilla']);
 $areaNotificacion = $_POST['areaNotificacion'];
 $sedeNotificacion = $_POST['sedeNotificacion'];
 $idUsuario = $_POST['usuarioRegistrador'];
-
 // // Manejar el archivo subido
 // if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] === UPLOAD_ERR_OK) {
 //     // Obtener información del archivo
@@ -51,6 +60,17 @@ $idUsuario = $_POST['usuarioRegistrador'];
 //     $archivoExtension = null;
 // }
 
+// Suponiendo que recibes el archivo desde un formulario
+// if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] == UPLOAD_ERR_OK) {
+//     // Obtener la extensión del archivo
+//     $archivoExtension = pathinfo($_FILES['archivoDocumento']['name'], PATHINFO_EXTENSION);
+    
+//     // Abrir el archivo y obtener su contenido
+//     $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
+// } else {
+//     $archivoContenido = null; // Manejar el error de carga según sea necesario
+//     $archivoExtension = null;
+// }
 
 $movimientoModel = new Movimiento();
 $movimientoModel->setCasilla($nroCasilla);
@@ -63,11 +83,49 @@ $movimientoModel->setSumilla($sumilla);
 $movimientoModel->setArea($areaNotificacion);
 $movimientoModel->setSede($sedeNotificacion);
 $movimientoModel->setUsuario($idUsuario);
-// Si hay archivo, asignarlo al modelo
-// if ($archivoContenido !== null) {
+if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] == UPLOAD_ERR_OK) {
+    $archivoExtension = pathinfo($_FILES['archivoDocumento']['name'], PATHINFO_EXTENSION);
+    $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
+    
+    // Leer el contenido del archivo
+    // $contenidoCompleto = stream_get_contents($archivoContenido);
+    // fclose($archivoContenido); // Cerrar el recurso después de leer
+    $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
+    
+    if ($archivoContenido === false) {
+        // Manejar el error al abrir el archivo
+        throw new Exception("Error al abrir el archivo.");
+    }
+    // Ahora puedes asignar el contenido a tu modelo
+    $movimientoModel->setArchivoDocumento($archivoContenido);
+    $movimientoModel->setExtensionDocumento($archivoExtension);
+} else {
+    // Manejar el error de carga según sea necesario
+    $archivoContenido = null;
+    $archivoExtension = null;
+}
+
+// var_dump($archivoContenido);
+// die();
+//VALEEEEEEEEEE
+// $movimientoModel = new Movimiento();
+// $movimientoModel->setCasilla($nroCasilla);
+// $movimientoModel->setNroDocumento($nroDocumento);
+
+// $movimientoModel->setTipoDocumento($tipoDocumento);
+// $movimientoModel->setFechaDocumento($fechaDocumento);
+// $movimientoModel->setFechaNotificacion($fechaNotificacion);
+// $movimientoModel->setSumilla($sumilla);
+// $movimientoModel->setArea($areaNotificacion);
+// $movimientoModel->setSede($sedeNotificacion);
+// $movimientoModel->setUsuario($idUsuario);
+// // Si hay archivo, asignarlo al modelo
+// if ($archivoContenido !== null && $archivoExtension!==null) {
 //     $movimientoModel->setArchivoDocumento($archivoContenido);
 //     $movimientoModel->setExtensionDocumento($archivoExtension); // Asegúrate de tener este campo en tu modelo y base de datos
 // }
-// $movimientoModel->setArchivoDocumento($archivoContenido);
-$response = $movimientoModel->registrarMovimiento();
-print json_encode($response);
+$movimientoModel->registrarMovimiento();
+
+// // $movimientoModel->setArchivoDocumento($archivoContenido);
+// $response = $movimientoModel->registrarMovimiento();
+// print json_encode($response);

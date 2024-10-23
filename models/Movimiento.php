@@ -167,14 +167,22 @@ class Movimiento{
                 ];
         }
     }
+    // public function imprimirDatos() {
+    //     echo "ArchivoDocumento: " . ($this->ArchivoDocumento ? "Archivo cargado" : "Sin archivo") . "\n";
+    //     echo "ExtensionDocumento: " . $this->ExtensionDocumento . "\n";
+    //     // Imprime otros atributos de manera similar
+    // }
 
     public function registrarMovimiento(){
-        $sql="INSERT INTO Movimientos(NroDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
-              VALUES(:NroDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
+        $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,ExtensionDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
+              VALUES(:NroDocumento,:ArchivoDocumento,:ExtensionDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
+        echo "antes del try";
         try{
+            echo "antes del prepare";
             $stmt=database::connect()->prepare($sql);
             $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
-            // $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
+            $stmt->bindParam(":ExtensionDocumento",$this->ExtensionDocumento,PDO::PARAM_STR);
+            $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
             $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
             $stmt->bindParam(":Sumilla",$this->Sumilla,PDO::PARAM_STR);
@@ -183,7 +191,7 @@ class Movimiento{
             $stmt->bindParam(":idSede",$this->Sede,PDO::PARAM_INT);
             $stmt->bindParam(":idCasilla",$this->Casilla,PDO::PARAM_INT);
             $stmt->bindParam(":idUsuario",$this->Usuario,PDO::PARAM_INT);
-
+            echo "despues de bindparam";
             // Si hay archivo, lo añadimos
             // if ($this->ArchivoDocumento !== null) {
             //     $stmt->bindParam(':ArchivoDocumento', $this->ArchivoDocumento, PDO::PARAM_LOB);
@@ -192,8 +200,9 @@ class Movimiento{
             //     $stmt->bindValue(':ArchivoDocumento', null, PDO::PARAM_NULL);
             //     $stmt->bindValue(':ExtensionDocumento', null, PDO::PARAM_NULL);
             // }
-
+            echo "antes del execute";
             $stmt->execute();
+            echo "despues del execute";
             return [
                 'status' => 'success',
                 'message' => 'Movimiento Registrado Correctamente',
@@ -203,6 +212,7 @@ class Movimiento{
             ];
 
         }catch(PDOException $e){
+            echo "dentro del catch";
             return [
                 'status' => 'failed',
                 'message' => 'Ocurrio un error al registrar el movimiento',
