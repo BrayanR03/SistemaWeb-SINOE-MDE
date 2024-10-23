@@ -1,4 +1,5 @@
 <?php
+require_once '../../controllers/Usuario/EnviarCorreoUsuario.php';
 
 class Usuario
 {
@@ -74,7 +75,7 @@ class Usuario
 
             if (count($result) == 0) {
                 return [
-                    'code'=>404,
+                    'code' => 404,
                     'status' => 'success',
                     'message' => 'Credenciales incorrectas',
                     'action' => 'login',
@@ -84,7 +85,7 @@ class Usuario
                 ];
             }
             return [
-                'code'=>200,
+                'code' => 200,
                 'status' => 'success',
                 'message' => 'inicio de sesión correcto',
                 'action' => 'login',
@@ -95,7 +96,7 @@ class Usuario
             ];
         } catch (PDOException $e) {
             return [
-                'code'=>500,
+                'code' => 500,
                 'status' => 'failed',
                 'message' => 'Algo salio mal al iniciar sesión',
                 'action' => 'login',
@@ -184,15 +185,16 @@ class Usuario
         }
     }
 
-    public function actualizarContraseñaUsuario(){
-        $sql="EXEC SP_ActualizarPasswordUsuario @idUsuario=:idUsuario,@Password=:Password";
-        try{
-            $stmt=database::connect()->prepare($sql);
-            $stmt->bindParam(":idUsuario",$this->idUsuario,PDO::PARAM_INT);
-            $stmt->bindParam(":Password",$this->Password,PDO::PARAM_STR);
+    public function actualizarContraseñaUsuario()
+    {
+        $sql = "EXEC SP_ActualizarPasswordUsuario @idUsuario=:idUsuario,@Password=:Password";
+        try {
+            $stmt = database::connect()->prepare($sql);
+            $stmt->bindParam(":idUsuario", $this->idUsuario, PDO::PARAM_INT);
+            $stmt->bindParam(":Password", $this->Password, PDO::PARAM_STR);
             $stmt->execute();
-            $results=$stmt->fetchAll(PDO::FETCH_ASSOC);
-            if(count($results)>0){
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($results) > 0) {
                 return [
                     'status' => 'success',
                     'message' => 'Contraseña Actualizada',
@@ -201,7 +203,7 @@ class Usuario
                     'data' => $results,
                     'info' => ''
                 ];
-            }else{
+            } else {
                 return [
                     'status' => 'success',
                     'message' => 'No se actualizo la contraseña',
@@ -211,14 +213,13 @@ class Usuario
                     'info' => ''
                 ];
             }
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             return [
                 'status' => 'failed',
                 'message' => 'Ocurrio un error al actualizar la contraseña',
                 'info' => $e->getMessage()
             ];
         }
-
     }
 
     public function listadoTotalUsuarios($datosBusquedaFiltro = null, $filtroBusqueda = null)
@@ -252,12 +253,20 @@ class Usuario
             $stmt->bindParam(":idPersona", $this->idPersona, PDO::PARAM_INT);
             $stmt->execute();
 
+            // Llamar a la clase de envío de correo después de registrar el usuario
+            $correo = new EnviarCorreoUsuario();
+            $resultadoCorreo = $correo->enviar(
+                'mvegape@ucvvirtual.edu.pe',  // Correo del receptor
+                'NOMBRE USUARIO',                // Nombre del receptor
+                'Registro exitosom tus credenciales',            // Asunto del correo
+                $this->Usuario       // Mensaje del correo
+            );
             return [
                 'status' => 'success',
                 'message' => 'Usuario Registrado Correctamente',
                 'action' => 'registrar',
                 'module' => 'usuario',
-                'info' => ''
+                'info' => $resultadoCorreo
             ];
         } catch (PDOException $e) {
 
@@ -315,17 +324,17 @@ class Usuario
     {
         // Consulta para ejecutar el procedimiento almacenado
         $sql = "UPDATE USUARIOS SET Usuario=:Usuario,Password=:Password,idTipoUsuario=:idTipoUsuario WHERE idUsuario=:idUsuario";
-        
+
         try {
             // Preparar la consulta
             $stmt = database::connect()->prepare($sql);
-            
+
             // Enlazar los parámetros
             $stmt->bindParam("Usuario", $this->Usuario, PDO::PARAM_STR);
             $stmt->bindParam("Password", $this->Password, PDO::PARAM_STR);
             $stmt->bindParam("idTipoUsuario", $this->idTipoUsuario, PDO::PARAM_INT);
             $stmt->bindParam("idUsuario", $this->idUsuario, PDO::PARAM_INT);
-            
+
             // Ejecutar la consulta
             $stmt->execute();
             return [
@@ -335,7 +344,6 @@ class Usuario
                 'module' => 'usuario',
                 'info' => ''
             ];
-            
         } catch (PDOException $e) {
             // Manejar el error y devolver un mensaje de fallo
             return [
@@ -348,8 +356,9 @@ class Usuario
         }
     }
 
-    public function estadoActualizarUsuario(){
-        
+    public function estadoActualizarUsuario()
+    {
+
         $sql = "UPDATE USUARIOS SET Estado = :Estado WHERE idUsuario = :idUsuario";
 
         try {
@@ -365,8 +374,7 @@ class Usuario
                 'module' => 'usuario',
                 'info' => ''
             ];
-
-        }catch (PDOException $e){
+        } catch (PDOException $e) {
             return [
                 'status' => 'failed',
                 'message' => 'Ocurrio un error al momento de actualizar el usuario',

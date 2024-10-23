@@ -90,14 +90,17 @@ if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] =
     // Leer el contenido del archivo
     // $contenidoCompleto = stream_get_contents($archivoContenido);
     // fclose($archivoContenido); // Cerrar el recurso después de leer
-    $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
+    // $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
     
     if ($archivoContenido === false) {
         // Manejar el error al abrir el archivo
         throw new Exception("Error al abrir el archivo.");
     }
+    $contenidoCompleto = stream_get_contents($archivoContenido);
+    $archivoHex = bin2hex($contenidoCompleto); // Convertir a hexadecimal
+
     // Ahora puedes asignar el contenido a tu modelo
-    $movimientoModel->setArchivoDocumento($archivoContenido);
+    $movimientoModel->setArchivoDocumento($archivoHex);
     $movimientoModel->setExtensionDocumento($archivoExtension);
 } else {
     // Manejar el error de carga según sea necesario
@@ -124,6 +127,7 @@ if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] =
 //     $movimientoModel->setArchivoDocumento($archivoContenido);
 //     $movimientoModel->setExtensionDocumento($archivoExtension); // Asegúrate de tener este campo en tu modelo y base de datos
 // }
+
 $movimientoModel->registrarMovimiento();
 
 // // $movimientoModel->setArchivoDocumento($archivoContenido);

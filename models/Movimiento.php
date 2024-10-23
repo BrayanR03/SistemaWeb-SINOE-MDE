@@ -177,6 +177,8 @@ class Movimiento{
         $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,ExtensionDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
               VALUES(:NroDocumento,:ArchivoDocumento,:ExtensionDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         echo "antes del try";
+        // var_dump($this->NroDocumento, $this->ArchivoDocumento, $this->ExtensionDocumento);
+
         try{
             echo "antes del prepare";
             $stmt=database::connect()->prepare($sql);
