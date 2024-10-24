@@ -65,7 +65,9 @@ class Usuario
 
     public function AutenticacionUsuario()
     {
-        $sql = "EXEC SP_LoginUsuarioSINOE :Usuario,:Password";
+        $sql = "CALL SP_LoginUsuarioSINOE(:Usuario, :Password)";
+
+        // $sql = "CALL SP_LoginUsuarioSINOE :Usuario,:Password";
 
         try {
             $stmt = database::connect()->prepare($sql);
