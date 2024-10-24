@@ -174,8 +174,8 @@ class Movimiento{
     // }
 
     public function registrarMovimiento(){
-        $sql="INSERT INTO Movimientos(NroDocumento,ExtensionDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
-              VALUES(:NroDocumento,:ExtensionDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
+        $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,ExtensionDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
+              VALUES(:NroDocumento,CONVERT(varbinary(max), :ArchivoDocumento, 1),:ExtensionDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         echo "antes del try";
         // var_dump($this->NroDocumento, $this->ArchivoDocumento, $this->ExtensionDocumento);
 
@@ -184,7 +184,8 @@ class Movimiento{
             $stmt=database::connect()->prepare($sql);
             $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":ExtensionDocumento",$this->ExtensionDocumento,PDO::PARAM_STR);
-            // $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
+            $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB); //No vale
+            $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_STR); // Eureka!!!!
             $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
             $stmt->bindParam(":Sumilla",$this->Sumilla,PDO::PARAM_STR);
@@ -202,6 +203,10 @@ class Movimiento{
             //     $stmt->bindValue(':ArchivoDocumento', null, PDO::PARAM_NULL);
             //     $stmt->bindValue(':ExtensionDocumento', null, PDO::PARAM_NULL);
             // }
+            // var_dump($this->NroDocumento, $this->ArchivoDocumento, $this->ExtensionDocumento, 
+            //      $this->FechaDocumento, $this->FechaNotificacion, $this->Sumilla,
+            //      $this->TipoDocumento, $this->Area, $this->Sede, $this->Casilla, $this->Usuario);
+            //      die();
             echo "antes del execute";
             $stmt->execute();
             echo "despues del execute";
@@ -214,7 +219,7 @@ class Movimiento{
             ];
 
         }catch(PDOException $e){
-            echo "dentro del catch";
+            echo "dentro del catch".$e->getMessage();
             return [
                 'status' => 'failed',
                 'message' => 'Ocurrio un error al registrar el movimiento',

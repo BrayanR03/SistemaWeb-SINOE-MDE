@@ -65,17 +65,17 @@ class Usuario
 
     public function AutenticacionUsuario()
     {
-        $sql = "CALL SP_LoginUsuarioSINOE(:Usuario, :Password)";
+        // $sql = "CALL SP_LoginUsuarioSINOE(?,?)";
 
-        // $sql = "CALL SP_LoginUsuarioSINOE :Usuario,:Password";
+        $sql = "EXEC SP_LoginUsuarioSINOE :Usuario,:Password";
 
         try {
             $stmt = database::connect()->prepare($sql);
-            $stmt->bindParam('Usuario', $this->Usuario, PDO::PARAM_STR);
-            $stmt->bindParam('Password', $this->Password, PDO::PARAM_STR);
+            $stmt->bindParam(":Usuario", $this->Usuario, PDO::PARAM_STR);
+            $stmt->bindParam(":Password", $this->Password, PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            
             if (count($result) == 0) {
                 return [
                     'code' => 404,

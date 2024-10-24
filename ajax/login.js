@@ -3,6 +3,9 @@ $(document).ready(function () {
         e.preventDefault();
         const user = $("#Usuario").val().trim();
         const password = $("#Password").val().trim();
+        // console.log(user);
+        // console.log(password);
+        // return
         if(user.length===0 || password.length===0){alert("Debes completar los campos requeridos!!"); return}
         // if (isFiledsValid(user, password)) {
             $.ajax({
@@ -11,7 +14,7 @@ $(document).ready(function () {
                 dataType: 'json',
                 data: {user, password},
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
                     // return
                     const {code, message, info, data} = response;
                     if (code === 404) {
@@ -23,6 +26,7 @@ $(document).ready(function () {
                     if (code === 200) {
                         showModalAutenticacionUltimosDigitos();
                         saveDataSession(data);
+                        // alert("200");
                         // showModalAutenticacionCUI();
                         // validateCUI(data);
                     }

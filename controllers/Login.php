@@ -12,5 +12,6 @@ $usuarioModel->setUsuario($usuario);
 $usuarioModel->setPassword($password);
 
 $response = $usuarioModel->AutenticacionUsuario();
-
+// var_dump($response);
+// die();
 print json_encode($response);
