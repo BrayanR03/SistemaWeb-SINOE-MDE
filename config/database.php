@@ -2,7 +2,8 @@
 
 class database{
     // variables para sql server
-    private static $serverName = "LAPTOP-D05MS1MQ";
+    // private static $serverName = "LAPTOP-D05MS1MQ\SQLEXPRESS"; //sql server 2018
+    private static $serverName = "LAPTOP-D05MS1MQ"; //SQL SERVER 2008 R2
     private static $database = "BD_SINOE_MDE";
     private static $username = "sa";
     private static $password = "12345678";

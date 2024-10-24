@@ -85,23 +85,26 @@ $movimientoModel->setSede($sedeNotificacion);
 $movimientoModel->setUsuario($idUsuario);
 if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] == UPLOAD_ERR_OK) {
     $archivoExtension = pathinfo($_FILES['archivoDocumento']['name'], PATHINFO_EXTENSION);
-    $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
+    $archivoContenido = $_FILES['archivoDocumento']['tmp_name']; // 'rb' para lectura binaria
+    
     
     // Leer el contenido del archivo
     // $contenidoCompleto = stream_get_contents($archivoContenido);
     // fclose($archivoContenido); // Cerrar el recurso después de leer
     // $archivoContenido = fopen($_FILES['archivoDocumento']['tmp_name'], 'rb'); // 'rb' para lectura binaria
     
-    if ($archivoContenido === false) {
-        // Manejar el error al abrir el archivo
-        throw new Exception("Error al abrir el archivo.");
-    }
-    $contenidoCompleto = stream_get_contents($archivoContenido);
-    $archivoHex = bin2hex($contenidoCompleto); // Convertir a hexadecimal
-
+    // if ($archivoContenido === false) {
+    //     // Manejar el error al abrir el archivo
+    //     throw new Exception("Error al abrir el archivo.");
+    // }
+    // $contenidoCompleto = stream_get_contents($archivoContenido);
+    // $archivoHex = bin2hex($contenidoCompleto); // Convertir a hexadecimal
+    var_dump($archivoContenido);
+    die();
+    // echo $archivoContenido;
     // Ahora puedes asignar el contenido a tu modelo
-    $movimientoModel->setArchivoDocumento($archivoHex);
-    $movimientoModel->setExtensionDocumento($archivoExtension);
+    // $movimientoModel->setArchivoDocumento($archivoHex);
+    // $movimientoModel->setExtensionDocumento($archivoExtension);
 } else {
     // Manejar el error de carga según sea necesario
     $archivoContenido = null;

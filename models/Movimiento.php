@@ -174,8 +174,8 @@ class Movimiento{
     // }
 
     public function registrarMovimiento(){
-        $sql="INSERT INTO Movimientos(NroDocumento,ArchivoDocumento,ExtensionDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
-              VALUES(:NroDocumento,:ArchivoDocumento,:ExtensionDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
+        $sql="INSERT INTO Movimientos(NroDocumento,ExtensionDocumento,FechaDocumento,FechaNotificacion,Sumilla,idTipoDocumento,idArea,idSede,idCasilla,idUsuario)
+              VALUES(:NroDocumento,:ExtensionDocumento,:FechaDocumento,:FechaNotificacion,:Sumilla,:idTipoDocumento,:idArea,:idSede,:idCasilla,:idUsuario)";
         echo "antes del try";
         // var_dump($this->NroDocumento, $this->ArchivoDocumento, $this->ExtensionDocumento);
 
@@ -184,7 +184,7 @@ class Movimiento{
             $stmt=database::connect()->prepare($sql);
             $stmt->bindParam(":NroDocumento",$this->NroDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":ExtensionDocumento",$this->ExtensionDocumento,PDO::PARAM_STR);
-            $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
+            // $stmt->bindParam(":ArchivoDocumento",$this->ArchivoDocumento,PDO::PARAM_LOB);
             $stmt->bindParam(":FechaDocumento",$this->FechaDocumento,PDO::PARAM_STR);
             $stmt->bindParam(":FechaNotificacion",$this->FechaNotificacion,PDO::PARAM_STR);
             $stmt->bindParam(":Sumilla",$this->Sumilla,PDO::PARAM_STR);
