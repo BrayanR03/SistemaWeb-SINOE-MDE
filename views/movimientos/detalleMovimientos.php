@@ -1,52 +1,49 @@
-<div id="modalDetalleMovimiento" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="modalDetalleMovimientoUsuarioNormal" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Detalle Notificación</h5>
             </div>
-            <form class="detalleMovimientoForm" id="detalleMovimientoForm" action="" method="post">
+            <form class="detalleMovimientoFormUsuarioNormal" id="detalleMovimientoFormUsuarioNormal" action="" method="post">
                 <div class="seguimiento_body">
                     <div class="detalle">
                         <div class="datosOrigen">
                             <div class="datosOrigenHeader">
                                 <h3>
-                                    Datos de la Persona
+                                    Acto Administrativo
                                 </h3>
-                                <input hidden id="idPersonaAsignadoEditar"  readonly>
-                                <input hidden id="idUsuarioEditarVista"  readonly>
+                                <input hidden id="idPersonaAsignadoEditar" readonly>
+                                <input hidden id="idUsuarioEditarVista" readonly>
                             </div>
                             <div class="datosOrigenBody">
                                 <div>
-                                    <label>Nombres: </label>
-                                    <input
-                                        type="text" readonly
-                                        name="nombresPersonaUsuarioEditar"
-                                        id="nombresPersonaUsuarioEditar">
-                                </div>
-                                <div>
-                                    <label>Email: </label>
-                                    <input readonly type="email" name="emailPersonaUsuarioEditar" id="emailPersonaUsuarioEditar">
-                                </div>
-                                <div>
-                                    <label>Tipo Persona: </label>
-                                    <input type="text" readonly id="tipoPersonaUsuarioEditar">
-                                </div>
-                                <div>
-                                    <label>Teléfono: </label>
-                                    <input
-                                        type="text" readonly
-                                        name="telefonoPersonaUsuarioEditar"
-                                        id="telefonoPersonaUsuarioEditar">
-                                </div>
-                                
-                                <div>
                                     <label>Tipo Documento: </label>
-                                    <input type="text" readonly id="tipoDocumentoIdentidadUsuarioEditar">
+                                    <input
+                                        type="text" readonly
+                                        name="tipoDocumentoUsuarioNormal"
+                                        id="tipoDocumentoUsuarioNormal">
                                 </div>
                                 <div>
                                     <label>Nro Documento: </label>
-                                    <input readonly type="text" id="numDocumentoIdentidadPersonaUsuarioEditar" name="numDocumentoIdentidadPersonaUsuarioEditar">
+                                    <input readonly type="text" name="nroDocumentoUsuarioNormal" id="nroDocumentoUsuarioNormal">
                                 </div>
+                                <div>
+                                    <label>Documento: </label>
+                                    <input type="text" readonly id="nombreDocumentoUsuarioNormal">
+                                </div>
+                                <div>
+                                    <label>Fecha Notificación: </label>
+                                    <input
+                                        type="text" readonly
+                                        name="fechaNotificacionUsuarioNormal"
+                                        id="fechaNotificacionUsuarioNormal">
+                                </div>
+
+                                <div>
+                                    <label>Fecha Documento: </label>
+                                    <input type="text" readonly id="fechaDocumentoUsuarioNormal">
+                                </div>
+
                             </div>
                         </div>
                         <div class="datosDestino">
@@ -55,33 +52,27 @@
                             </div>
                             <div class="datosDestinoBody">
                                 <div>
-                                    <label>Tipo Usuario: </label>
-                                    <select class="tipoUsuario" required id="tipoUsuarioEditar" name="tipoUsuario">
-                                            <option value="1">ADMINISTRADOR</option>
-                                            <option value="2">NORMAL</option>
-                                    </select>
+                                    <label>Sumilla: </label>
+                                    <textarea name="sumillaDocumentoUsuarioNormal" id="sumillaDocumentoUsuarioNormal"></textarea>
+                                    <!-- <input readonly type="text" id="numDocumentoIdentidadPersonaUsuarioEditar" name="numDocumentoIdentidadPersonaUsuarioEditar"> -->
+                                </div>
+                                <div>
+                                    <label>Area: </label>
+                                    <input type="text" name="areaDocumentoUsuarioNormal" id="areaDocumentoUsuarioNormal">
                                 </div>
 
                                 <div>
-                                    <label>Usuario: </label>
-                                    <input type="text" id="usuarioUsuarioEditar" name="usuarioUsuarioEditar">
-                                </div>
-                                <div>
-                                    <label>Contraseña: </label>
-                                    <input type="password" id="passwordUsuarioEditar" name="passwordUsuarioEditar">
-                                </div>
-                                <div>
-                                    <label>Confirmar Contraseña: </label>
-                                    <input type="password" id="confirmPasswordUsuarioEditar" name="confirmPasswordUsuarioEditar">
+                                    <label>Sede: </label>
+                                    <input type="text" id="sedeDocumentoUsuarioNormal" name="sedeDocumentoUsuarioNormal">
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="containerButtonsEditarArea">
-                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Actualizar">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input style="background-color: #006B2D;" type="submit" class="btn" value="Descargar">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
                 <!-- <input style="background-color: #006B2D;" type="submit" class="btn" value="Registrar">
                 <button type="button" class="btnCerrarModal" data-bs-dismiss="modal">Cerrar</button> -->

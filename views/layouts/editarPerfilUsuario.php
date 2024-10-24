@@ -6,6 +6,7 @@
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
+        window.usuarioidCasilla = '<?php echo $_SESSION['idCasilla']; ?>';
     </script>
 
     <div id="modalPerfilAdministrador" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -141,6 +142,7 @@
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
+        window.usuarioidCasilla = '<?php echo $_SESSION['idCasilla']; ?>';
     </script>
 
     <div id="modalPerfilAdministrador" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -277,6 +279,7 @@
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
+        window.usuarioidCasilla = '<?php echo $_SESSION['idCasilla']; ?>';
     </script>
 
     <div id="modalPerfilNormal" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -428,6 +431,7 @@
         window.usuarioPerfil = '<?php echo $_SESSION['Usuario']; ?>';
         window.usuarioTipoPersona = '<?php echo $_SESSION['TipoPersona']; ?>';
         window.usuarioTipoUsuario = '<?php echo $_SESSION['TipoUsuario']; ?>';
+        window.usuarioidCasilla = '<?php echo $_SESSION['idCasilla']; ?>';
     </script>
 
     <div id="modalPerfilJuridicoNormal" class="modalArea modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

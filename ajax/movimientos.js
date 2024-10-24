@@ -14,15 +14,15 @@ $(document).ready(function () {
     }
 
 
-    let usuario = window.usuarioPerfil;
     let idUsuario = window.idUsuario;
 
-    function loadInformacionMovimientos(usuario) {
+    function loadInformacionMovimientos(idUsuario) {
+        
         $.ajax({
             url: './controllers/Movimientos/informacionMovimientosCasillas.php',
             method: 'POST',
             dataType: 'json',
-            data: { usuario },
+            data: { idUsuario },
             success: function (response) {
                 // console.log(response);
                 // return
@@ -30,6 +30,7 @@ $(document).ready(function () {
                 if (data.length > 0 && Array.isArray(data)) {
                     let row = data.map(movimiento => `
                     <tr>
+                        <td hidden>${movimiento.idMovimiento}</td>
                         <td>${movimiento.TipoDocumento}</td>
                         <td>${movimiento.NroDocumento}</td>
                         <td>${movimiento.Documento}</td>
@@ -39,14 +40,15 @@ $(document).ready(function () {
                         <td hidden>${movimiento.Sumilla}</td>
                         <td hidden>${movimiento.Area}</td>
                         <td hidden>${movimiento.Sede}</td>
+                        <td><a href="#" id="btnDetalleNotificacionAdministrador">Ver Detalle</a></td>
 
                     </tr>`).join('');
-                    $('#bodyListaMovimientosCasillas').html(row);
+                    $('#bodyListaRegistroMovimientos').html(row);
                 } else {
                     let row = `<tr>
                         <td colSpan="10" className="mensajeSinRegistros">No hay notificaciones recibidas</td>
                     </tr>`
-                    $('#bodyListaMovimientosCasillas').html(row);
+                    $('#bodyListaRegistroMovimientos').html(row);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -54,11 +56,11 @@ $(document).ready(function () {
             }
         });
     }
-    loadInformacionMovimientos(usuario);
+    loadInformacionMovimientos(idUsuario);
 
 
     // Detalles del Movimiento
-    $(document).on("click", "#btnDetalleMovimiento", function (e) {
+    $(document).on("click", "#btnDetalleNotificacionAdministrador", function (e) {
         e.preventDefault();
         let modalEditar = $("#modalDetalleMovimiento");
         let fila = $(this).closest("tr");
@@ -337,7 +339,7 @@ $(document).ready(function () {
                 data: formData,
                 contentType: false, // Importante para no establecer el tipo de contenido por defecto
                 processData: false,
-                // datatype: "json",
+                datatype: "json",
                 // data: {
                 //     nroCasilla: nroCasilla, tipoDocumento: tipoDocumento, nroDocumento: nroDocumento, fechaDocumento: fechaDocumento,
                 //     fechaNotificacion: fechaNotificacion, sumilla: sumilla, areaNotificacion: areaNotificacion,
@@ -345,7 +347,7 @@ $(document).ready(function () {
                 // },
                 success: function (response) {
                     console.log(response);
-                    return
+                    // return
                     // return
                     try {
                         response = JSON.parse(response);
@@ -354,18 +356,22 @@ $(document).ready(function () {
                         } else {
                             if (response.status === 'success') {
                                 alert("Se Notificó el Documento Correctamente");
+                                loadInformacionMovimientos(usuario);
                                 $('#modalRegistrarMovimientoCasilla').modal('hide');
                                 pagina = 1;
                                 let datosMovimientoDiv = document.querySelector('#datosMovimiento');
-                                datosMovimientoDiv.hidden = true;
+                                // datosMovimientoDiv.hidden = true;
                                 $('#NroCasillaNotificacion').val("");
-                                $('#tipoDocumentoNotificacion').val("");
+                                $('#tipoDocumentoNotificacion').val($('#tipoDocumentoNotificacion option:first').val());
+                                // $('#tipoDocumentoNotificacion').val("");
                                 $('#nroDocumento').val("");
                                 $('#fechaDocumento').val("");
                                 $('#fechaNotificacion').val("");
                                 $('#sumilla').val("");
-                                $('#areaNotificacion').val("");
-                                $('#sedeNotificacion').val("");
+                                $('#areaNotificacion').val($('#areaNotificacion option:first').val());
+                                $('#sedeNotificacion').val($('#sedeNotificacion option:first').val());
+                                // $('#areaNotificacion').val("");
+                                // $('#sedeNotificacion').val("");
                             } else {
                                 alert("Error al Notificar al Usuario: " + response.message);
                             }
@@ -441,27 +447,27 @@ $(document).ready(function () {
 });
 
 // llenar select
-$.ajax({
-    url: './controllers/TipoDocumentos/listarTipoDocumentoCombo.php',
-    method: 'GET',
-    dataType: 'json',
-    data: {},
-    success: function (data) {
-        // console.log(data);
-        if (data && Array.isArray(data)) {
-            let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
-                data.map(tipodoc =>
-                    `<option value="${tipodoc.idTipoDocumento}">${tipodoc.Descripcion}</option>`
-                ).join('');
+// $.ajax({
+//     url: './controllers/TipoDocumentos/listarTipoDocumentoCombo.php',
+//     method: 'GET',
+//     dataType: 'json',
+//     data: {},
+//     success: function (data) {
+//         // console.log(data);
+//         if (data && Array.isArray(data)) {
+//             let options = `<option disabled selected value="Seleccionar">Seleccionar</option>` +
+//                 data.map(tipodoc =>
+//                     `<option value="${tipodoc.idTipoDocumento}">${tipodoc.Descripcion}</option>`
+//                 ).join('');
 
 
-            $('.selectTipoDocumentoNotificacion').html(options);
+//             $('.selectTipoDocumentoNotificacion').html(options);
 
-        } else {
-            console.warn('No data received or data is not an array.');
-        }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-        console.error('Error fetching the content:', textStatus, errorThrown);
-    }
-});
+//         } else {
+//             console.warn('No data received or data is not an array.');
+//         }
+//     },
+//     error: function (jqXHR, textStatus, errorThrown) {
+//         console.error('Error fetching the content:', textStatus, errorThrown);
+//     }
+// });

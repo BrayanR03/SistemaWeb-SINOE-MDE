@@ -84,7 +84,7 @@ $movimientoModel->setArea($areaNotificacion);
 $movimientoModel->setSede($sedeNotificacion);
 $movimientoModel->setUsuario($idUsuario);
 if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] == UPLOAD_ERR_OK) {
-    $archivoExtension = pathinfo($_FILES['archivoDocumento']['name'], PATHINFO_EXTENSION);
+    $archivoExtension = pathinfo($_FILES['archivoDocumento']['name'], PATHINFO_BASENAME);
     // $archivoContenido = $_FILES['archivoDocumento']['tmp_name']; // 'rb' para lectura binaria
     
     
@@ -137,8 +137,5 @@ if (isset($_FILES['archivoDocumento']) && $_FILES['archivoDocumento']['error'] =
 //     $movimientoModel->setExtensionDocumento($archivoExtension); // Asegúrate de tener este campo en tu modelo y base de datos
 // }
 
-$movimientoModel->registrarMovimiento();
-
-// // $movimientoModel->setArchivoDocumento($archivoContenido);
-// $response = $movimientoModel->registrarMovimiento();
-// print json_encode($response);
+$response=$movimientoModel->registrarMovimiento();
+print json_encode($response);

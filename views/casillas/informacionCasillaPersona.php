@@ -93,5 +93,5 @@ require_once('../../config/parameters.php');
 </div>
 
 <?php  require_once "../../views/movimientos/detalleMovimientos.php"?>
-<script src="<?= base_url ?>ajax/movimientos.js"></script>
+<script src="<?= base_url ?>ajax/movimientosUsuarioNormal.js"></script>
 <script src="<?= base_url ?>ajax/informacionCasillaPersona.js"></script>

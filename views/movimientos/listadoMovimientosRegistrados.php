@@ -126,20 +126,17 @@ require_once('../../config/parameters.php');
                 </tr>
             </thead>
             <tbody id="bodyListaRegistroMovimientos">
-                <tr class="row-main">
-                    <td>RESOLUCIÓN</td>
-                    <td>125-2024-MDE</td>
-                    <td>NOTIFICACIÓN</td>
-                    <td>07/10/2024</td>
-                    <td><a href="#" id="btnDetalleMovimiento">Ver Detalle</a>
-                </tr>
             </tbody>
         </table>
     </div>
 </div>
 <?php require_once "registrarMovimientosCasillas.php" ?>
 <script src="<?= base_url ?>ajax/movimientos.js"></script>
-<script src="<?= base_url ?>ajax/areas.js"></script>
-<script src="<?= base_url ?>ajax/sedes.js"></script>
+<!-- <script src="<?= base_url ?>ajax/areas.js"></script>
+<script src="<?= base_url ?>ajax/sedes.js"></script> -->
 <script src="<?= base_url ?>ajax/informacionCasillaNotificacion.js"></script>
 <!-- <script src="<?= base_url ?>ajax/tipodocumento.js"></script> -->
+ 
+<script src="<?= base_url ?>ajax/selectAreas.js"></script>
+<script src="<?= base_url ?>ajax/selectSedes.js"></script>
+<script src="<?= base_url ?>ajax/selectTipoDocumento.js"></script>
